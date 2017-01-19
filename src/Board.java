@@ -26,7 +26,7 @@ public class Board {
 	
 	private void createFabio(){
 		
-		fabio = new Fabio(500, 500);
+		fabio = new Fabio(500, 500, 100);
 	}
 	
 	public void playerUp(){
