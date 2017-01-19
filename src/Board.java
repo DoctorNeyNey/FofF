@@ -1,7 +1,7 @@
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.lwjgl.util.Point;
 
 public class Board {
 

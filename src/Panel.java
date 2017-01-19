@@ -1,3 +1,4 @@
+import java.awt.Point;
 import java.io.File;
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -10,7 +11,6 @@ import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.util.Point;
 import org.newdawn.slick.opengl.ImageIOImageData;
 
 public class Panel {

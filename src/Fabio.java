@@ -1,4 +1,4 @@
-import org.lwjgl.util.Point;
+import java.awt.Point;
 
 public class Fabio extends Person{
 
