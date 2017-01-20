@@ -1,17 +1,11 @@
 import java.awt.Point;
-import java.io.File;
-import java.io.IOException;
-import java.nio.ByteBuffer;
 
-import javax.imageio.ImageIO;
-//oops
 import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
-import org.newdawn.slick.opengl.ImageIOImageData;
 
 public class Panel {
 
@@ -47,7 +41,7 @@ public class Panel {
 		GL11.glMatrixMode(GL11.GL_MODELVIEW);
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
 
-		
+
 		// repeats things while running
 		while (!Display.isCloseRequested()){
 
@@ -61,8 +55,8 @@ public class Panel {
 			Display.update();	
 			//fps
 			Display.sync(60);
-			
-			
+
+
 		}
 
 		//exit functions
@@ -80,6 +74,9 @@ public class Panel {
 
 	private void boardFunctions(){
 
+		board.drawAll();
+		board.moveAll();
+		board.checkCollisions();
 
 	}
 
@@ -88,23 +85,35 @@ public class Panel {
 		//upward velocity
 		if (Keyboard.isKeyDown(Keyboard.KEY_W))
 			board.playerUp();
-		
-		//rightward velocity
-		if (Keyboard.isKeyDown(Keyboard.KEY_D))
-			board.playerRight();
-		
+
 		//downward velocity
 		if (Keyboard.isKeyDown(Keyboard.KEY_S))
 			board.playerDown();
 		
+		//up and down stop
+		if (!(Keyboard.isKeyDown(Keyboard.KEY_S) || Keyboard.isKeyDown(Keyboard.KEY_W)))
+			board.playerStopVertical();
+
+		//rightward velocity
+		if (Keyboard.isKeyDown(Keyboard.KEY_D))
+			board.playerRight();
+
 		//leftward velocity
 		if (Keyboard.isKeyDown(Keyboard.KEY_A))
 			board.playerLeft();	
 
+		//left and right stop
+		if (!(Keyboard.isKeyDown(Keyboard.KEY_D) || Keyboard.isKeyDown(Keyboard.KEY_A)))
+			board.playerStopHorizontal();
+		
 		//reload
 		if (Keyboard.isKeyDown(Keyboard.KEY_R))
 			board.playerReload();		
 
+		//open inventory
+		if (Keyboard.isKeyDown(Keyboard.KEY_I))
+			board.playerOpenInventory();
+		
 		//shoot 
 		/**0 is the left click**/
 		if (Mouse.isButtonDown(0))
@@ -112,8 +121,12 @@ public class Panel {
 
 		//interact
 		if (Keyboard.isKeyDown(Keyboard.KEY_E))
-			board.playerInteract(new Point(Mouse.getX(), Mouse.getY()));
+			board.playerInteract();
 		
+		//quick close
+		if (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE))
+			System.exit(0);
+
 	}
 
 
