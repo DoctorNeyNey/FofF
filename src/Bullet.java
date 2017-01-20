@@ -21,6 +21,11 @@ public class Bullet extends Moveable {
 		}
 		dx = cos*bulletVelocity;
 		dy = sin*bulletVelocity;
+		
+		//TEMPORARY WIDTH AND HEIGHT ASSIGNMENT
+		width = 3;
+		height = 3;
+		//TO BE CHANGED
 	}
 
 	public void draw(){
@@ -34,10 +39,6 @@ public class Bullet extends Moveable {
 		GL11.glVertex2d(xCoord-width, yCoord+height);
 		
 		GL11.glEnd();
-
-	}
-
-	public void move(){
 
 	}
 

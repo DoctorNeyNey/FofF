@@ -40,7 +40,7 @@ public class Panel {
 		GL11.glOrtho(0, 1920, 0, 1080, 1, -1);
 		GL11.glMatrixMode(GL11.GL_MODELVIEW);
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
-
+		
 
 		// repeats things while running
 		while (!Display.isCloseRequested()){
@@ -53,23 +53,19 @@ public class Panel {
 			pollInputs();
 			//repaint
 			Display.update();	
-			//fps
-			Display.sync(60);
-
-
+			//how many refreshes per second
+			Display.sync(60);	
 		}
-
 		//exit functions
 		Display.destroy();
 		Mouse.destroy();
 		Keyboard.destroy();
 		System.exit(0);
 	}
-
+	
 	private void createBoard(){
 
 		board = new Board();
-
 	}
 
 	private void boardFunctions(){
@@ -77,7 +73,6 @@ public class Panel {
 		board.drawAll();
 		board.moveAll();
 		board.checkCollisions();
-
 	}
 
 	private void pollInputs(){
@@ -110,6 +105,26 @@ public class Panel {
 		if (Keyboard.isKeyDown(Keyboard.KEY_R))
 			board.playerReload();		
 
+		//running
+		if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT))
+			board.playerRun();
+		
+		//equip weapon in slot 1
+		if (Keyboard.isKeyDown(Keyboard.KEY_1))
+			board.playerEquip1();
+		
+		//equip weapon in slot 2
+		if (Keyboard.isKeyDown(Keyboard.KEY_2))
+			board.playerEquip2();
+		
+		//equip weapon in slot 3
+		if (Keyboard.isKeyDown(Keyboard.KEY_3))
+			board.playerEquip3();
+		
+		//equip weapon in slot 4
+		if (Keyboard.isKeyDown(Keyboard.KEY_4))
+			board.playerEquip4();
+		
 		//open inventory
 		if (Keyboard.isKeyDown(Keyboard.KEY_I))
 			board.playerOpenInventory();
@@ -128,6 +143,4 @@ public class Panel {
 			System.exit(0);
 
 	}
-
-
 }

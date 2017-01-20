@@ -15,7 +15,9 @@ public class Moveable {
 	}
 
 	public void move(){
-
+		
+		xCoord += dx;
+		yCoord += dy;
 	}	
 
 	public void draw(){
