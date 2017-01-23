@@ -83,7 +83,7 @@ public class Board {
 
 	public void playerShoot(Point p){
 
-		Bullet b = fabio.shoot(p);		
+		Bullet b = fabio.shoot(p);
 		if (b != null)
 			friendlyBullets.add(b);
 	}
