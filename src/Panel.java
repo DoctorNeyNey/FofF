@@ -74,6 +74,7 @@ public class Panel {
 		board.drawAll();
 		board.moveAll();
 		board.checkCollisions();
+		board.playerEquipWeapon();
 	}
 
 	private void pollInputs(){
@@ -113,16 +114,19 @@ public class Panel {
 		//open inventory
 		if (Keyboard.isKeyDown(Keyboard.KEY_I))
 			board.playerOpenInventory();
+
+		//interact
+		if (Keyboard.isKeyDown(Keyboard.KEY_E))
+			board.playerInteract();
+		
+		if (Keyboard.isKeyDown(Keyboard.KEY_1))
+			board.plus();
 		
 		//shoot 
 		/**0 is the left click**/
 		if (Mouse.isButtonDown(0))
 			board.playerShoot(new Point(Mouse.getX(), Mouse.getY()));		
 
-		//interact
-		if (Keyboard.isKeyDown(Keyboard.KEY_E))
-			board.playerInteract();
-		
 		//quick close
 		if (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE))
 			System.exit(0);

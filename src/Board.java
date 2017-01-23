@@ -102,6 +102,14 @@ public class Board {
 
 		fabio.run();
 	}
+	
+	public void playerEquipWeapon(){
+		fabio.equipWeapon();
+	}
+	
+	public void plus(){
+		fabio.plus();
+	}
 
 	public void offScreenDeleter(){
 
