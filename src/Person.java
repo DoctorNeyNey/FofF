@@ -8,12 +8,13 @@ public class Person extends Moveable{
 	protected Rectangle rect;
 	protected List<Item> inventory = new ArrayList<Item>();
 	
-	public Person(int xCoord, int yCoord, int health) {
+	public Person(double xCoord, double yCoord, int health) {
 		super(xCoord, yCoord);
 		this.health = health;
 	}
 
 	public void move(){
+			
 		
 	}
 	

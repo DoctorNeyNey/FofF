@@ -83,7 +83,9 @@ public class Board {
 
 	public void playerShoot(Point p){
 
-		friendlyBullets.add(fabio.shoot(p));
+		Bullet b = fabio.shoot(p);		
+		if (b != null)
+			friendlyBullets.add(b);
 	}
 
 	public void playerInteract(){
@@ -110,25 +112,5 @@ public class Board {
 		for (int x = enemyBullets.size(); x > -1; x--)
 			if (!enemyBullets.get(x).isInView())
 				enemyBullets.remove(x);
-	}
-
-	public void playerEquip1(){
-		
-		fabio.equip1();
-	}
-
-	public void playerEquip2(){
-
-		fabio.equip2();
-	}
-
-	public void playerEquip3(){
-
-		fabio.equip3();
-	}
-
-	public void playerEquip4(){
-
-		fabio.equip4();
 	}
 }

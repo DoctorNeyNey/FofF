@@ -10,6 +10,7 @@ import org.lwjgl.opengl.GL11;
 public class Panel {
 
 	private Board board;
+	double x = 0;
 
 	public static void main(String[] args){
 
@@ -76,7 +77,7 @@ public class Panel {
 	}
 
 	private void pollInputs(){
-
+		
 		//upward velocity
 		if (Keyboard.isKeyDown(Keyboard.KEY_W))
 			board.playerUp();
@@ -108,22 +109,6 @@ public class Panel {
 		//running
 		if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT))
 			board.playerRun();
-		
-		//equip weapon in slot 1
-		if (Keyboard.isKeyDown(Keyboard.KEY_1))
-			board.playerEquip1();
-		
-		//equip weapon in slot 2
-		if (Keyboard.isKeyDown(Keyboard.KEY_2))
-			board.playerEquip2();
-		
-		//equip weapon in slot 3
-		if (Keyboard.isKeyDown(Keyboard.KEY_3))
-			board.playerEquip3();
-		
-		//equip weapon in slot 4
-		if (Keyboard.isKeyDown(Keyboard.KEY_4))
-			board.playerEquip4();
 		
 		//open inventory
 		if (Keyboard.isKeyDown(Keyboard.KEY_I))

@@ -5,10 +5,12 @@ import org.lwjgl.opengl.GL11;
 
 public class Fabio extends Person{
 
-	private int magazine = 0;
+	private Outfit outfit;
+	private long lastTimeShot = 0;
 
-	public Fabio(int xCoord, int yCoord, int health) {
+	public Fabio(double xCoord, double yCoord, int health) {
 		super(xCoord, yCoord, health);
+		outfit = new Outfit(null, null, null, null);
 		width = 10;
 		height = 10;
 	}
@@ -21,7 +23,7 @@ public class Fabio extends Person{
 
 	public void draw(){
 
-
+		outfit.draw(xCoord, yCoord);
 
 		GL11.glColor3d(1, 1, 1);
 		GL11.glBegin(GL11.GL_QUADS);
@@ -90,35 +92,33 @@ public class Fabio extends Person{
 
 		//add recoil and gun specific things: clip size, rate of fire, etc....
 		//i think we should use a case and switch with ints to specify what gun the player has
-		/** as of now all it does is shoot where the mouse is pointed**/
+		/**will shoot once every 250 miliseconds while the mouse is pressed**/
 
-		double x = p.getX()-xCoord;
-		double y = p.getY()-yCoord;
-		double theta = Math.atan(y/x);
 
-		if (p.getX()-xCoord < 0)
-			theta += Math.PI;
+		if (System.currentTimeMillis()-lastTimeShot > 250){
 
-		return new Bullet(xCoord, yCoord, theta, Bullet.PISTOL_ROUND);
+			double x = p.getX()-xCoord;
+			double y = p.getY()-yCoord;
+			double theta = Math.atan(y/x);
+			
+			/**as the player shoots for longer there should be more spread in their shot
+			//should differ with each individual gun**/
+		//	double variability = Math.random();
+			
+			if (p.getX()-xCoord < 0)
+				theta += Math.PI;
+
+			lastTimeShot = System.currentTimeMillis();
+			return new Bullet(xCoord, yCoord, theta, Bullet.PISTOL_ROUND);
+		} 
+		return null;
 	}
 
 	public void aoePickUp(){
 
 	}
 
-	public void equip1(){
-
-	}
-
-	public void equip2(){
-
-	}
-
-	public void equip3(){
-
-	}
-
-	public void equip4(){
+	public void equipedWeapon(){
 
 	}
 }
