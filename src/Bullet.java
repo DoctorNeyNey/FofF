@@ -8,7 +8,7 @@ public class Bullet extends Moveable {
 
 	private List<Rectangle> rects = new ArrayList<Rectangle>();
 	private int damage;
-		
+
 
 	public Bullet(double xCoord, double yCoord, double theta, int type){	
 		super(xCoord, yCoord);
@@ -42,107 +42,140 @@ public class Bullet extends Moveable {
 		case 4:
 			//MAGNUM
 			variability = .08*Math.random()-.04;
-			bulletVelocity = 18;
+			bulletVelocity = 22;
 			damage = 40;
 			break;
 		case 5:
 			//DESERT EAGLE
 			variability = .7*Math.random()-.035;
-			bulletVelocity = 18;
+			bulletVelocity = 22;
 			damage = 35;
 		case 6:
 			//MP9
 			variability = .14*Math.random()-.07;
+			bulletVelocity = 22;
 			break;
 		case 7:
 			//THOMPSON
 			variability = .14*Math.random()-.07;
+			bulletVelocity = 16;
 			break;
 		case 8:
 			//SCORPION
 			variability = .14*Math.random()-.07;
+			bulletVelocity = 16;
 			break;
 		case 9:
 			//UMP45
 			variability = .14*Math.random()-.07;
+			bulletVelocity = 16;
 			break;
 		case 10:
 			//UZI
 			variability = .14*Math.random()-.07;
+			bulletVelocity = 16;
 			break;
 		case 11:
 			//VECTOR
 			variability = .14*Math.random()-.07;
+			bulletVelocity = 16;
 			break;
 		case 12:
 			//REMINGTON870
 			break;
 		case 13:
 			//ARMSEL_STRIKER
+			variability = .5*Math.random()-.25;
+			bulletVelocity = 14+2*Math.random();
 			break;
 		case 14:
 			//USAS12
+			variability = .5*Math.random()-.25;
+			bulletVelocity = 14+2*Math.random();
 			break;
 		case 15:
 			//DOUBLE BARREL
+			variability = .35*Math.random()-.175;
+			bulletVelocity = 16+2*Math.random();
 			break;
 		case 16:
 			//SPAS12
+			variability = .4*Math.random()-.2;
+			bulletVelocity = 16+2*Math.random();
 			break;
 		case 17:
 			//AEK971
+			bulletVelocity = 18;
 			break;
 		case 18:
 			//CAR4
+			bulletVelocity = 18;
 			break;
 		case 19:
 			//AK47
+			bulletVelocity = 18;
 			break;
 		case 20:
 			//M4A1
+			bulletVelocity = 18;
 			break;
 		case 21:
 			//SR47
+			bulletVelocity = 18;
 			break;
 		case 22:
 			//BROWNING
+			bulletVelocity = 16;
 			break;
 		case 23:
 			//L86
+			bulletVelocity = 16;
 			break;
 		case 24:
 			//TYPE 99
+			bulletVelocity = 16;
 			break;
 		case 25:
 			//FN_MAG
+			bulletVelocity = 16;
 			break;
 		case 26:
 			//ALEJANDRO
-			variability = .05*Math.random()-.025;
+			variability = .025*Math.random()-.0125;
+			bulletVelocity = 28;
 			break;
 		case 27:
 			//BARRETT50
-			variability = .05*Math.random()-.025;
+			variability = .025*Math.random()-.0125;
+			bulletVelocity = 28;
 			break;
 		case 28:
 			//DRAGUNOV
-			variability = .05*Math.random()-.025;
+			variability = .025*Math.random()-.0125;
+			bulletVelocity = 28;
 			break;
 		case 29:
 			//SV98
-			variability = .05*Math.random()-.025;
+			variability = .025*Math.random()-.0125;
+			bulletVelocity = 28;
 			break;
 		case 30:
 			//GRENADE LAUNCHER
+			variability = 0;
 			break;
 		case 31:
 			//RPG
+			variability = 0;
 			break;
 		case 32:
 			//MINIGUN
+			variability = .25*Math.random()-.125;
+			bulletVelocity = 16;
 			break;
 		case 33:
 			//CROSSBOW
+			variability = 0;
+
 			break;
 		default:
 			System.out.println("Bullet constructor completed incorrectly");
@@ -158,22 +191,25 @@ public class Bullet extends Moveable {
 	}
 
 	public void draw(){
-		
-		
+
 		GL11.glBegin(GL11.GL_QUADS);
-		
+
 		GL11.glVertex2d(xCoord+width, yCoord+height);
 		GL11.glVertex2d(xCoord+width, yCoord-height);
 		GL11.glVertex2d(xCoord-width, yCoord-height);
 		GL11.glVertex2d(xCoord-width, yCoord+height);
-		
+
 		GL11.glEnd();
-
 	}
 
-	public void collision(Moveable m){
-
-	}
+	//	public boolean collision(Moveable m){
+	//
+	//		for (Rectangle r : rects)
+	//			if (r.intersects(m.getRect()))
+	//				return true;
+	//		return false;
+	//		
+	//	}
 
 	public boolean isInView(){
 

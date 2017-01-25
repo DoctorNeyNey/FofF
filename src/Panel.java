@@ -74,6 +74,7 @@ public class Panel {
 		board.drawAll();
 		board.moveAll();
 		board.checkCollisions();
+		board.garbageCollector();
 		board.playerEquipWeapon();
 	}
 

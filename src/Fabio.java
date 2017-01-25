@@ -1,4 +1,5 @@
 import java.awt.Point;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.lwjgl.input.Mouse;
@@ -8,19 +9,55 @@ public class Fabio extends Person{
 
 	private Outfit outfit;
 	private long lastTimeShot = 0;
-	private Integer[] availableWeapons = {Ranged.M1911}, magazines = {Ranged.M1911_MAGAZINE_SIZE};
+	private Integer[] availableWeapons = {19};//, magazines = {};
+	//private Integer[][] magazines = new Integer[33][30];
+	//	private List<List<Integer>> magazines = new ArrayList<List<Integer>>();
 	private int equippedWeapon, equippedIndex = 0, rateOfFire = 0, previousEquippedIndex = -1000;
+
+
 	public Fabio(double xCoord, double yCoord, int health) {
 		super(xCoord, yCoord, health);
 		outfit = new Outfit(null, null, null, null);
 		width = 20;
 		height = 20;
+		createMagazines();
+
 	}
 
 	public void move(){
 
 		xCoord += dx;
 		yCoord += dy;
+	}
+
+	public void createMagazines(){
+
+		//i think the list approach would be better tbh
+		//list approach to the problem described below
+
+		//		for (int x = 0; x < 33; x++){
+		//			List<Integer> temp = new ArrayList<Integer>();
+		//			for (int y = 0; y < Ranged.magSizes[x]; y++)
+		//				temp.add(1);
+		//			magazines.add(temp);
+		//		}
+		//
+		//		for (int x = 0; x < magazines.size(); x++)
+		//			System.out.println(magazines.get(x).size());
+
+		//alternatively we can use arrays where each array is the length of each guns 
+		//magazine, we can then throw in some number to indicate whether each slot is filled 
+		//with a bullet or use lists and take out one bullet everytime they shoot and not let
+		//each list grow larger than each guns magazine
+
+
+		//			for (int x = 0; x < Ranged.magSizes.length; x++)
+		//				magazines[x] = new Integer[Ranged.magSizes[x]];
+		//	
+		//
+		//			for(int x = 0; x < magazines.length; x++)
+		//				for(int y = 0; y < magazines[x].length; y++)
+		//					magazines[x][y] = 1;
 	}
 
 	public void draw(){
@@ -38,14 +75,15 @@ public class Fabio extends Person{
 	}
 
 	public void plus(){
+
 		equippedIndex++;
 	}
-	
+
 	public void equipWeapon(){
 
 		equippedWeapon = availableWeapons[equippedIndex];
 		if (previousEquippedIndex != equippedIndex)
-			switch(equippedWeapon){
+			switch (equippedWeapon){
 			case Ranged.M1911:
 				rateOfFire = Ranged.M1911_RATE_OF_FIRE;
 				break;
@@ -207,22 +245,51 @@ public class Fabio extends Person{
 			dy *= 1.4;
 	}
 
-	public Bullet shoot(Point p){
+	public List<Bullet> shoot(Point p){
 
-		//add recoil and gun specific things: clip size, rate of fire, etc....
-		//i think we should use a case and switch with ints to specify what gun the player has
-		/**		will shoot once every 250 miliseconds while the mouse is pressed
-		 *		should be changed to be specific to each type of gun   		     **/
-		if (System.currentTimeMillis()-lastTimeShot > rateOfFire){
+		//add recoil and gun specific things: clip size, movespeed with gun, etc....
+
+		List<Bullet> list = new ArrayList<Bullet>();
+
+		if (System.currentTimeMillis()-lastTimeShot > rateOfFire){			
+			lastTimeShot = System.currentTimeMillis();
 			double x = p.getX()-xCoord;
 			double y = p.getY()-yCoord;
 			double theta = Math.atan(y/x);
-			/**as the player shoots for longer there should be more spread in their shot
-			//should differ with each individual gun**/			
+			//because of arccos's range we need to add pi if they are shooting to their left
 			if (p.getX()-xCoord < 0)
 				theta += Math.PI;
-			lastTimeShot = System.currentTimeMillis();
-			return new Bullet(xCoord, yCoord, theta, equippedWeapon);
+
+			switch (equippedWeapon){
+			//shotguns need to shoot multiple bullets so i looped it to add seveal bullets
+			//also need to add the explosives for rpg and nade launcher, as well as arrows for
+			//crossbow, other than that all other guns will just run through the default
+			//that adds a bullet normally
+			case 12:
+				for (int i = 0; i < 8; i++)
+					list.add(new Bullet(xCoord, yCoord, theta, equippedWeapon));
+				return list;
+			case 13:
+				for (int i = 0; i < 6; i++)
+					list.add(new Bullet(xCoord, yCoord, theta, equippedWeapon));
+				return list;
+			case 14:
+				for (int i = 0; i < 5; i++)
+					list.add(new Bullet(xCoord, yCoord, theta, equippedWeapon));
+				return list;
+			case 15:
+				for (int i = 0; i < 9; i++)
+					list.add(new Bullet(xCoord, yCoord, theta, equippedWeapon));
+				return list;
+			case 16:
+				for (int i = 0; i < 7; i++)
+					list.add(new Bullet(xCoord, yCoord, theta, equippedWeapon));
+				return list;
+				//default used for all other weapons
+			default :
+				list.add(new Bullet(xCoord, yCoord, theta, equippedWeapon));
+				return list;
+			}
 		}
 		return null;
 	}

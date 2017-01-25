@@ -2,7 +2,6 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class Board {
 
 	private Fabio fabio;
@@ -37,8 +36,7 @@ public class Board {
 
 	public void checkCollisions(){
 
-		for (Bullet b : enemyBullets)
-			b.collision(fabio);
+
 	}
 
 	private void createFabio(){
@@ -83,9 +81,11 @@ public class Board {
 
 	public void playerShoot(Point p){
 
-		Bullet b = fabio.shoot(p);
-		if (b != null)
-			friendlyBullets.add(b);
+		List<Bullet> list = fabio.shoot(p);
+		if (list != null)
+			for (Bullet b : list)
+				if (b != null)
+					friendlyBullets.add(b);
 	}
 
 	public void playerInteract(){
@@ -102,23 +102,24 @@ public class Board {
 
 		fabio.run();
 	}
-	
+
 	public void playerEquipWeapon(){
 		fabio.equipWeapon();
 	}
-	
+
 	public void plus(){
 		fabio.plus();
 	}
 
-	public void offScreenDeleter(){
 
-		for (int x = friendlyBullets.size(); x > -1; x--)
-			if (!friendlyBullets.get(x).isInView())
-				friendlyBullets.remove(x);
+	public void garbageCollector(){
 
-		for (int x = enemyBullets.size(); x > -1; x--)
-			if (!enemyBullets.get(x).isInView())
-				enemyBullets.remove(x);
+//		for (int x = friendlyBullets.size(); x > -1; x--)
+//			if (!friendlyBullets.get(x).isInView())
+//				friendlyBullets.remove(x);
+//
+//		for (int x = enemyBullets.size(); x > -1; x--)
+//			if (!enemyBullets.get(x).isInView())
+//				enemyBullets.remove(x);
 	}
 }

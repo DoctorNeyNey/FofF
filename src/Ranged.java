@@ -1,6 +1,8 @@
 
 public abstract class Ranged extends Weapon{
-
+	
+	
+	
 	//PISTOLS
 	public static final int M1911 = 0;
 	public static final int M1911_RATE_OF_FIRE = 300;
@@ -81,29 +83,29 @@ public abstract class Ranged extends Weapon{
 	public static final int REMINGTON870 = 12;
 	public static final int REMINGTON870_RATE_OF_FIRE = 550;
 	//public static final int REMINGTON870_RELOAD_SPEED = ;
-	public static final int REMINGTON870_MAGAZINE_SIZE = 8;
+	public static final int REMINGTON870_MAGAZINE_SIZE = 6;
 	//public static final int REMINGTON870_PLAYER_MOVESPEED = ;
 
 	public static final int ARMSEL_STRIKER = 13;
-	public static final int ARMSEL_STRIKER_RATE_OF_FIRE = 350;
+	public static final int ARMSEL_STRIKER_RATE_OF_FIRE = 500;
 	//public static final int ARMSEL_STRIKER_RELOAD_SPEED = ;
 	public static final int ARMSEL_STRIKER_MAGAZINE_SIZE = 12;
 	//public static final int ARMSEL_STRIKER_PLAYER_MOVESPEED = ;
 
 	public static final int USAS12 = 14;
-	public static final int USAS12_RATE_OF_FIRE = 150;
+	public static final int USAS12_RATE_OF_FIRE = 350;
 	public static final int USAS12_RELOAD_SPEED = 2500;
 	public static final int USAS12_MAGAZINE_SIZE = 10;
 	//public static final int USAS12_PLAYER_MOVESPEED = ;
 
 	public static final int DOUBLE_BARREL = 15;
-	public static final int DOUBLE_BARREL_RATE_OF_FIRE = 200;
+	public static final int DOUBLE_BARREL_RATE_OF_FIRE = 600;
 	public static final int DOUBLE_BARREL_RELOAD_SPEED = 1500;
 	public static final int DOUBLE_BARREL_MAGAZINE_SIZE = 2;
 	//public static final int DOUBLE_BARREL_PLAYER_MOVESPEED = ;
 
 	public static final int SPAS12 = 16;
-	public static final int SPAS12_RATE_OF_FIRE = 450;
+	public static final int SPAS12_RATE_OF_FIRE = 850;
 	//public static final int SPAS12_RELOAD_SPEED = ;
 	public static final int SPAS12_MAGAZINE_SIZE = 7;
 	//public static final int SPAS12_PLAYER_MOVESPEED = ;
@@ -197,7 +199,7 @@ public abstract class Ranged extends Weapon{
 	public static final int GRENADE_LAUNCHER = 30;
 	public static final int GRENADE_LAUNCHER_RATE_OF_FIRE = 750;
 	//public static final int GRENADE_LAUNCHER_RELOAD_SPEED = ;
-	public static final int GRENADE_LAUNCHER_MAGAZINE_SIZE = 6;
+	public static final int GRENADE_LAUNCHER_MAGAZINE_SIZE = 4;
 	//public static final int GRENADE_LAUNCHER_PLAYER_MOVESPEED = ;
 	
 	public static final int RPG = 31;
@@ -217,4 +219,42 @@ public abstract class Ranged extends Weapon{
 	public static final int CROSSBOW_RELOAD_SPEED = 1450;
 	public static final int CROSSBOW_MAGAZINE_SIZE = 1;
 	//public static final int CROSSBOW_PLAYER_MOVESPEED = ;
+	
+	
+	//made for easier access, each mag size corresponds with each weapons number
+	public static final int[] magSizes = {
+			M1911_MAGAZINE_SIZE,
+			M9_MAGAZINE_SIZE,
+			GLOCK18_MAGAZINE_SIZE,
+			BENELLI_MAGAZINE_SIZE,
+			MAGNUM_MAGAZINE_SIZE,
+			DEAGLE_MAGAZINE_SIZE,
+			MP9_MAGAZINE_SIZE,
+			THOMPSON_MAGAZINE_SIZE,
+			SCORPION_MAGAZINE_SIZE,
+			UMP45_MAGAZINE_SIZE,
+			UZI_MAGAZINE_SIZE,
+			VECTOR_MAGAZINE_SIZE,
+			REMINGTON870_MAGAZINE_SIZE,
+			USAS12_MAGAZINE_SIZE,
+			DOUBLE_BARREL_MAGAZINE_SIZE,
+			SPAS12_MAGAZINE_SIZE,
+			AEK971_MAGAZINE_SIZE,
+			AR15_MAGAZINE_SIZE,
+			AK47_MAGAZINE_SIZE,
+			M4A1_MAGAZINE_SIZE,
+			SR47_MAGAZINE_SIZE,
+			BROWNING_MAGAZINE_SIZE,
+			L86_MAGAZINE_SIZE,
+			TYPE99_MAGAZINE_SIZE,
+			FN_MAG_MAGAZINE_SIZE,
+			ALEJANDRO_MAGAZINE_SIZE,
+			BARRET50_MAGAZINE_SIZE,
+			DRAGUNOV_MAGAZINE_SIZE,
+			SV98_MAGAZINE_SIZE,
+			GRENADE_LAUNCHER_MAGAZINE_SIZE,
+			RPG_MAGAZINE_SIZE,
+			MINIGUN_MAGAZINE_SIZE,
+			CROSSBOW_MAGAZINE_SIZE
+	};
 }
