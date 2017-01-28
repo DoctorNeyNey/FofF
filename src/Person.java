@@ -5,7 +5,6 @@ import java.util.List;
 public class Person extends Moveable{
 
 	protected int health;
-	protected Rectangle rect;
 	protected List<Item> inventory = new ArrayList<Item>();
 	
 	public Person(double xCoord, double yCoord, int health) {
@@ -24,6 +23,14 @@ public class Person extends Moveable{
 	
 	public void attack(){
 		
+	}
+	
+	public int getHealth(){
+		return health;
+	}
+	
+	public void dealDamage(int d){
+		health -= d;
 	}
 	
 }

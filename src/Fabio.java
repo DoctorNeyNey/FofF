@@ -1,27 +1,57 @@
 import java.awt.Point;
+import java.awt.Rectangle;
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.util.Timer;
 
 public class Fabio extends Person{
 
+	private static int baseHealth = 100;
+	private Timer timer;
 	private Outfit outfit;
 	private long lastTimeShot = 0;
-	private Integer[] availableWeapons = {19};//, magazines = {};
+	private Integer[] availableWeapons = {20};
 	//private Integer[][] magazines = new Integer[33][30];
-	//	private List<List<Integer>> magazines = new ArrayList<List<Integer>>();
-	private int equippedWeapon, equippedIndex = 0, rateOfFire = 0, previousEquippedIndex = -1000;
+	private List<List<Integer>> magazines = new ArrayList<List<Integer>>();
+	private int equippedWeapon, equippedIndex = 0, rateOfFire = 0,
+			previousEquippedIndex = -1000, currentHealth = baseHealth;
 
 
-	public Fabio(double xCoord, double yCoord, int health) {
-		super(xCoord, yCoord, health);
+	public Fabio(double xCoord, double yCoord) {
+		super(xCoord, yCoord, baseHealth);
 		outfit = new Outfit(null, null, null, null);
 		width = 20;
 		height = 20;
 		createMagazines();
+	}
 
+	private void drawHUD(){
+
+		//current health
+		GL11.glColor3d(0.81764705882, 0.08019607843, 0.2431372549);
+		GL11.glBegin(GL11.GL_QUADS);
+		
+		GL11.glVertex2d(95, 94);
+		GL11.glVertex2d(95, 56);
+		GL11.glVertex2d(105+currentHealth*2, 56);
+		GL11.glVertex2d(105+currentHealth*2, 94);
+		
+		GL11.glEnd();
+		
+		//outline of health
+		GL11.glColor3d(.85, .3, .2);
+		GL11.glBegin(GL11.GL_QUADS);
+		
+		GL11.glVertex2d(100, 90);
+		GL11.glVertex2d(100, 60);
+		GL11.glVertex2d(100+baseHealth*2, 60);
+		GL11.glVertex2d(100+baseHealth*2, 90);
+		
+		GL11.glEnd();
 	}
 
 	public void move(){
@@ -32,25 +62,19 @@ public class Fabio extends Person{
 
 	public void createMagazines(){
 
-		//i think the list approach would be better tbh
-		//list approach to the problem described below
+		//		i think the list approach would be better tbh
+		//		list approach to the problem described below
 
-		//		for (int x = 0; x < 33; x++){
-		//			List<Integer> temp = new ArrayList<Integer>();
-		//			for (int y = 0; y < Ranged.magSizes[x]; y++)
-		//				temp.add(1);
-		//			magazines.add(temp);
-		//		}
-		//
-		//		for (int x = 0; x < magazines.size(); x++)
-		//			System.out.println(magazines.get(x).size());
-
+		for (int x = 0; x < 33; x++){
+			List<Integer> temp = new ArrayList<Integer>();
+			for (int y = 0; y < Ranged.magSizes[x]; y++)
+				temp.add(1);
+			magazines.add(temp);
+		}
 		//alternatively we can use arrays where each array is the length of each guns 
 		//magazine, we can then throw in some number to indicate whether each slot is filled 
 		//with a bullet or use lists and take out one bullet everytime they shoot and not let
 		//each list grow larger than each guns magazine
-
-
 		//			for (int x = 0; x < Ranged.magSizes.length; x++)
 		//				magazines[x] = new Integer[Ranged.magSizes[x]];
 		//	
@@ -63,6 +87,9 @@ public class Fabio extends Person{
 	public void draw(){
 
 		outfit.draw(xCoord, yCoord);
+		drawHUD();
+		rect = new Rectangle2D.Double(xCoord-width/2, yCoord+height/2, width, height);
+
 		GL11.glColor3d(1, 1, 1);
 		GL11.glBegin(GL11.GL_QUADS);
 
@@ -80,6 +107,10 @@ public class Fabio extends Person{
 	}
 
 	public void equipWeapon(){
+
+		//only swaps the rate of fire which a player has, later should swap the 
+		//movement speed of a player as well, we should add that later when we determine
+		//the size of the map
 
 		equippedWeapon = availableWeapons[equippedIndex];
 		if (previousEquippedIndex != equippedIndex)
@@ -233,22 +264,91 @@ public class Fabio extends Person{
 
 	public void reload(){
 
+		switch (equippedWeapon){
+		case Ranged.M1911:
+			break;
+		case Ranged.M9:
+			break;
+		case Ranged.GLOCK18:
+			break;
+		case Ranged.BENELLI:
+			break;
+		case Ranged.MAGNUM:
+			break;
+		case Ranged.DEAGLE:
+			break;
+		case Ranged.MP9:
+			break;
+		case Ranged.THOMPSON:
+			break;
+		case Ranged.SCORPION:
+			break;
+		case Ranged.UMP45:
+			break;
+		case Ranged.UZI:
+			break;
+		case Ranged.VECTOR:
+			break;
+		case Ranged.REMINGTON870:
+			break;
+		case Ranged.ARMSEL_STRIKER:
+			break;
+		case Ranged.USAS12:
+			break;
+		case Ranged.DOUBLE_BARREL:
+			break;
+		case Ranged.SPAS12:
+			break;
+		case Ranged.AEK971:
+			break;
+		case Ranged.AR15:
+			break;
+		case Ranged.AK47:
+			break;
+		case Ranged.M4A1:
+			break;
+		case Ranged.SR47:
+			break;
+		case Ranged.BROWNING:
+			break;
+		case Ranged.L86:
+			break;
+		case Ranged.TYPE99:
+			break;
+		case Ranged.FN_MAG:
+			break;
+		case Ranged.ALEJANDRO:
+			break;
+		case Ranged.BARRETT50:
+			break;
+		case Ranged.DRAGUNOV:
+			break;
+		case Ranged.SV98:
+			break;
+		case Ranged.GRENADE_LAUNCHER:
+			break;
+		case Ranged.RPG:
+			break;
+		case Ranged.MINIGUN:
+			break;
+		case Ranged.CROSSBOW:
+			break;
+		default:
+			System.out.println("There was an error in equipping the correct weapon");
+			break;
+		}
 
 	}
 
 	public void run(){
 
-		if (dx != 0)
-			dx *= 1.4;
-
-		if (dy != 0)
-			dy *= 1.4;
+		dx *= 1.4;
+		dy *= 1.4;
 	}
 
 	public List<Bullet> shoot(Point p){
 
 		//add recoil and gun specific things: clip size, movespeed with gun, etc....
-
 		List<Bullet> list = new ArrayList<Bullet>();
 
 		if (System.currentTimeMillis()-lastTimeShot > rateOfFire){			
@@ -285,6 +385,12 @@ public class Fabio extends Person{
 				for (int i = 0; i < 7; i++)
 					list.add(new Bullet(xCoord, yCoord, theta, equippedWeapon));
 				return list;
+			case 30:
+				System.out.println("need to add something for the grenade launcher");
+				break;
+			case 31:
+				System.out.println("need to add something for the RPG");
+				break;
 				//default used for all other weapons
 			default :
 				list.add(new Bullet(xCoord, yCoord, theta, equippedWeapon));
@@ -294,8 +400,15 @@ public class Fabio extends Person{
 		return null;
 	}
 
+	@Override
+	public void dealDamage(int d){
+		
+		currentHealth -= d;
+	}
+	
 	public void aoePickUp(){
 
 
 	}
+
 }

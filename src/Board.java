@@ -36,12 +36,15 @@ public class Board {
 
 	public void checkCollisions(){
 
-
+		for (int x = enemyBullets.size() - 1; x > -1; x--){
+			if (enemyBullets.get(x).collision(fabio));
+				enemyBullets.remove(x);
+		}
 	}
 
 	private void createFabio(){
 
-		fabio = new Fabio(500, 500, 100);
+		fabio = new Fabio(500, 500);
 	}
 
 	public void playerUp(){
@@ -111,15 +114,8 @@ public class Board {
 		fabio.plus();
 	}
 
-
 	public void garbageCollector(){
 
-//		for (int x = friendlyBullets.size(); x > -1; x--)
-//			if (!friendlyBullets.get(x).isInView())
-//				friendlyBullets.remove(x);
-//
-//		for (int x = enemyBullets.size(); x > -1; x--)
-//			if (!enemyBullets.get(x).isInView())
-//				enemyBullets.remove(x);
+		
 	}
 }

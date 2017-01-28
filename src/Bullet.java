@@ -211,9 +211,33 @@ public class Bullet extends Moveable {
 	//		
 	//	}
 
-	public boolean isInView(){
+	public boolean collision(Fabio f){		
 
-		return true;
+		int initialHealth = f.getHealth();
+		if (f != null)
+			for (Rectangle rect : rects)
+				if (rect.intersects(f.getRect())){
+					f.dealDamage(damage);
+				}
+		if (f.health != initialHealth)
+			return true;
+		
+		return false;
+	}
+
+	public boolean collision(Immoveable i){
+
+		return false;
+	}	
+
+	public boolean collision(Person npc){
+
+		return false;
+	}
+
+	public List<Rectangle> getRects(){
+
+		return rects;
 	}
 
 	public int getDamage(){

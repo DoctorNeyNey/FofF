@@ -1,5 +1,7 @@
 import java.awt.Point;
 
+import javax.swing.Timer;
+
 import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
