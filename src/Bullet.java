@@ -37,7 +37,7 @@ public class Bullet extends Moveable {
 			//BENELLI
 			variability = .14*Math.random()-.07;
 			bulletVelocity = 14;
-			damage = 16;
+			damage = 20;
 			break;
 		case 4:
 			//MAGNUM
@@ -192,6 +192,7 @@ public class Bullet extends Moveable {
 
 	public void draw(){
 
+		GL11.glColor3d(0.9960784314, 0.8862745098, 0.2431372549);
 		GL11.glBegin(GL11.GL_QUADS);
 
 		GL11.glVertex2d(xCoord+width, yCoord+height);

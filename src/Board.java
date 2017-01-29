@@ -15,6 +15,7 @@ public class Board {
 
 	public void moveAll(){
 
+		fabio.drawHealthBar();
 		fabio.move();
 		for (Bullet b : friendlyBullets)
 			b.move();
@@ -23,6 +24,9 @@ public class Board {
 			b.move();
 	}
 
+	
+	
+	
 	public void drawAll(){
 
 		for (Bullet b : friendlyBullets)
@@ -82,6 +86,11 @@ public class Board {
 		fabio.reload();
 	}
 
+	public void playerReloadingAction(){
+		
+		fabio.actionReload();
+	}
+	
 	public void playerShoot(Point p){
 
 		List<Bullet> list = fabio.shoot(p);

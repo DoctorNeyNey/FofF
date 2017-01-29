@@ -1,24 +1,21 @@
 import java.awt.Point;
-import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.util.Timer;
+
 
 public class Fabio extends Person{
 
 	private static int baseHealth = 100;
-	private Timer timer;
 	private Outfit outfit;
-	private long lastTimeShot = 0;
+	private long lastTimeShot = 0, beganReloading = 0;
 	private Integer[] availableWeapons = {20};
-	//private Integer[][] magazines = new Integer[33][30];
 	private List<List<Integer>> magazines = new ArrayList<List<Integer>>();
 	private int equippedWeapon, equippedIndex = 0, rateOfFire = 0,
-			previousEquippedIndex = -1000, currentHealth = baseHealth;
+			previousEquippedIndex = -1000, currentHealth = 100;
+	private boolean reloading = false;
 
 
 	public Fabio(double xCoord, double yCoord) {
@@ -29,31 +26,46 @@ public class Fabio extends Person{
 		createMagazines();
 	}
 
-	private void drawHUD(){
+	public void drawHealthBar(){
 
-		//current health
-		GL11.glColor3d(0.81764705882, 0.08019607843, 0.2431372549);
+		//HEALTH BAR
+		//outline
+		GL11.glColor3d(.381019078, .381019078, .381019078);
 		GL11.glBegin(GL11.GL_QUADS);
-		
+
 		GL11.glVertex2d(95, 94);
 		GL11.glVertex2d(95, 56);
-		GL11.glVertex2d(105+currentHealth*2, 56);
-		GL11.glVertex2d(105+currentHealth*2, 94);
-		
+		GL11.glVertex2d(105+baseHealth*2, 56);
+		GL11.glVertex2d(105+baseHealth*2, 94);
+
 		GL11.glEnd();
-		
-		//outline of health
-		GL11.glColor3d(.85, .3, .2);
+
+		//missingHealth
+		GL11.glColor3d(.731372549, .1568627451, .1882352941);
 		GL11.glBegin(GL11.GL_QUADS);
-		
+
+		GL11.glVertex2d(100+baseHealth*2, 90);
+		GL11.glVertex2d(100+baseHealth*2, 60);
+		GL11.glVertex2d(100+baseHealth*2-(baseHealth*2-currentHealth*2), 60);
+		GL11.glVertex2d(100+baseHealth*2-(baseHealth*2-currentHealth*2), 90);
+
+		GL11.glEnd();
+
+		//current of health
+		GL11.glColor3d(0, 1, 0);
+		GL11.glBegin(GL11.GL_QUADS);
+
 		GL11.glVertex2d(100, 90);
 		GL11.glVertex2d(100, 60);
-		GL11.glVertex2d(100+baseHealth*2, 60);
-		GL11.glVertex2d(100+baseHealth*2, 90);
-		
+		GL11.glVertex2d(100+currentHealth*2, 60);
+		GL11.glVertex2d(100+currentHealth*2, 90);
+
 		GL11.glEnd();
+		//END OF HEALTH BAR
 	}
 
+
+	@Override
 	public void move(){
 
 		xCoord += dx;
@@ -62,33 +74,17 @@ public class Fabio extends Person{
 
 	public void createMagazines(){
 
-		//		i think the list approach would be better tbh
-		//		list approach to the problem described below
-
 		for (int x = 0; x < 33; x++){
 			List<Integer> temp = new ArrayList<Integer>();
 			for (int y = 0; y < Ranged.magSizes[x]; y++)
 				temp.add(1);
 			magazines.add(temp);
 		}
-		//alternatively we can use arrays where each array is the length of each guns 
-		//magazine, we can then throw in some number to indicate whether each slot is filled 
-		//with a bullet or use lists and take out one bullet everytime they shoot and not let
-		//each list grow larger than each guns magazine
-		//			for (int x = 0; x < Ranged.magSizes.length; x++)
-		//				magazines[x] = new Integer[Ranged.magSizes[x]];
-		//	
-		//
-		//			for(int x = 0; x < magazines.length; x++)
-		//				for(int y = 0; y < magazines[x].length; y++)
-		//					magazines[x][y] = 1;
 	}
 
+	@Override
 	public void draw(){
-
 		outfit.draw(xCoord, yCoord);
-		drawHUD();
-		rect = new Rectangle2D.Double(xCoord-width/2, yCoord+height/2, width, height);
 
 		GL11.glColor3d(1, 1, 1);
 		GL11.glBegin(GL11.GL_QUADS);
@@ -98,7 +94,8 @@ public class Fabio extends Person{
 		GL11.glVertex2d(xCoord-width/2, yCoord-height/2);
 		GL11.glVertex2d(xCoord-width/2, yCoord+height/2);
 
-		GL11.glEnd();		
+		GL11.glEnd();
+		rect = new Rectangle2D.Double(xCoord-width/2, yCoord+height/2, width, height);
 	}
 
 	public void plus(){
@@ -262,82 +259,23 @@ public class Fabio extends Person{
 		dx = 0;
 	}
 
+	public void actionReload(){
+
+		if (reloading)
+			if (System.currentTimeMillis()-beganReloading > Ranged.reloadSpeeds[equippedWeapon]){
+				for (int x = magazines.get(equippedWeapon).size(); x < Ranged.magSizes[equippedWeapon]; x++)
+					magazines.get(equippedWeapon).add(1);
+				reloading = false;
+			}
+
+	}
+
 	public void reload(){
 
-		switch (equippedWeapon){
-		case Ranged.M1911:
-			break;
-		case Ranged.M9:
-			break;
-		case Ranged.GLOCK18:
-			break;
-		case Ranged.BENELLI:
-			break;
-		case Ranged.MAGNUM:
-			break;
-		case Ranged.DEAGLE:
-			break;
-		case Ranged.MP9:
-			break;
-		case Ranged.THOMPSON:
-			break;
-		case Ranged.SCORPION:
-			break;
-		case Ranged.UMP45:
-			break;
-		case Ranged.UZI:
-			break;
-		case Ranged.VECTOR:
-			break;
-		case Ranged.REMINGTON870:
-			break;
-		case Ranged.ARMSEL_STRIKER:
-			break;
-		case Ranged.USAS12:
-			break;
-		case Ranged.DOUBLE_BARREL:
-			break;
-		case Ranged.SPAS12:
-			break;
-		case Ranged.AEK971:
-			break;
-		case Ranged.AR15:
-			break;
-		case Ranged.AK47:
-			break;
-		case Ranged.M4A1:
-			break;
-		case Ranged.SR47:
-			break;
-		case Ranged.BROWNING:
-			break;
-		case Ranged.L86:
-			break;
-		case Ranged.TYPE99:
-			break;
-		case Ranged.FN_MAG:
-			break;
-		case Ranged.ALEJANDRO:
-			break;
-		case Ranged.BARRETT50:
-			break;
-		case Ranged.DRAGUNOV:
-			break;
-		case Ranged.SV98:
-			break;
-		case Ranged.GRENADE_LAUNCHER:
-			break;
-		case Ranged.RPG:
-			break;
-		case Ranged.MINIGUN:
-			break;
-		case Ranged.CROSSBOW:
-			break;
-		default:
-			System.out.println("There was an error in equipping the correct weapon");
-			break;
+		if (!reloading){
+			reloading = true;		
+			beganReloading = System.currentTimeMillis();
 		}
-
 	}
 
 	public void run(){
@@ -348,53 +286,61 @@ public class Fabio extends Person{
 
 	public List<Bullet> shoot(Point p){
 
-		//add recoil and gun specific things: clip size, movespeed with gun, etc....
-		List<Bullet> list = new ArrayList<Bullet>();
 
-		if (System.currentTimeMillis()-lastTimeShot > rateOfFire){			
-			lastTimeShot = System.currentTimeMillis();
-			double x = p.getX()-xCoord;
-			double y = p.getY()-yCoord;
-			double theta = Math.atan(y/x);
-			//because of arccos's range we need to add pi if they are shooting to their left
-			if (p.getX()-xCoord < 0)
-				theta += Math.PI;
+		if (!reloading && !magazines.get(equippedWeapon).isEmpty()){
+			//add recoil and gun specific things: clip size, movespeed with gun, etc....
+			List<Bullet> list = new ArrayList<Bullet>();
+			if (System.currentTimeMillis()-lastTimeShot > rateOfFire){			
+				lastTimeShot = System.currentTimeMillis();
+				double x = p.getX()-xCoord;
+				double y = p.getY()-yCoord;
+				double theta = Math.atan(y/x);
+				//because of arccos's range we need to add pi if they are shooting to their left
+				if (p.getX()-xCoord < 0)
+					theta += Math.PI;
 
-			switch (equippedWeapon){
-			//shotguns need to shoot multiple bullets so i looped it to add seveal bullets
-			//also need to add the explosives for rpg and nade launcher, as well as arrows for
-			//crossbow, other than that all other guns will just run through the default
-			//that adds a bullet normally
-			case 12:
-				for (int i = 0; i < 8; i++)
+				switch (equippedWeapon){
+				//shotguns need to shoot multiple bullets so i looped it to add seveal bullets
+				//also need to add the explosives for rpg and nade launcher, as well as arrows for
+				//crossbow, other than that all other guns will just run through the default
+				//that adds a bullet normally
+				case 12:
+					for (int i = 0; i < 8; i++)
+						list.add(new Bullet(xCoord, yCoord, theta, equippedWeapon));
+					magazines.get(equippedWeapon).remove(0);
+					return list;
+				case 13:
+					for (int i = 0; i < 6; i++)
+						list.add(new Bullet(xCoord, yCoord, theta, equippedWeapon));
+					magazines.get(equippedWeapon).remove(0);
+					return list;
+				case 14:
+					for (int i = 0; i < 5; i++)
+						list.add(new Bullet(xCoord, yCoord, theta, equippedWeapon));
+					magazines.get(equippedWeapon).remove(0);
+					return list;
+				case 15:
+					for (int i = 0; i < 9; i++)
+						list.add(new Bullet(xCoord, yCoord, theta, equippedWeapon));
+					magazines.get(equippedWeapon).remove(0);
+					return list;
+				case 16:
+					for (int i = 0; i < 7; i++)
+						list.add(new Bullet(xCoord, yCoord, theta, equippedWeapon));
+					magazines.get(equippedWeapon).remove(0);
+					return list;
+				case 30:
+					System.out.println("need to add something for the grenade launcher");
+					break;
+				case 31:
+					System.out.println("need to add something for the RPG");
+					break;
+					//default used for all other weapons
+				default :
 					list.add(new Bullet(xCoord, yCoord, theta, equippedWeapon));
-				return list;
-			case 13:
-				for (int i = 0; i < 6; i++)
-					list.add(new Bullet(xCoord, yCoord, theta, equippedWeapon));
-				return list;
-			case 14:
-				for (int i = 0; i < 5; i++)
-					list.add(new Bullet(xCoord, yCoord, theta, equippedWeapon));
-				return list;
-			case 15:
-				for (int i = 0; i < 9; i++)
-					list.add(new Bullet(xCoord, yCoord, theta, equippedWeapon));
-				return list;
-			case 16:
-				for (int i = 0; i < 7; i++)
-					list.add(new Bullet(xCoord, yCoord, theta, equippedWeapon));
-				return list;
-			case 30:
-				System.out.println("need to add something for the grenade launcher");
-				break;
-			case 31:
-				System.out.println("need to add something for the RPG");
-				break;
-				//default used for all other weapons
-			default :
-				list.add(new Bullet(xCoord, yCoord, theta, equippedWeapon));
-				return list;
+					magazines.get(equippedWeapon).remove(0);
+					return list;
+				}
 			}
 		}
 		return null;
@@ -402,10 +348,10 @@ public class Fabio extends Person{
 
 	@Override
 	public void dealDamage(int d){
-		
+
 		currentHealth -= d;
 	}
-	
+
 	public void aoePickUp(){
 
 

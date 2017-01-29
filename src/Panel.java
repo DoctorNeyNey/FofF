@@ -78,6 +78,7 @@ public class Panel {
 		board.checkCollisions();
 		board.garbageCollector();
 		board.playerEquipWeapon();
+		board.playerReloadingAction();
 	}
 
 	private void pollInputs(){
