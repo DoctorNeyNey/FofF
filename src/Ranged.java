@@ -1,8 +1,6 @@
 
 public abstract class Ranged extends Weapon{
 	
-	
-	
 	//PISTOLS
 	public static final int M1911 = 0;
 	public static final int M1911_RATE_OF_FIRE = 300;
@@ -145,27 +143,27 @@ public abstract class Ranged extends Weapon{
 
 	//LIGHT MACHINE GUNS
 	public static final int BROWNING = 22;
-	public static final int BROWNING_RATE_OF_FIRE = 120;
+	public static final int BROWNING_RATE_OF_FIRE = 110;
 	public static final int BROWNING_RELOAD_SPEED = 7600;
-	public static final int BROWNING_MAGAZINE_SIZE = 250;
+	public static final int BROWNING_MAGAZINE_SIZE = 150;
 	//public static final int BROWNING_PLAYER_MOVESPEED = ;
 
 	public static final int L86 = 23;
-	public static final int L86_RATE_OF_FIRE = 87;
+	public static final int L86_RATE_OF_FIRE = 80;
 	public static final int L86_RELOAD_SPEED = 4800;
-	public static final int L86_MAGAZINE_SIZE = 120;
+	public static final int L86_MAGAZINE_SIZE = 80;
 	//public static final int L86_PLAYER_MOVESPEED = ;
 	
 	public static final int TYPE99 = 24;
-	public static final int TYPE99_RATE_OF_FIRE = 141;
+	public static final int TYPE99_RATE_OF_FIRE = 90;
 	public static final int TYPE99_RELOAD_SPEED = 6000;
-	public static final int TYPE99_MAGAZINE_SIZE = 200;
+	public static final int TYPE99_MAGAZINE_SIZE = 60;
 	//public static final int TYPE99_PLAYER_MOVESPEED = ;
 	
 	public static final int FN_MAG = 25;
 	public static final int FN_MAG_RATE_OF_FIRE = 73;
 	public static final int FN_MAG_RELOAD_SPEED = 5500;
-	public static final int FN_MAG_MAGAZINE_SIZE = 150;
+	public static final int FN_MAG_MAGAZINE_SIZE = 125;
 	//public static final int FN_MAG_PLAYER_MOVESPEED = ;
 	
 	
@@ -209,7 +207,7 @@ public abstract class Ranged extends Weapon{
 	//public static final int RPG_PLAYER_MOVESPEED = ;
 	
 	public static final int MINIGUN = 32;
-	public static final int MINIGUN_RATE_OF_FIRE = 10;
+	public static final int MINIGUN_RATE_OF_FIRE = 25;
 	public static final int MINIGUN_RELOAD_SPEED = 7500;
 	public static final int MINIGUN_MAGAZINE_SIZE = 750;
 	//public static final int MINIGUN_PLAYER_MOVESPEED = ;
@@ -236,6 +234,7 @@ public abstract class Ranged extends Weapon{
 			UZI_MAGAZINE_SIZE,
 			VECTOR_MAGAZINE_SIZE,
 			REMINGTON870_MAGAZINE_SIZE,
+			ARMSEL_STRIKER_MAGAZINE_SIZE,
 			USAS12_MAGAZINE_SIZE,
 			DOUBLE_BARREL_MAGAZINE_SIZE,
 			SPAS12_MAGAZINE_SIZE,
@@ -272,6 +271,7 @@ public abstract class Ranged extends Weapon{
 			UZI_RELOAD_SPEED,
 			VECTOR_RELOAD_SPEED,
 			1,//REMINGTON870_RELOAD_SPEED,
+			1,//ARMSEL_STRIKER_RELOAD_SPEED,
 			USAS12_RELOAD_SPEED,
 			DOUBLE_BARREL_RELOAD_SPEED,
 			1,//SPAS12_RELOAD_SPEED,
@@ -308,6 +308,7 @@ public abstract class Ranged extends Weapon{
 			UZI_RATE_OF_FIRE,
 			VECTOR_RATE_OF_FIRE,
 			REMINGTON870_RATE_OF_FIRE,
+			ARMSEL_STRIKER_RATE_OF_FIRE,
 			USAS12_RATE_OF_FIRE,
 			DOUBLE_BARREL_RATE_OF_FIRE,
 			SPAS12_RATE_OF_FIRE,

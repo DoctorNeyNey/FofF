@@ -109,18 +109,22 @@ public class Bullet extends Moveable {
 			break;
 		case 18:
 			//CAR4
+			variability = .5*Math.random()-.25;
 			bulletVelocity = 18;
 			break;
 		case 19:
-			//AK47
+			//AK47		
+			variability = .5*Math.random()-.25;
 			bulletVelocity = 18;
 			break;
 		case 20:
 			//M4A1
+			variability = .5*Math.random()-.25;
 			bulletVelocity = 18;
 			break;
 		case 21:
 			//SR47
+			variability = .5*Math.random()-.25;
 			bulletVelocity = 18;
 			break;
 		case 22:
@@ -169,8 +173,8 @@ public class Bullet extends Moveable {
 			break;
 		case 32:
 			//MINIGUN
-			variability = .25*Math.random()-.125;
-			bulletVelocity = 16;
+			variability = .6*Math.random()-.3;
+			bulletVelocity = 20;
 			break;
 		case 33:
 			//CROSSBOW

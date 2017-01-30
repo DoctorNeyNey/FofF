@@ -15,7 +15,6 @@ public class Board {
 
 	public void moveAll(){
 
-		fabio.drawHealthBar();
 		fabio.move();
 		for (Bullet b : friendlyBullets)
 			b.move();
@@ -25,16 +24,18 @@ public class Board {
 	}
 
 	
-	
+	private void drawHUD(){
+		
+		fabio.drawHealthBar();
+	}
 	
 	public void drawAll(){
 
+		drawHUD();
 		for (Bullet b : friendlyBullets)
 			b.draw();
-
 		for (Bullet b : enemyBullets)
 			b.draw();
-
 		fabio.draw();
 	}
 
