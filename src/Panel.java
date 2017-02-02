@@ -1,4 +1,6 @@
+import java.awt.Font;
 import java.awt.Point;
+import java.io.InputStream;
 
 import javax.swing.Timer;
 
@@ -8,20 +10,22 @@ import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
+import org.newdawn.slick.TrueTypeFont;
+import org.newdawn.slick.util.ResourceLoader;
 
 public class Panel {
 
 	private Board board;
 	double x = 0;
+	TrueTypeFont font;
 
 	public static void main(String[] args){
 
 		new Panel();
+
 	}
 
 	public Panel(){
-
-		createBoard();
 
 		try {
 			//create display and mouse and keyboard listeners
@@ -38,12 +42,16 @@ public class Panel {
 		}
 
 		//Display Settings
+		
+    	GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		GL11.glMatrixMode(GL11.GL_PROJECTION);
 		GL11.glLoadIdentity();
-		GL11.glOrtho(0, 1920, 0, 1080, 1, -1);
+		GL11.glOrtho(0, Display.getWidth(), 0, Display.getHeight(), 1, -1);
 		GL11.glMatrixMode(GL11.GL_MODELVIEW);
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
-		
+
+
+		createBoard();
 
 		// repeats things while running
 		while (!Display.isCloseRequested()){
@@ -65,7 +73,7 @@ public class Panel {
 		Keyboard.destroy();
 		System.exit(0);
 	}
-	
+
 	private void createBoard(){
 
 		board = new Board();
@@ -82,7 +90,7 @@ public class Panel {
 	}
 
 	private void pollInputs(){
-		
+
 		//upward velocity
 		if (Keyboard.isKeyDown(Keyboard.KEY_W))
 			board.playerUp();
@@ -90,7 +98,7 @@ public class Panel {
 		//downward velocity
 		if (Keyboard.isKeyDown(Keyboard.KEY_S))
 			board.playerDown();
-		
+
 		//up and down stop
 		if (!(Keyboard.isKeyDown(Keyboard.KEY_S) || Keyboard.isKeyDown(Keyboard.KEY_W)))
 			board.playerStopVertical();
@@ -106,7 +114,7 @@ public class Panel {
 		//left and right stop
 		if (!(Keyboard.isKeyDown(Keyboard.KEY_D) || Keyboard.isKeyDown(Keyboard.KEY_A)))
 			board.playerStopHorizontal();
-		
+
 		//reload
 		if (Keyboard.isKeyDown(Keyboard.KEY_R))
 			board.playerReload();		
@@ -114,7 +122,7 @@ public class Panel {
 		//running
 		if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT))
 			board.playerRun();
-		
+
 		//open inventory
 		if (Keyboard.isKeyDown(Keyboard.KEY_I))
 			board.playerOpenInventory();
@@ -122,10 +130,15 @@ public class Panel {
 		//interact
 		if (Keyboard.isKeyDown(Keyboard.KEY_E))
 			board.playerInteract();
-		
-		if (Keyboard.isKeyDown(Keyboard.KEY_1))
-			board.plus();
-		
+
+		//swap Weapon
+		int dWheel = Mouse.getDWheel();
+		if (dWheel > 0)
+			board.playerIncreaseWeapon();
+		else if (dWheel < 0)
+			board.playerDecreaseWeapon();
+
+
 		//shoot 
 		/**0 is the left click**/
 		if (Mouse.isButtonDown(0))

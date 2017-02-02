@@ -27,6 +27,8 @@ public class Board {
 	private void drawHUD(){
 		
 		fabio.drawHealthBar();
+		fabio.drawReloadBar();
+		fabio.drawAmmoCount();
 	}
 	
 	public void drawAll(){
@@ -119,13 +121,16 @@ public class Board {
 	public void playerEquipWeapon(){
 		fabio.equipWeapon();
 	}
-
-	public void plus(){
-		fabio.plus();
+	
+	public void playerIncreaseWeapon(){
+		fabio.increaseWeapon();
+	}
+	
+	public void playerDecreaseWeapon(){
+		fabio.decreaseWeapon();
 	}
 
 	public void garbageCollector(){
-
 		
 	}
 }
