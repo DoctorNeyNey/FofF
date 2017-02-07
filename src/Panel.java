@@ -1,8 +1,4 @@
-import java.awt.Font;
 import java.awt.Point;
-import java.io.InputStream;
-
-import javax.swing.Timer;
 
 import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Keyboard;
@@ -10,19 +6,17 @@ import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
-import org.newdawn.slick.TrueTypeFont;
-import org.newdawn.slick.util.ResourceLoader;
+
 
 public class Panel {
 
+	private boolean pastIntroScreen = false;
 	private Board board;
-	double x = 0;
-	TrueTypeFont font;
+	private IntroScreen introScreen;
+
 
 	public static void main(String[] args){
-
 		new Panel();
-
 	}
 
 	public Panel(){
@@ -42,29 +36,30 @@ public class Panel {
 		}
 
 		//Display Settings
-		
-    	GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		GL11.glMatrixMode(GL11.GL_PROJECTION);
 		GL11.glLoadIdentity();
 		GL11.glOrtho(0, Display.getWidth(), 0, Display.getHeight(), 1, -1);
 		GL11.glMatrixMode(GL11.GL_MODELVIEW);
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
 
-
-		createBoard();
+		createIntroScreen();
 
 		// repeats things while running
 		while (!Display.isCloseRequested()){
 
 			//remove anything thats been drawn
 			GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
-			//draw, check collision, npcs....
-			boardFunctions();
 			//check mouse and keyboard
 			pollInputs();
+			//draw, check collision, npcs....
+			if (pastIntroScreen)
+				boardFunctions();
+			else
+				introScreenFunctions();
 			//repaint
 			Display.update();	
-			//how many refreshes per second
+			//how many refreshes per second/ FPS
 			Display.sync(60);	
 		}
 		//exit functions
@@ -74,9 +69,27 @@ public class Panel {
 		System.exit(0);
 	}
 
-	private void createBoard(){
+	private void introScreenFunctions(){
+
+		introScreen.draw();
+		introScreen.highLightSelectedIndex();
+	}
+
+	private void createIntroScreen(){
+
+		introScreen = new IntroScreen(this);
+	}
+
+	public void createBoard(){
 
 		board = new Board();
+	}
+	
+	public void passIntroScreen(){
+		
+		
+		pastIntroScreen = true;
+		introScreen = null;
 	}
 
 	private void boardFunctions(){
@@ -91,62 +104,110 @@ public class Panel {
 
 	private void pollInputs(){
 
-		//upward velocity
-		if (Keyboard.isKeyDown(Keyboard.KEY_W))
-			board.playerUp();
+		if (pastIntroScreen){
+			//upward velocity
+			if (Keyboard.isKeyDown(Keyboard.KEY_W))
+				board.playerUp();
 
-		//downward velocity
-		if (Keyboard.isKeyDown(Keyboard.KEY_S))
-			board.playerDown();
+			//downward velocity
+			if (Keyboard.isKeyDown(Keyboard.KEY_S))
+				board.playerDown();
 
-		//up and down stop
-		if (!(Keyboard.isKeyDown(Keyboard.KEY_S) || Keyboard.isKeyDown(Keyboard.KEY_W)))
-			board.playerStopVertical();
+			//up and down stop
+			if (!(Keyboard.isKeyDown(Keyboard.KEY_S) || Keyboard.isKeyDown(Keyboard.KEY_W)))
+				board.playerStopVertical();
 
-		//rightward velocity
-		if (Keyboard.isKeyDown(Keyboard.KEY_D))
-			board.playerRight();
+			//rightward velocity
+			if (Keyboard.isKeyDown(Keyboard.KEY_D))
+				board.playerRight();
 
-		//leftward velocity
-		if (Keyboard.isKeyDown(Keyboard.KEY_A))
-			board.playerLeft();	
+			//leftward velocity
+			if (Keyboard.isKeyDown(Keyboard.KEY_A))
+				board.playerLeft();	
 
-		//left and right stop
-		if (!(Keyboard.isKeyDown(Keyboard.KEY_D) || Keyboard.isKeyDown(Keyboard.KEY_A)))
-			board.playerStopHorizontal();
+			//left and right stop
+			if (!(Keyboard.isKeyDown(Keyboard.KEY_D) || Keyboard.isKeyDown(Keyboard.KEY_A)))
+				board.playerStopHorizontal();
 
-		//reload
-		if (Keyboard.isKeyDown(Keyboard.KEY_R))
-			board.playerReload();		
+			//reload
+			if (Keyboard.isKeyDown(Keyboard.KEY_R))
+				board.playerReload();		
 
-		//running
-		if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT))
-			board.playerRun();
+			//running
+			if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT))
+				board.playerRun();
 
-		//open inventory
-		if (Keyboard.isKeyDown(Keyboard.KEY_I))
-			board.playerOpenInventory();
+			//open inventory
+			if (Keyboard.isKeyDown(Keyboard.KEY_I))
+				board.openPlayerInventory();
 
-		//interact
-		if (Keyboard.isKeyDown(Keyboard.KEY_E))
-			board.playerInteract();
+			//interact
+			if (Keyboard.isKeyDown(Keyboard.KEY_E))
+				board.playerInteract();
 
-		//swap Weapon
-		int dWheel = Mouse.getDWheel();
-		if (dWheel > 0)
-			board.playerIncreaseWeapon();
-		else if (dWheel < 0)
-			board.playerDecreaseWeapon();
+			//equip slots
+			//swap Weapon
+			if (Keyboard.isKeyDown(Keyboard.KEY_1))
+				board.playerEquipWeapon1();
 
+			if (Keyboard.isKeyDown(Keyboard.KEY_2))
+				board.playerEquipWeapon2();
 
-		//shoot 
-		/**0 is the left click**/
-		if (Mouse.isButtonDown(0))
-			board.playerShoot(new Point(Mouse.getX(), Mouse.getY()));		
+			if (Keyboard.isKeyDown(Keyboard.KEY_3))
+				board.playerEquipWeapon3();
 
-		//quick close
-		if (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE))
-			System.exit(0);
+			if (Keyboard.isKeyDown(Keyboard.KEY_4))
+				board.playerEquipWeapon4();
 
+			if (Keyboard.isKeyDown(Keyboard.KEY_5))
+				board.playerEquipWeapon5();
+
+			if (Keyboard.isKeyDown(Keyboard.KEY_6))
+				board.playerEquipWeapon6();
+
+			if (Keyboard.isKeyDown(Keyboard.KEY_7))
+				board.playerEquipWeapon7();
+
+			int dWheel = Mouse.getDWheel();
+			if (dWheel > 0)
+				board.playerIncreaseWeapon();
+			else if (dWheel < 0)
+				board.playerDecreaseWeapon();
+
+			//shoot 
+			/**0 is the left click**/
+			if (Mouse.isButtonDown(0))
+				board.playerShoot(new Point(Mouse.getX(), Mouse.getY()));	
+
+			if (!Mouse.isButtonDown(0))
+				board.playerResetShot();
+
+			//quick close
+			if (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE))
+				System.exit(0);
+		}
+		else {
+			//quick close
+			
+			if (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE))
+				System.exit(0);
+
+			if (Keyboard.isKeyDown(Keyboard.KEY_DOWN) || Keyboard.isKeyDown(Keyboard.KEY_S))
+				introScreen.down();
+
+			if (Keyboard.isKeyDown(Keyboard.KEY_UP) || Keyboard.isKeyDown(Keyboard.KEY_W))
+				introScreen.up();
+
+			if (!Keyboard.isKeyDown(Keyboard.KEY_UP) && !Keyboard.isKeyDown(Keyboard.KEY_DOWN)
+					&& !Keyboard.isKeyDown(Keyboard.KEY_S) && !Keyboard.isKeyDown(Keyboard.KEY_W))
+				introScreen.resetRelease();
+
+			if (Keyboard.isKeyDown(Keyboard.KEY_SPACE))
+				introScreen.execute();
+			
+			if (Keyboard.isKeyDown(Keyboard.KEY_1))
+				introScreen.back();
+		}
 	}
+
 }

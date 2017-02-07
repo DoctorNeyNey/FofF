@@ -23,14 +23,15 @@ public class Board {
 			b.move();
 	}
 
-	
+
 	private void drawHUD(){
-		
-		fabio.drawHealthBar();
+
+		fabio.drawHealthBar(100, 100);
 		fabio.drawReloadBar();
 		fabio.drawAmmoCount();
+		fabio.drawInventory();
 	}
-	
+
 	public void drawAll(){
 
 		drawHUD();
@@ -43,10 +44,10 @@ public class Board {
 
 	public void checkCollisions(){
 
-		for (int x = enemyBullets.size() - 1; x > -1; x--){
-			if (enemyBullets.get(x).collision(fabio));
+		for (int x = enemyBullets.size() - 1; x > -1; x--)
+			if (enemyBullets.get(x).collision(fabio))
 				enemyBullets.remove(x);
-		}
+
 	}
 
 	private void createFabio(){
@@ -90,10 +91,10 @@ public class Board {
 	}
 
 	public void playerReloadingAction(){
-		
+
 		fabio.actionReload();
 	}
-	
+
 	public void playerShoot(Point p){
 
 		List<Bullet> list = fabio.shoot(p);
@@ -104,33 +105,66 @@ public class Board {
 	}
 
 	public void playerInteract(){
-
 		fabio.interact();
 	}
 
-	public void playerOpenInventory(){
-
-		fabio.openInventory();
-	}
-
 	public void playerRun(){
-
 		fabio.run();
 	}
 
 	public void playerEquipWeapon(){
 		fabio.equipWeapon();
 	}
-	
+
 	public void playerIncreaseWeapon(){
 		fabio.increaseWeapon();
 	}
-	
+
 	public void playerDecreaseWeapon(){
 		fabio.decreaseWeapon();
 	}
 
+	public void playerResetShot(){
+		fabio.resetShot();
+	}
+
+	public void playerEquipWeapon1(){
+		fabio.equipWeapon1();
+	}
+
+	public void playerEquipWeapon2(){
+		fabio.equipWeapon2();
+	}
+
+	public void playerEquipWeapon3(){
+		fabio.equipWeapon3();
+	}
+
+	public void playerEquipWeapon4(){
+		fabio.equipWeapon4();
+	}
+
+	public void playerEquipWeapon5(){
+		fabio.equipWeapon5();
+	}
+
+	public void playerEquipWeapon6(){
+		fabio.equipWeapon6();
+	}
+
+	public void playerEquipWeapon7(){
+		fabio.equipWeapon7();
+	}
+
+	public void openPlayerInventory(){
+		fabio.openInventory();
+	}
+
 	public void garbageCollector(){
-		
+
+	}
+
+	public boolean playerMagEmpty(){
+		return fabio.magEmpty();
 	}
 }

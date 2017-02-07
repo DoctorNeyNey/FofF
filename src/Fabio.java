@@ -20,12 +20,14 @@ public class Fabio extends Person{
 	private static int baseHealth = 100;
 	private Outfit outfit;
 	private long lastTimeShot = 0, beganReloading = 0;
-	private Integer[] availableWeapons = {0,1,2,3,4,5,6,7,8,9};
+	private Integer[] availableWeapons = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
 	private List<List<Integer>> magazines = new ArrayList<List<Integer>>();
 	private List<List<Integer>> ammoStores = new ArrayList<List<Integer>>();
+	private Item[] inventory = new Item[25];
 	private int equippedWeapon, equippedIndex = 0, rateOfFire = 0,
 			previousEquippedIndex = -1000, currentHealth = 100;
-	private boolean reloading = false;
+	private boolean reloading = false, mustReleaseShoot = false;
+	private boolean isInventoryOpen = false;
 
 
 	public Fabio(double xCoord, double yCoord) {
@@ -34,53 +36,76 @@ public class Fabio extends Person{
 		width = 20;
 		height = 20;
 		createMagazinesAndAmmoStores();
-		createFonts();
+		createFont();
 	}
 
-	private void createFonts(){
+	private void createFont(){
 
 		try {
-			InputStream inputStream = ResourceLoader.getResourceAsStream("Kirbys-Adventure.ttf");	
+			InputStream inputStream = ResourceLoader.getResourceAsStream("Fonts/Kirbys-Adventure.ttf");	
 			Font ammoFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);
 			this.ammoFont = new TrueTypeFont(ammoFont.deriveFont(24f), false);
-			//			this.ammoFont = new TrueTypeFont(new Font("Times New Roman", Font.TYPE1_FONT, 36), false);
 		}
 		catch (Exception e){
 			e.printStackTrace();
 			System.out.println("2");
 		}
-
 	}
 
 	public void drawAmmoCount(){
 
 		Integer currentAmmo = magazines.get(equippedWeapon).size();
 		Integer totalAmmo = ammoStores.get(equippedWeapon).size();
-		String phrase = currentAmmo.toString() + "-" + totalAmmo.toString();
+		String ammoPrintOut = currentAmmo.toString() + "-" + totalAmmo.toString();
 
-		GL11.glRotated(180, 0, 0, 0);
-		GL11.glRotated(180, 0, Display.getHeight()/2, 0);
+
+		GL11.glColor4d(.831372549d, .431372549d, .2862745098d, .5d);
+		GL11.glBegin(GL11.GL_QUADS);
+		
+		GL11.glVertex2d(600, 600);
+		GL11.glVertex2d(700, 600);
+		GL11.glVertex2d(700, 700);
+		GL11.glVertex2d(600, 700);
+		GL11.glPushMatrix();
+
+		GL11.glEnd();
 		GL11.glEnable(GL11.GL_BLEND);
 
-		//need to use the negative in the 
-		ammoFont.drawString(0, -900, phrase, Color.white);
+		GL11.glRotated(180, 0, Display.getHeight()/2, 0);
+		GL11.glRotated(180, 0, 0, 0);
+
+		//need to use the negative in the y position
+		ammoFont.drawString(0, -900, ammoPrintOut, Color.white);
 
 		GL11.glDisable(GL11.GL_BLEND);
-		GL11.glRotated(180, 0, 0, 0);
 		GL11.glRotated(180, 0, -Display.getHeight()/2, 0);
+		GL11.glRotated(180, 0, 0, 0);
 	}
 
-	public void drawHealthBar(){
+	public void drawInventory(){
+		if (isInventoryOpen){
+			
+			
+			
+			
+			
+			
+		}
+	}
+	
+	public void drawHealthBar(int x, int y){
 
+		
+		
 		//HEALTH BAR
 		//outline
 		GL11.glColor3d(.381019078, .381019078, .381019078);
 		GL11.glBegin(GL11.GL_QUADS);
 
-		GL11.glVertex2d(95, 94);
-		GL11.glVertex2d(95, 56);
-		GL11.glVertex2d(105+baseHealth*2, 56);
-		GL11.glVertex2d(105+baseHealth*2, 94);
+		GL11.glVertex2d(x-5, y+4);
+		GL11.glVertex2d(x-5, y-34);
+		GL11.glVertex2d(x+5+baseHealth*2, y-34);
+		GL11.glVertex2d(x+5+baseHealth*2, y+4);
 
 		GL11.glEnd();
 
@@ -88,21 +113,21 @@ public class Fabio extends Person{
 		GL11.glColor3d(.731372549, .1568627451, .1882352941);
 		GL11.glBegin(GL11.GL_QUADS);
 
-		GL11.glVertex2d(100+baseHealth*2, 90);
-		GL11.glVertex2d(100+baseHealth*2, 60);
-		GL11.glVertex2d(100+baseHealth*2-(baseHealth*2-currentHealth*2), 60);
-		GL11.glVertex2d(100+baseHealth*2-(baseHealth*2-currentHealth*2), 90);
+		GL11.glVertex2d(x+baseHealth*2, y);
+		GL11.glVertex2d(x+baseHealth*2, y-30);
+		GL11.glVertex2d(x+baseHealth*2-(baseHealth*2-currentHealth*2), y-30);
+		GL11.glVertex2d(x+baseHealth*2-(baseHealth*2-currentHealth*2), y);
 
 		GL11.glEnd();
 
-		//current of health
+		//current health
 		GL11.glColor3d(0, 1, 0);
 		GL11.glBegin(GL11.GL_QUADS);
 
-		GL11.glVertex2d(100, 90);
-		GL11.glVertex2d(100, 60);
-		GL11.glVertex2d(100+currentHealth*2, 60);
-		GL11.glVertex2d(100+currentHealth*2, 90);
+		GL11.glVertex2d(x, y);
+		GL11.glVertex2d(x, y-30);
+		GL11.glVertex2d(x+currentHealth*2, y-30);
+		GL11.glVertex2d(x+currentHealth*2, y);
 
 		GL11.glEnd();
 		//END OF HEALTH BAR
@@ -147,7 +172,7 @@ public class Fabio extends Person{
 	}
 
 	public void createMagazinesAndAmmoStores(){
-
+		
 		for (int x = 0; x < Ranged.magSizes.length; x++){
 			List<Integer> temp = new ArrayList<Integer>();
 			for (int y = 0; y < Ranged.magSizes[x]; y++)
@@ -197,12 +222,48 @@ public class Fabio extends Person{
 		previousEquippedIndex = equippedIndex;
 	}
 
+	public void equipWeapon1(){
+		if (availableWeapons[0] != null)
+			equippedIndex = 0;
+	}
+
+	public void equipWeapon2(){
+		if (availableWeapons[1] != null)
+			equippedIndex = 1;
+	}
+
+	public void equipWeapon3(){
+		if (availableWeapons[2] != null)
+			equippedIndex = 2;
+	}
+
+	public void equipWeapon4(){
+		if (availableWeapons[3] != null)
+			equippedIndex = 3;
+	}
+
+	public void equipWeapon5(){
+		if (availableWeapons[4] != null)
+			equippedIndex = 4;
+	}
+
+	public void equipWeapon6(){
+		if (availableWeapons[5] != null)
+			equippedIndex = 5;
+	}
+
+	public void equipWeapon7(){
+		if (availableWeapons[6] != null)
+			equippedIndex = 6;
+	}
+
 	public void interact(){
 
 	}
 
 	public void openInventory(){
-
+		
+		isInventoryOpen = true;		
 	}
 
 	public void up(){
@@ -241,7 +302,6 @@ public class Fabio extends Person{
 			equippedIndex++;
 		else
 			equippedIndex = 0;
-
 		reloading = false;
 	}
 
@@ -258,14 +318,15 @@ public class Fabio extends Person{
 	public void actionReload(){
 
 		if (reloading)
-			if (System.currentTimeMillis()-beganReloading > Ranged.reloadSpeeds[equippedWeapon])
+			if (System.currentTimeMillis()-beganReloading > Ranged.reloadSpeeds[equippedWeapon]){
 				while (0 < ammoStores.get(equippedWeapon).size()){
 					if (magazines.get(equippedWeapon).size() > Ranged.magSizes[equippedWeapon]-1)
 						break;
 					magazines.get(equippedWeapon).add(1);
 					ammoStores.get(equippedWeapon).remove(0);
 				}
-		reloading = false;	
+				reloading = false;
+			}
 	}
 
 	public void reload(){
@@ -278,15 +339,20 @@ public class Fabio extends Person{
 				}
 	}
 
+	public boolean magEmpty(){
+
+		return magazines.get(equippedWeapon).isEmpty();
+	}
+
 	public void run(){
 
-		dx *= 1.4;
-		dy *= 1.4;
+		dx *= 1.6;
+		dy *= 1.6;
 	}
 
 	public List<Bullet> shoot(Point p){
 
-		if (!reloading && !magazines.get(equippedWeapon).isEmpty()){
+		if (!reloading && !magEmpty() && !mustReleaseShoot){
 			//add recoil and gun specific things: movespeed with gun, etc....
 			List<Bullet> list = new ArrayList<Bullet>();
 			if (System.currentTimeMillis()-lastTimeShot > rateOfFire){
@@ -294,15 +360,16 @@ public class Fabio extends Person{
 				double x = p.getX()-xCoord;
 				double y = p.getY()-yCoord;
 				double theta = Math.atan(y/x);
-				//because of arccos's range we need to add pi if they are shooting to their left
+				//because of arccos's range we need to add pi if they are shooting to the left
 				if (p.getX()-xCoord < 0)
 					theta += Math.PI;
 
+				checkFireMode();
 				switch (equippedWeapon){
 				//shotguns need to shoot multiple bullets so i looped it to add several bullets
-				//also need to add the explosives for rpg and nade launcher, as well as arrows for
-				//crossbow, other than that all other guns will just run through the default
-				//that adds a bullet normally
+				//also need to add the explosives for rpg and nade launcher, as well as 
+				//arrows for crossbow, other than that all other guns will just run through
+				//the default that adds a bullet normally
 				case 12:
 					for (int i = 0; i < 8; i++)
 						list.add(new Bullet(xCoord, yCoord, theta, equippedWeapon));
@@ -351,8 +418,28 @@ public class Fabio extends Person{
 		currentHealth -= d;
 	}
 
+	public void checkFireMode(){
+
+		switch (Ranged.fireModes[equippedWeapon]){
+		case 0 :
+			mustReleaseShoot = true;
+			break;
+		case 1:
+			mustReleaseShoot = false;
+			break;
+		default:
+			System.out.println("There was an error in selecting a fire mode");
+			break;
+		}
+	}
+
 	public void aoePickUp(){
 
 
+	}
+
+	public void resetShot(){
+
+		mustReleaseShoot = false;
 	}
 }

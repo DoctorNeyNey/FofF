@@ -1,0 +1,151 @@
+import java.awt.Font;
+import java.awt.Rectangle;
+import java.io.InputStream;
+
+import javax.annotation.Resource;
+
+import org.lwjgl.opengl.Display;
+import org.lwjgl.opengl.GL11;
+import org.newdawn.slick.Color;
+import org.newdawn.slick.TrueTypeFont;
+import org.newdawn.slick.opengl.Texture;
+import org.newdawn.slick.opengl.TextureLoader;
+import org.newdawn.slick.util.ResourceLoader;
+
+public class IntroScreen {
+
+	private String[] menu = {"Play", "Options", "Quit"};
+	private TrueTypeFont menuFont;
+	private Texture texture;
+	private Color[] colors = {Color.white, Color.white, Color.white, Color.white};
+	private int selectedIndex = 0;
+	private boolean mustRelease = false, displayMainOptions = false, usingMouse = false;
+	private Panel p;
+
+
+	public IntroScreen(Panel p){
+
+		this.p = p;
+
+		try{
+			//creates the font
+			InputStream inputStream = ResourceLoader.getResourceAsStream("Fonts/BodoniXT.ttf");
+			Font menuFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);
+			this.menuFont = new TrueTypeFont(menuFont.deriveFont(48f), false);
+
+			//loads the image for the title
+			texture = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("Images/FABLE OF FABIO TITLE SCREEN1.png"));
+		} catch (Exception e){
+			e.printStackTrace();
+		}
+
+	}
+
+	private void drawTitle(){
+
+		Color.white.bind();
+		texture.bind();
+		GL11.glBegin(GL11.GL_QUADS);
+
+		GL11.glTexCoord2f(0,0);
+		GL11.glVertex2f(680,-900);
+		GL11.glTexCoord2f(1,0);
+		GL11.glVertex2f(680+texture.getTextureWidth(),-900);
+		GL11.glTexCoord2f(1,1);
+		GL11.glVertex2f(680+texture.getTextureWidth(),-900+texture.getTextureHeight());
+		GL11.glTexCoord2f(0,1);
+		GL11.glVertex2f(680,-900+texture.getTextureHeight());
+
+		GL11.glEnd();
+	}
+
+	public void draw(){
+
+		GL11.glEnable(GL11.GL_BLEND);
+		GL11.glRotated(180, 0, Display.getHeight()/2, 0);
+		GL11.glRotated(180, 0, 0, 0);
+
+		//need to use the negative in the y position
+		for (int x = 0; x < menu.length; x++)
+			menuFont.drawString(1000-menuFont.getWidth(menu[x])/2, -700+100*x, menu[x], colors[x]);
+
+		drawTitle();
+		GL11.glDisable(GL11.GL_BLEND);
+		GL11.glRotated(180, 0, -Display.getHeight()/2, 0);
+		GL11.glRotated(180, 0, 0, 0);
+
+	}
+
+	public void highLightSelectedIndex(){
+
+		for (int x = 0; x < colors.length; x++)
+			colors[x] = Color.white;
+
+		colors[selectedIndex] = Color.yellow;
+	}
+
+	public void up(){
+
+		if (!mustRelease)
+			if (selectedIndex > 0){
+				selectedIndex--;
+				mustRelease = true;
+			}
+	}
+
+	public void down(){
+
+		if (!mustRelease)
+			if (selectedIndex < menu.length-1){
+				selectedIndex++;
+				mustRelease = true;
+			}
+	}
+
+	private void openOptions(){
+
+		String[] temp = {"General", "Controls", "Audio Settings", "Video Settings"};
+		menu = temp;
+
+		displayMainOptions = true;
+	}
+
+	public void execute(){
+
+		if (!displayMainOptions){
+			if (selectedIndex == 0){
+				p.createBoard();
+				p.passIntroScreen();
+			}
+
+			else if (selectedIndex == 1)
+				openOptions();
+
+			else
+				System.exit(0);
+		}
+		
+		else if (displayMainOptions){
+			
+			
+			
+			
+			
+			
+		}
+	}
+
+	public void back(){
+		
+		if (displayMainOptions){
+			String[] temp = {"Play", "Options", "Quit"};
+			menu = temp;
+			displayMainOptions = false;
+		}
+	}
+	
+	public void resetRelease(){
+
+		mustRelease = false;
+	}
+}
