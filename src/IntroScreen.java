@@ -1,8 +1,5 @@
 import java.awt.Font;
-import java.awt.Rectangle;
 import java.io.InputStream;
-
-import javax.annotation.Resource;
 
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
@@ -17,9 +14,9 @@ public class IntroScreen {
 	private String[] menu = {"Play", "Options", "Quit"};
 	private TrueTypeFont menuFont;
 	private Texture texture;
-	private Color[] colors = {Color.white, Color.white, Color.white, Color.white};
+	private Color[] colors = {Color.white, Color.white, Color.white, Color.white, Color.white};
 	private int selectedIndex = 0;
-	private boolean mustRelease = false, displayMainOptions = false, usingMouse = false;
+	private boolean mustRelease = false, displayMainOptions = false, displayOptionComponent = false;
 	private Panel p;
 
 
@@ -104,7 +101,7 @@ public class IntroScreen {
 
 	private void openOptions(){
 
-		String[] temp = {"Controls", "Gameplay", "Audio Settings", "Video Settings"};
+		String[] temp = {"Controls", "Gameplay", "Audio Settings", "Video Settings", "Back"};
 		selectedIndex = 0;
 		menu = temp;
 		displayMainOptions = true;
@@ -112,39 +109,61 @@ public class IntroScreen {
 
 	public void execute(){
 
-		if (!displayMainOptions){
-			if (selectedIndex == 0){
-				p.createBoard();
-				p.passIntroScreen();
+		if (!mustRelease){
+			if (!displayMainOptions && !displayOptionComponent){
+				if (selectedIndex == 0){
+					p.createBoard();
+					p.passIntroScreen();
+				}
+
+				else if (selectedIndex == 1)
+					openOptions();
+
+				else
+					System.exit(0);
 			}
 
-			else if (selectedIndex == 1)
-				openOptions();
+			else if (displayMainOptions){		
 
-			else
-				System.exit(0);
+				if (selectedIndex == 0)
+					System.out.println("controls menu has been selected");
+
+				else if (selectedIndex == 1)
+					System.out.println("gameplay menu has been selected");
+
+				else if (selectedIndex == 2)
+					System.out.println("Audio Settings have been selected");
+
+				else if (selectedIndex == 3)
+					System.out.println("Video Settings have been selected");
+
+				else 
+					back();
+			}
 		}
-		
-		else if (displayMainOptions){		
-			
-			
-			
-			
-		}
+		mustRelease = true;
 	}
 
 	public void back(){
-		
-		if (displayMainOptions){
-			String[] temp = {"Play", "Options", "Quit"};
-			menu = temp;
-			displayMainOptions = false;
-			
+		if (!mustRelease){
+			if (displayMainOptions){
+				String[] temp = {"Play", "Options", "Quit"};
+				menu = temp;
+				displayMainOptions = false;
+				selectedIndex = 0;
+				mustRelease = true;
+			}
+			else if (displayOptionComponent){
+				String[] temp = {"Controls", "Gameplay", "Audio Settings", "Video Settings", "Back"};
+				menu = temp;		
+				displayMainOptions = true;
+				displayOptionComponent = false;
+				selectedIndex = 0;
+				mustRelease = true;
+			}
 		}
-		
-		selectedIndex = 0;
 	}
-	
+
 	public void resetRelease(){
 
 		mustRelease = false;

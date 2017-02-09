@@ -9,13 +9,13 @@ import org.lwjgl.opengl.GL11;
 
 
 public class Panel {
-
 	private boolean pastIntroScreen = false;
 	private Board board;
 	private IntroScreen introScreen;
 
-
+	
 	public static void main(String[] args){
+		
 		new Panel();
 	}
 
@@ -84,10 +84,9 @@ public class Panel {
 
 		board = new Board();
 	}
-	
+
 	public void passIntroScreen(){
-		
-		
+
 		pastIntroScreen = true;
 		introScreen = null;
 	}
@@ -183,13 +182,13 @@ public class Panel {
 				board.playerResetShot();
 
 			//quick close
-			if (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE))
+			if (Keyboard.isKeyDown(Keyboard.KEY_EQUALS))
 				System.exit(0);
 		}
 		else {
 			//quick close
-			
-			if (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE))
+
+			if (Keyboard.isKeyDown(Keyboard.KEY_EQUALS))
 				System.exit(0);
 
 			if (Keyboard.isKeyDown(Keyboard.KEY_DOWN) || Keyboard.isKeyDown(Keyboard.KEY_S))
@@ -199,15 +198,15 @@ public class Panel {
 				introScreen.up();
 
 			if (!Keyboard.isKeyDown(Keyboard.KEY_UP) && !Keyboard.isKeyDown(Keyboard.KEY_DOWN)
-					&& !Keyboard.isKeyDown(Keyboard.KEY_S) && !Keyboard.isKeyDown(Keyboard.KEY_W))
+					&& !Keyboard.isKeyDown(Keyboard.KEY_S) && !Keyboard.isKeyDown(Keyboard.KEY_W)
+					&& !Keyboard.isKeyDown(Keyboard.KEY_ESCAPE) && !Keyboard.isKeyDown(Keyboard.KEY_SPACE))
 				introScreen.resetRelease();
 
 			if (Keyboard.isKeyDown(Keyboard.KEY_SPACE))
 				introScreen.execute();
-			
-			if (Keyboard.isKeyDown(Keyboard.KEY_1))
+
+			if (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE))
 				introScreen.back();
 		}
 	}
-
 }
