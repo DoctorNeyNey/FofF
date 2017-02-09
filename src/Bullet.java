@@ -1,3 +1,4 @@
+import java.awt.Polygon;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
@@ -6,7 +7,7 @@ import org.lwjgl.opengl.GL11;
 
 public class Bullet extends Moveable {
 
-	private List<Rectangle> rects = new ArrayList<Rectangle>();
+	private Polygon poly;
 	private int damage;
 
 
@@ -189,13 +190,34 @@ public class Bullet extends Moveable {
 		double sin = Math.sin(theta+variability);
 		dx = cos*bulletVelocity;
 		dy = sin*bulletVelocity;
-		//Temporary assignment, to be replaced with images
+
 		width = 3;
 		height = 3;
+		
+
+		createPolygon();
+		
 	}
 
+	private void createPolygon(){
+		
+//		int[] xCoords = {
+//			
+//		};
+//		
+//		int[] yCoords = {
+//			
+//		};
+//		
+//		poly.npoints = xCoords.length;
+//		poly.xpoints = xCoords;
+//		poly.ypoints = yCoords;
+//		
+	}
+	
 	public void draw(){
 
+		System.out.println("drawing");
 		GL11.glColor3d(0.9960784314, 0.8862745098, 0.2431372549);
 		GL11.glBegin(GL11.GL_QUADS);
 
@@ -207,26 +229,9 @@ public class Bullet extends Moveable {
 		GL11.glEnd();
 	}
 
-	//	public boolean collision(Moveable m){
-	//
-	//		for (Rectangle r : rects)
-	//			if (r.intersects(m.getRect()))
-	//				return true;
-	//		return false;
-	//		
-	//	}
 
 	public boolean collision(Fabio f){		
 
-		int initialHealth = f.getHealth();
-		if (f != null)
-			for (Rectangle rect : rects)
-				if (rect.intersects(f.getRect())){
-					f.dealDamage(damage);
-				}
-		if (f.health != initialHealth)
-			return true;
-		
 		return false;
 	}
 
@@ -238,11 +243,6 @@ public class Bullet extends Moveable {
 	public boolean collision(Person npc){
 
 		return false;
-	}
-
-	public List<Rectangle> getRects(){
-
-		return rects;
 	}
 
 	public int getDamage(){

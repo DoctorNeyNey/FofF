@@ -104,9 +104,9 @@ public class IntroScreen {
 
 	private void openOptions(){
 
-		String[] temp = {"General", "Controls", "Audio Settings", "Video Settings"};
+		String[] temp = {"Controls", "Gameplay", "Audio Settings", "Video Settings"};
+		selectedIndex = 0;
 		menu = temp;
-
 		displayMainOptions = true;
 	}
 
@@ -125,9 +125,7 @@ public class IntroScreen {
 				System.exit(0);
 		}
 		
-		else if (displayMainOptions){
-			
-			
+		else if (displayMainOptions){		
 			
 			
 			
@@ -141,7 +139,10 @@ public class IntroScreen {
 			String[] temp = {"Play", "Options", "Quit"};
 			menu = temp;
 			displayMainOptions = false;
+			
 		}
+		
+		selectedIndex = 0;
 	}
 	
 	public void resetRelease(){

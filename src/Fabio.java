@@ -28,6 +28,7 @@ public class Fabio extends Person{
 			previousEquippedIndex = -1000, currentHealth = 100;
 	private boolean reloading = false, mustReleaseShoot = false;
 	private boolean isInventoryOpen = false;
+	private double theta = 45;
 
 
 	public Fabio(double xCoord, double yCoord) {
@@ -37,8 +38,34 @@ public class Fabio extends Person{
 		height = 20;
 		createMagazinesAndAmmoStores();
 		createFont();
+		initiatePolygon();
 	}
 
+	private void initiatePolygon(){
+		
+		poly = new Polygon2D();
+		
+		double[] tempX = {
+				10*Math.cos(theta),
+				10*Math.cos(theta),
+				10*Math.cos(theta),
+				10*Math.cos(theta)
+		};
+
+		double[] tempY = {
+				10*Math.sin(theta),
+				10*Math.sin(theta),
+				10*Math.sin(theta),
+				10*Math.sin(theta)
+		};
+
+		poly.npoints = tempX.length;
+		poly.xpoints = tempX;
+		poly.ypoints = tempY;
+		
+		
+	}
+	
 	private void createFont(){
 
 		try {
@@ -61,7 +88,7 @@ public class Fabio extends Person{
 
 		GL11.glColor4d(.831372549d, .431372549d, .2862745098d, .5d);
 		GL11.glBegin(GL11.GL_QUADS);
-		
+
 		GL11.glVertex2d(600, 600);
 		GL11.glVertex2d(700, 600);
 		GL11.glVertex2d(700, 700);
@@ -84,19 +111,19 @@ public class Fabio extends Person{
 
 	public void drawInventory(){
 		if (isInventoryOpen){
-			
-			
-			
-			
-			
-			
+
+
+
+
+
+
 		}
 	}
-	
+
 	public void drawHealthBar(int x, int y){
 
-		
-		
+
+
 		//HEALTH BAR
 		//outline
 		GL11.glColor3d(.381019078, .381019078, .381019078);
@@ -172,7 +199,7 @@ public class Fabio extends Person{
 	}
 
 	public void createMagazinesAndAmmoStores(){
-		
+
 		for (int x = 0; x < Ranged.magSizes.length; x++){
 			List<Integer> temp = new ArrayList<Integer>();
 			for (int y = 0; y < Ranged.magSizes[x]; y++)
@@ -197,10 +224,30 @@ public class Fabio extends Person{
 	@Override
 	public void draw(){
 
+		//declare polygon
+		double[] tempX = {
+				10*Math.cos(theta),
+				10*Math.cos(theta),
+				10*Math.cos(theta),
+				10*Math.cos(theta)
+		};
+
+		double[] tempY = {
+				10*Math.sin(theta),
+				10*Math.sin(theta),
+				10*Math.sin(theta),
+				10*Math.sin(theta)
+		};
+
+		poly.npoints = tempX.length;
+		poly.xpoints = tempX;
+		poly.ypoints = tempY;
+		
+		//begin drawing
 		outfit.draw(xCoord, yCoord);
 		GL11.glColor3d(1, 1, 1);
-		GL11.glBegin(GL11.GL_QUADS);
-
+		GL11.glBegin(GL11.GL_QUADS);		
+		
 		GL11.glVertex2d(xCoord+width/2, yCoord+height/2);
 		GL11.glVertex2d(xCoord+width/2, yCoord-height/2);
 		GL11.glVertex2d(xCoord-width/2, yCoord-height/2);
@@ -262,7 +309,7 @@ public class Fabio extends Person{
 	}
 
 	public void openInventory(){
-		
+
 		isInventoryOpen = true;		
 	}
 
