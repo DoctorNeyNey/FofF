@@ -16,6 +16,7 @@ public class Moveable {
 
 		this.xCoord = xCoord;
 		this.yCoord = yCoord;
+		poly = new Polygon2D();
 	}
 
 	public void move(){

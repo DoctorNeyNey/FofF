@@ -42,9 +42,9 @@ public class Fabio extends Person{
 	}
 
 	private void initiatePolygon(){
-		
+
 		poly = new Polygon2D();
-		
+
 		double[] tempX = {
 				10*Math.cos(theta),
 				10*Math.cos(theta),
@@ -62,10 +62,10 @@ public class Fabio extends Person{
 		poly.npoints = tempX.length;
 		poly.xpoints = tempX;
 		poly.ypoints = tempY;
-		
-		
+
+
 	}
-	
+
 	private void createFont(){
 
 		try {
@@ -242,12 +242,12 @@ public class Fabio extends Person{
 		poly.npoints = tempX.length;
 		poly.xpoints = tempX;
 		poly.ypoints = tempY;
-		
+
 		//begin drawing
 		outfit.draw(xCoord, yCoord);
 		GL11.glColor3d(1, 1, 1);
 		GL11.glBegin(GL11.GL_QUADS);		
-		
+
 		GL11.glVertex2d(xCoord+width/2, yCoord+height/2);
 		GL11.glVertex2d(xCoord+width/2, yCoord-height/2);
 		GL11.glVertex2d(xCoord-width/2, yCoord-height/2);
@@ -270,38 +270,52 @@ public class Fabio extends Person{
 	}
 
 	public void equipWeapon1(){
-		if (availableWeapons[0] != null)
+		if (availableWeapons[0] != null){
 			equippedIndex = 0;
+			reloading = false;
+		}
 	}
 
 	public void equipWeapon2(){
-		if (availableWeapons[1] != null)
+		if (availableWeapons[1] != null){
 			equippedIndex = 1;
+			reloading = false;
+		}
 	}
 
 	public void equipWeapon3(){
-		if (availableWeapons[2] != null)
+		if (availableWeapons[2] != null){
 			equippedIndex = 2;
+			reloading = false;
+		}
 	}
 
 	public void equipWeapon4(){
-		if (availableWeapons[3] != null)
+		if (availableWeapons[3] != null){
 			equippedIndex = 3;
+			reloading = false;
+		}
 	}
 
 	public void equipWeapon5(){
-		if (availableWeapons[4] != null)
+		if (availableWeapons[4] != null){
 			equippedIndex = 4;
+			reloading = false;
+		}
 	}
 
 	public void equipWeapon6(){
-		if (availableWeapons[5] != null)
+		if (availableWeapons[5] != null){
 			equippedIndex = 5;
+			reloading = false;
+		}
 	}
 
 	public void equipWeapon7(){
-		if (availableWeapons[6] != null)
+		if (availableWeapons[6] != null){
 			equippedIndex = 6;
+			reloading = false;
+		}
 	}
 
 	public void interact(){
@@ -387,7 +401,6 @@ public class Fabio extends Person{
 	}
 
 	public boolean magEmpty(){
-
 		return magazines.get(equippedWeapon).isEmpty();
 	}
 

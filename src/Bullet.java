@@ -7,14 +7,14 @@ import org.lwjgl.opengl.GL11;
 
 public class Bullet extends Moveable {
 
-	private Polygon poly;
 	private int damage;
-
+	private double theta;
 
 	public Bullet(double xCoord, double yCoord, double theta, int type){	
 		super(xCoord, yCoord);
 		double bulletVelocity = 0;
 		double variability = 0;
+		this.theta = theta;
 		switch (type){
 		case 0:
 			//COLT
@@ -189,11 +189,7 @@ public class Bullet extends Moveable {
 		double cos = Math.cos(theta+variability);
 		double sin = Math.sin(theta+variability);
 		dx = cos*bulletVelocity;
-		dy = sin*bulletVelocity;
-
-		width = 3;
-		height = 3;
-		
+		dy = sin*bulletVelocity;		
 
 		createPolygon();
 		
@@ -201,31 +197,38 @@ public class Bullet extends Moveable {
 
 	private void createPolygon(){
 		
-//		int[] xCoords = {
-//			
-//		};
-//		
-//		int[] yCoords = {
-//			
-//		};
-//		
-//		poly.npoints = xCoords.length;
-//		poly.xpoints = xCoords;
-//		poly.ypoints = yCoords;
-//		
+		double[] xCoords = {
+
+				xCoord + 8.24264068712*Math.cos(theta+Math.PI/4),
+				xCoord + 8.24264068712*Math.cos(theta+3*Math.PI/4),
+				xCoord + 8.24264068712*Math.cos(theta+5*Math.PI/4),
+				xCoord + 8.24264068712*Math.cos(theta+7*Math.PI/4)
+		};
+		
+		double[] yCoords = {
+
+				yCoord + 8.24264068712*Math.sin(theta+Math.PI/4),
+				yCoord + 8.24264068712*Math.sin(theta+3*Math.PI/4),
+				yCoord + 8.24264068712*Math.sin(theta+5*Math.PI/4),
+				yCoord + 8.24264068712*Math.sin(theta+7*Math.PI/4)
+		};
+		
+		poly.npoints = xCoords.length;
+		poly.xpoints = xCoords;
+		poly.ypoints = yCoords;
 	}
 	
 	public void draw(){
 
-		System.out.println("drawing");
-		GL11.glColor3d(0.9960784314, 0.8862745098, 0.2431372549);
+		createPolygon();
+		
+		GL11.glColor3d(0.9960784314, 0.8862745098, 0.2431372549);		
+		
 		GL11.glBegin(GL11.GL_QUADS);
-
-		GL11.glVertex2d(xCoord+width, yCoord+height);
-		GL11.glVertex2d(xCoord+width, yCoord-height);
-		GL11.glVertex2d(xCoord-width, yCoord-height);
-		GL11.glVertex2d(xCoord-width, yCoord+height);
-
+		
+		for (int x = 0; x < poly.npoints; x++)
+			GL11.glVertex2d(poly.xpoints[x], poly.ypoints[x]);
+		
 		GL11.glEnd();
 	}
 
