@@ -1,15 +1,20 @@
 import java.awt.Polygon;
 import java.awt.Rectangle;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.lwjgl.opengl.GL11;
+import org.newdawn.slick.openal.Audio;
+import org.newdawn.slick.openal.AudioLoader;
+import org.newdawn.slick.util.ResourceLoader;
 
 public class Bullet extends Moveable {
 
 	private int damage;
 	private double theta;
-
+	private Audio gunShot;
+	
 	public Bullet(double xCoord, double yCoord, double theta, int type){	
 		super(xCoord, yCoord);
 		double bulletVelocity = 0;
@@ -21,36 +26,66 @@ public class Bullet extends Moveable {
 			variability = .14*Math.random()-.07;
 			bulletVelocity = 14;
 			damage = 22;
+			try {
+				gunShot = AudioLoader.getAudio("WAV", ResourceLoader.getResourceAsStream("Audio/Sound Effects/9mm.wav"));
+			} catch (IOException e){
+				e.printStackTrace();
+			}
 			break;
 		case 1:
 			//BERETTA
 			variability = .14*Math.random()-.07;
 			bulletVelocity = 14;
 			damage = 20;
+			try {
+				gunShot = AudioLoader.getAudio("WAV", ResourceLoader.getResourceAsStream("Audio/Sound Effects/9mm.wav"));
+			} catch (IOException e){
+				e.printStackTrace();
+			}
 			break;
 		case 2:
 			//GLOCK
 			variability = .14*Math.random()-.07;
 			bulletVelocity = 14;
 			damage = 18;
+			try {
+				gunShot = AudioLoader.getAudio("WAV", ResourceLoader.getResourceAsStream("Audio/Sound Effects/9mm.wav"));
+			} catch (IOException e){
+				e.printStackTrace();
+			}
 			break;
 		case 3:
 			//BENELLI
 			variability = .14*Math.random()-.07;
 			bulletVelocity = 14;
 			damage = 20;
+			try {
+				gunShot = AudioLoader.getAudio("WAV", ResourceLoader.getResourceAsStream("Audio/Sound Effects/9mm.wav"));
+			} catch (IOException e){
+				e.printStackTrace();
+			}
 			break;
 		case 4:
 			//MAGNUM
 			variability = .08*Math.random()-.04;
 			bulletVelocity = 22;
 			damage = 40;
+			try {
+				gunShot = AudioLoader.getAudio("WAV", ResourceLoader.getResourceAsStream("Audio/Sound Effects/9mm.wav"));
+			} catch (IOException e){
+				e.printStackTrace();
+			}
 			break;
 		case 5:
 			//DESERT EAGLE
 			variability = .7*Math.random()-.035;
 			bulletVelocity = 22;
 			damage = 35;
+			try {
+				gunShot = AudioLoader.getAudio("WAV", ResourceLoader.getResourceAsStream("Audio/Sound Effects/9mm.wav"));
+			} catch (IOException e){
+				e.printStackTrace();
+			}
 		case 6:
 			//MP9
 			variability = .14*Math.random()-.07;
@@ -190,7 +225,7 @@ public class Bullet extends Moveable {
 		double sin = Math.sin(theta+variability);
 		dx = cos*bulletVelocity;
 		dy = sin*bulletVelocity;		
-
+		gunShot.playAsSoundEffect(1.0f, 1.0f, false);
 		createPolygon();
 		
 	}

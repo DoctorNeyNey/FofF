@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.Color;
@@ -28,7 +29,7 @@ public class Fabio extends Person{
 			previousEquippedIndex = -1000, currentHealth = 100;
 	private boolean reloading = false, mustReleaseShoot = false;
 	private boolean isInventoryOpen = false;
-	private double theta = 45;
+	private double theta = 0;
 
 
 	public Fabio(double xCoord, double yCoord) {
@@ -44,26 +45,7 @@ public class Fabio extends Person{
 	private void initiatePolygon(){
 
 		poly = new Polygon2D();
-
-		double[] tempX = {
-				10*Math.cos(theta),
-				10*Math.cos(theta),
-				10*Math.cos(theta),
-				10*Math.cos(theta)
-		};
-
-		double[] tempY = {
-				10*Math.sin(theta),
-				10*Math.sin(theta),
-				10*Math.sin(theta),
-				10*Math.sin(theta)
-		};
-
-		poly.npoints = tempX.length;
-		poly.xpoints = tempX;
-		poly.ypoints = tempY;
-
-
+		createPolygon();
 	}
 
 	private void createFont(){
@@ -84,7 +66,6 @@ public class Fabio extends Person{
 		Integer currentAmmo = magazines.get(equippedWeapon).size();
 		Integer totalAmmo = ammoStores.get(equippedWeapon).size();
 		String ammoPrintOut = currentAmmo.toString() + "-" + totalAmmo.toString();
-
 
 		GL11.glColor4d(.831372549d, .431372549d, .2862745098d, .5d);
 		GL11.glBegin(GL11.GL_QUADS);
@@ -213,48 +194,56 @@ public class Fabio extends Person{
 		}
 
 		//temporary ammo addage for testing
-		for (int x = 0; x < Ranged.maxAmmoStashes.length; x++){
-			for (int y = 0; y < Ranged.maxAmmoStashes[x]; y++){
+		for (int x = 0; x < Ranged.maxAmmoStashes.length; x++)
+			for (int y = 0; y < Ranged.maxAmmoStashes[x]; y++)
 				ammoStores.get(x).add(1);
-			}
-		}
 
 	}
 
-	@Override
-	public void draw(){
+	public void createPolygon(){
 
 		//declare polygon
 		double[] tempX = {
-				10*Math.cos(theta),
-				10*Math.cos(theta),
-				10*Math.cos(theta),
-				10*Math.cos(theta)
+				xCoord + 14.1421356237*Math.cos(theta + Math.PI/4),
+				xCoord + 14.1421356237*Math.cos(theta + 3*Math.PI/4),
+				xCoord + 14.1421356237*Math.cos(theta + 5*Math.PI/4),
+				xCoord + 14.1421356237*Math.cos(theta + 7*Math.PI/4)
 		};
 
 		double[] tempY = {
-				10*Math.sin(theta),
-				10*Math.sin(theta),
-				10*Math.sin(theta),
-				10*Math.sin(theta)
+				yCoord + 14.1421356237*Math.sin(theta + Math.PI/4),
+				yCoord + 14.1421356237*Math.sin(theta + 3*Math.PI/4),
+				yCoord + 14.1421356237*Math.sin(theta + 5*Math.PI/4),
+				yCoord + 14.1421356237*Math.sin(theta + 7*Math.PI/4)
 		};
 
 		poly.npoints = tempX.length;
 		poly.xpoints = tempX;
 		poly.ypoints = tempY;
+	}
 
-		//begin drawing
+	@Override
+	public void draw(){
+
+
+		double x = Mouse.getX()-xCoord;
+		double y = Mouse.getY()-yCoord;
+		theta = Math.atan(y/x);
+
+		//because of arccos's range we need to add pi if they are shooting to the left
+		if (Mouse.getX()-xCoord < 0)
+			theta += Math.PI;
+
+		createPolygon();
+
 		outfit.draw(xCoord, yCoord);
 		GL11.glColor3d(1, 1, 1);
 		GL11.glBegin(GL11.GL_QUADS);		
 
-		GL11.glVertex2d(xCoord+width/2, yCoord+height/2);
-		GL11.glVertex2d(xCoord+width/2, yCoord-height/2);
-		GL11.glVertex2d(xCoord-width/2, yCoord-height/2);
-		GL11.glVertex2d(xCoord-width/2, yCoord+height/2);
+		for (int z = 0; z < poly.npoints; z++)
+			GL11.glVertex2d(poly.xpoints[z], poly.ypoints[z]);
 
 		GL11.glEnd();
-		rect = new Rectangle2D.Double(xCoord-width/2, yCoord+height/2, width, height);
 	}
 
 	public void equipWeapon(){
@@ -363,6 +352,7 @@ public class Fabio extends Person{
 			equippedIndex++;
 		else
 			equippedIndex = 0;
+		
 		reloading = false;
 	}
 
@@ -378,7 +368,7 @@ public class Fabio extends Person{
 
 	public void actionReload(){
 
-		if (reloading)
+		if (reloading){
 			if (System.currentTimeMillis()-beganReloading > Ranged.reloadSpeeds[equippedWeapon]){
 				while (0 < ammoStores.get(equippedWeapon).size()){
 					if (magazines.get(equippedWeapon).size() > Ranged.magSizes[equippedWeapon]-1)
@@ -388,7 +378,9 @@ public class Fabio extends Person{
 				}
 				reloading = false;
 			}
+		}
 	}
+
 
 	public void reload(){
 
@@ -401,6 +393,7 @@ public class Fabio extends Person{
 	}
 
 	public boolean magEmpty(){
+		
 		return magazines.get(equippedWeapon).isEmpty();
 	}
 

@@ -129,7 +129,7 @@ public abstract class Ranged extends Weapon{
 	//SHOTGUNS
 	public static final int REMINGTON870 = 12;
 	public static final int REMINGTON870_RATE_OF_FIRE = 550;
-	//public static final int REMINGTON870_RELOAD_SPEED = ;
+	public static final int REMINGTON870_RELOAD_SPEED = 240;
 	public static final int REMINGTON870_MAGAZINE_SIZE = 6;
 	public static final int REMINGTON870_MAX_AMMO = 48;
 	public static final int REMINGTON870_FIRE_MODE = 0;
@@ -138,7 +138,7 @@ public abstract class Ranged extends Weapon{
 
 	public static final int ARMSEL_STRIKER = 13;
 	public static final int ARMSEL_STRIKER_RATE_OF_FIRE = 500;
-	//public static final int ARMSEL_STRIKER_RELOAD_SPEED = ;
+	public static final int ARMSEL_STRIKER_RELOAD_SPEED = 200;
 	public static final int ARMSEL_STRIKER_MAGAZINE_SIZE = 12;
 	public static final int ARMSEL_STRIKER_MAX_AMMO = 96;
 	public static final int ARMSEL_STRIKER_FIRE_MODE = 0;
@@ -165,7 +165,7 @@ public abstract class Ranged extends Weapon{
 
 	public static final int SPAS12 = 16;
 	public static final int SPAS12_RATE_OF_FIRE = 850;
-	//public static final int SPAS12_RELOAD_SPEED = ;
+	public static final int SPAS12_RELOAD_SPEED = 240;
 	public static final int SPAS12_MAGAZINE_SIZE = 7;
 	public static final int SPAS12_MAX_AMMO = 56;
 	public static final int SPAS12_FIRE_MODE = 0;
@@ -301,7 +301,7 @@ public abstract class Ranged extends Weapon{
 	//SPECIAL
 	public static final int GRENADE_LAUNCHER = 30;
 	public static final int GRENADE_LAUNCHER_RATE_OF_FIRE = 750;
-	//public static final int GRENADE_LAUNCHER_RELOAD_SPEED = ;
+	public static final int GRENADE_LAUNCHER_RELOAD_SPEED = 230;
 	public static final int GRENADE_LAUNCHER_MAGAZINE_SIZE = 4;
 	public static final int GRENADE_LAUNCHER_MAX_AMMO = 16;
 	public static final int GRENADE_LAUNCHER_FIRE_MODE = 0;
@@ -389,11 +389,11 @@ public abstract class Ranged extends Weapon{
 			UMP45_RELOAD_SPEED,
 			UZI_RELOAD_SPEED,
 			VECTOR_RELOAD_SPEED,
-			1,//REMINGTON870_RELOAD_SPEED,
-			1,//ARMSEL_STRIKER_RELOAD_SPEED,
+			REMINGTON870_RELOAD_SPEED,
+			ARMSEL_STRIKER_RELOAD_SPEED,
 			USAS12_RELOAD_SPEED,
 			SAWED_OFF_RELOAD_SPEED,
-			1,//SPAS12_RELOAD_SPEED,
+			SPAS12_RELOAD_SPEED,
 			AEK971_RELOAD_SPEED,
 			AR15_RELOAD_SPEED,
 			AK47_RELOAD_SPEED,
@@ -407,7 +407,7 @@ public abstract class Ranged extends Weapon{
 			BARRETT50_RELOAD_SPEED,
 			DRAGUNOV_RELOAD_SPEED,
 			SV98_RELOAD_SPEED,
-			1,//GRENADE_LAUNCHER_RELOAD_SPEED,
+			GRENADE_LAUNCHER_RELOAD_SPEED,
 			RPG_RELOAD_SPEED,
 			MINIGUN_RELOAD_SPEED,
 			CROSSBOW_RELOAD_SPEED
