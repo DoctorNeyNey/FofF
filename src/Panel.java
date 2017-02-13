@@ -96,7 +96,6 @@ public class Panel {
 		board.drawAll();
 		board.moveAll();
 		board.checkCollisions();
-		board.garbageCollector();
 		board.playerEquipWeapon();
 		board.playerReloadingAction();
 	}
@@ -186,8 +185,8 @@ public class Panel {
 				System.exit(0);
 		}
 		else {
+			
 			//quick close
-
 			if (Keyboard.isKeyDown(Keyboard.KEY_EQUALS))
 				System.exit(0);
 

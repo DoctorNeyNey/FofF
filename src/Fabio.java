@@ -67,19 +67,22 @@ public class Fabio extends Person{
 		Integer totalAmmo = ammoStores.get(equippedWeapon).size();
 		String ammoPrintOut = currentAmmo.toString() + "-" + totalAmmo.toString();
 
-		GL11.glColor4d(.831372549d, .431372549d, .2862745098d, .5d);
+		GL11.glEnable(GL11.GL_BLEND);
+		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+
+		GL11.glColor4f(.831372549f, .431372549f, .2862745098f, .5f);
+		GL11.glPushMatrix();
 		GL11.glBegin(GL11.GL_QUADS);
 
 		GL11.glVertex2d(600, 600);
 		GL11.glVertex2d(700, 600);
 		GL11.glVertex2d(700, 700);
 		GL11.glVertex2d(600, 700);
-		GL11.glPushMatrix();
 
 		GL11.glEnd();
-		GL11.glEnable(GL11.GL_BLEND);
-
-		GL11.glRotated(180, 0, Display.getHeight()/2, 0);
+		GL11.glPopMatrix();
+		
+		GL11.glRotated(180, 0, Display.getHeight()/2, 0	);
 		GL11.glRotated(180, 0, 0, 0);
 
 		//need to use the negative in the y position
@@ -93,17 +96,12 @@ public class Fabio extends Person{
 	public void drawInventory(){
 		if (isInventoryOpen){
 
-
-
-
-
+			
 
 		}
 	}
 
 	public void drawHealthBar(int x, int y){
-
-
 
 		//HEALTH BAR
 		//outline
@@ -152,10 +150,10 @@ public class Fabio extends Person{
 			GL11.glColor3d(.381019078, .381019078, .381019078);
 			GL11.glBegin(GL11.GL_QUADS);
 
-			GL11.glVertex2d(xCoord - 23, yCoord + 27);
-			GL11.glVertex2d(xCoord + 23, yCoord + 27);
-			GL11.glVertex2d(xCoord + 23, yCoord + 13);
-			GL11.glVertex2d(xCoord - 23, yCoord + 13);
+			GL11.glVertex2d(xCoord - 23, yCoord + 31);
+			GL11.glVertex2d(xCoord + 23, yCoord + 31);
+			GL11.glVertex2d(xCoord + 23, yCoord + 16);
+			GL11.glVertex2d(xCoord - 23, yCoord + 16);
 
 			GL11.glEnd();
 
@@ -163,10 +161,10 @@ public class Fabio extends Person{
 			GL11.glColor3d(1, 0.75294117647, 0.01960784313);
 			GL11.glBegin(GL11.GL_QUADS);
 
-			GL11.glVertex2d(xCoord - 20, yCoord + 25);
-			GL11.glVertex2d(xCoord - 20 + displacement, yCoord + 25);
-			GL11.glVertex2d(xCoord - 20 + displacement, yCoord + 15);
-			GL11.glVertex2d(xCoord - 20, yCoord + 15);
+			GL11.glVertex2d(xCoord - 20, yCoord + 28);
+			GL11.glVertex2d(xCoord - 20 + displacement, yCoord + 28);
+			GL11.glVertex2d(xCoord - 20 + displacement, yCoord + 18);
+			GL11.glVertex2d(xCoord - 20, yCoord + 18);
 
 			GL11.glEnd();
 		}
@@ -488,7 +486,8 @@ public class Fabio extends Person{
 
 	public void aoePickUp(){
 
-
+		
+		
 	}
 
 	public void resetShot(){

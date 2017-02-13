@@ -33,13 +33,14 @@ public class Board {
 	}
 
 	public void drawAll(){
-
-		drawHUD();
+		
+		drawHUD();		
 		for (Bullet b : friendlyBullets)
-			b.draw();
+			b.draw();		
 		for (Bullet b : enemyBullets)
 			b.draw();
 		fabio.draw();
+
 	}
 
 	public void checkCollisions(){
@@ -47,7 +48,6 @@ public class Board {
 		for (int x = enemyBullets.size() - 1; x > -1; x--)
 			if (enemyBullets.get(x).collision(fabio))
 				enemyBullets.remove(x);
-
 	}
 
 	private void createFabio(){
@@ -158,10 +158,6 @@ public class Board {
 
 	public void openPlayerInventory(){
 		fabio.openInventory();
-	}
-
-	public void garbageCollector(){
-
 	}
 
 	public boolean playerMagEmpty(){

@@ -1,9 +1,3 @@
-import java.awt.Polygon;
-import java.awt.Rectangle;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.openal.Audio;
 import org.newdawn.slick.openal.AudioLoader;
@@ -17,9 +11,13 @@ public class Bullet extends Moveable {
 
 	public Bullet(double xCoord, double yCoord, double theta, int type){	
 		super(xCoord, yCoord);
-		
-		double bulletVelocity = Ranged.bulletVelocities[type];
-		double variability = Ranged.variabilities[type];
+
+		double bulletVelocity;
+		if (type >= 12 && type <= 16)
+			bulletVelocity = Ranged.bulletVelocities[type]+2*Math.random();
+		else
+			bulletVelocity = Ranged.bulletVelocities[type];
+		double variability = Ranged.variabilities[type]*Math.random()-Ranged.variabilities[type]/2;
 		damage = Ranged.damages[type];
 		this.theta = theta;
 		double cos = Math.cos(theta+variability);
@@ -27,7 +25,6 @@ public class Bullet extends Moveable {
 		dx = cos*bulletVelocity;
 		dy = sin*bulletVelocity;		
 		createPolygon();
-
 	}
 
 	private void createPolygon(){

@@ -1,17 +1,22 @@
 
 public abstract class Ranged {
-	
+
 	//EACH WEAPONS EQUIVALENT NUMBER IS BASICALLY ITS ID THAT CAN BE USED TO ACCESS ITS 
 	//INFORMATION FROM EACH SETS ARRAY
-	
+
 	//RATE OF FIRE AND RELOAD SPEED ARE IN MILISECONDS BETWEEN EACH SHOT AND DURATION,
 	//RESPECTIVELY
-	
+
 	//MAGAZINE SIZE AND MAX AMMO ARE IN NUMBER OF ROUNDS
-	
+
 	//FIRE MODES :0 IS SEMI-AUTOMATIC
-	//			1 IS AUTOMATIC
+	//			  1 IS AUTOMATIC
 	
+	//VARIABILITY IS THE ANGLE IN RADIANS THAT THE SHOT WILL BE FIRED
+	
+	//NAME IS THE STRING DISPLAYED IN THE GAME, ONLY CHANGE THAT NOT THE VARIABLE NAME
+	
+
 	//PISTOLS
 	public static final int M1911 = 0;
 	public static final int M1911_RATE_OF_FIRE = 300;
@@ -19,33 +24,33 @@ public abstract class Ranged {
 	public static final int M1911_MAGAZINE_SIZE = 8;
 	public static final int M1911_MAX_AMMO = 72;
 	public static final int M1911_FIRE_MODE = 0;
-	public static final double M1911_VARIABILITY = .14*Math.random()-.07;;
+	public static final double M1911_VARIABILITY = .14;
 	public static final double M1911_BULLET_VELOCITY = 14;
 	public static final double M1911_DAMAGE = 20;
 	public static final String M1911_NAME = "M1911";
 	//public static final int M1911_PLAYER_MOVESPEED = ;
-	
+
 	public static final int M9 = 1;
 	public static final int M9_RATE_OF_FIRE = 275;
 	public static final int M9_RELOAD_SPEED = 1300;
 	public static final int M9_MAGAZINE_SIZE = 12;
 	public static final int M9_MAX_AMMO = 108;
 	public static final int M9_FIRE_MODE = 0;
-	public static final double M9_VARIABILITY = .14*Math.random()-.07;
+	public static final double M9_VARIABILITY = .14;
 	public static final double M9_BULLET_VELOCITY = 14;
 	public static final double M9_DAMAGE = 18;
 	public static final String M9_NAME = "M9";
 	//public static final int M9_PLAYER_MOVESPEED = ;
 
 	public static final int GLOCK18 = 2;
-	public static final int GLOCK18_RATE_OF_FIRE = 50;
-	public static final int GLOCK18_RELOAD_SPEED = 1500;
+	public static final int GLOCK18_RATE_OF_FIRE = 75;
+	public static final int GLOCK18_RELOAD_SPEED = 1200;
 	public static final int GLOCK18_MAGAZINE_SIZE = 17;
 	public static final int GLOCK18_MAX_AMMO = 119;
 	public static final int GLOCK18_FIRE_MODE = 1;
-	public static final double GLOCK18_VARIABILITY = .14*Math.random()-.07;
+	public static final double GLOCK18_VARIABILITY = .19;
 	public static final double GLOCK18_BULLET_VELOCITY = 14;
-	public static final double GLOCK18_DAMAGE = 16;
+	public static final double GLOCK18_DAMAGE = 13.5;
 	public static final String GLOCK18_NAME = "GLOCK 18";
 
 	//public static final int GLOCK18_PLAYER_MOVESPEED = ;
@@ -56,31 +61,31 @@ public abstract class Ranged {
 	public static final int BENELLI_MAGAZINE_SIZE = 7;
 	public static final int BENELLI_MAX_AMMO = 84;
 	public static final int BENELLI_FIRE_MODE = 0;
-	public static final double BENELLI_VARIABILITY = .14*Math.random()-.07;
+	public static final double BENELLI_VARIABILITY = .14;
 	public static final double BENELLI_BULLET_VELOCITY = 15;
 	public static final double BENELLI_DAMAGE = 19;
 	public static final String BENELLI_NAME = "BENELLI";
 	//public static final int BENELLI_PLAYER_MOVESPEED = ;
 
 	public static final int MAGNUM = 4;
-	public static final int MAGNUM_RATE_OF_FIRE = 500;
+	public static final int MAGNUM_RATE_OF_FIRE = 425;
 	public static final int MAGNUM_RELOAD_SPEED = 1900;
 	public static final int MAGNUM_MAGAZINE_SIZE = 6;
 	public static final int MAGNUM_MAX_AMMO = 42;
 	public static final int MAGNUM_FIRE_MODE = 0;
-	public static final double MAGNUM_VARIABILITY = .1*Math.random()-.05;
+	public static final double MAGNUM_VARIABILITY = .1;
 	public static final double MAGNUM_BULLET_VELOCITY = 21;
 	public static final double MAGNUM_DAMAGE = 40;
 	public static final String MAGNUM_NAME = "MAGNUM";
 	//public static final int MAGNUM_PLAYER_MOVESPEED = ;
 
 	public static final int DEAGLE = 5;
-	public static final int DEAGLE_RATE_OF_FIRE = 425;
+	public static final int DEAGLE_RATE_OF_FIRE = 246;
 	public static final int DEAGLE_RELOAD_SPEED = 1400;
 	public static final int DEAGLE_MAGAZINE_SIZE = 7;
 	public static final int DEAGLE_MAX_AMMO = 49;
 	public static final int DEAGLE_FIRE_MODE = 0;
-	public static final double DEAGLE_VARIABILITY = 0.08*Math.random()-.04;
+	public static final double DEAGLE_VARIABILITY = 0.12;
 	public static final double DEAGLE_BULLET_VELOCITY = 22;
 	public static final double DEAGLE_DAMAGE = 35;
 	public static final String DEAGLE_NAME = "DAGGLE";
@@ -94,7 +99,7 @@ public abstract class Ranged {
 	public static final int MP9_MAGAZINE_SIZE = 25;
 	public static final int MP9_MAX_AMMO = 125;
 	public static final int MP9_FIRE_MODE = 1;
-	public static final double MP9_VARIABILITY = .14*Math.random()-.07;
+	public static final double MP9_VARIABILITY = .16;
 	public static final double MP9_BULLET_VELOCITY = 19;
 	public static final double MP9_DAMAGE = 14;
 	public static final String MP9_NAME = "MP9";
@@ -106,7 +111,7 @@ public abstract class Ranged {
 	public static final int THOMPSON_MAGAZINE_SIZE = 50;
 	public static final int THOMPSON_MAX_AMMO = 250;
 	public static final int THOMPSON_FIRE_MODE = 1;
-	public static final double THOMPSON_VARIABILITY = .18*Math.random()-.09;
+	public static final double THOMPSON_VARIABILITY = .18;
 	public static final double THOMPSON_BULLET_VELOCITY = 19;
 	public static final double THOMPSON_DAMAGE = 16.5;
 	public static final String THOMPSON_NAME = "TOMMY GUN";
@@ -118,7 +123,7 @@ public abstract class Ranged {
 	public static final int SCORPION_MAGAZINE_SIZE = 20;
 	public static final int SCORPION_MAX_AMMO = 160;
 	public static final int SCORPION_FIRE_MODE = 1;
-	public static final double SCORPION_VARIABILITY = .15*Math.random()-.075;
+	public static final double SCORPION_VARIABILITY = .15;
 	public static final double SCORPION_BULLET_VELOCITY = 16;
 	public static final double SCORPION_DAMAGE = 15;
 	public static final String SCORPION_NAME = "SCORPION";
@@ -130,7 +135,7 @@ public abstract class Ranged {
 	public static final int UMP45_MAGAZINE_SIZE = 40;
 	public static final int UMP45_MAX_AMMO = 160;
 	public static final int UMP45_FIRE_MODE = 1;
-	public static final double UMP45_VARIABILITY = .16*Math.random()-.06;
+	public static final double UMP45_VARIABILITY = .16;
 	public static final double UMP45_BULLET_VELOCITY = 17;
 	public static final double UMP45_DAMAGE = 14.5;
 	public static final String UMP45_NAME = "UMP 45";
@@ -142,7 +147,7 @@ public abstract class Ranged {
 	public static final int UZI_MAGAZINE_SIZE = 32;
 	public static final int UZI_MAX_AMMO = 192;
 	public static final int UZI_FIRE_MODE = 1;
-	public static final double UZI_VARIABILITY = .14*Math.random()-.07;
+	public static final double UZI_VARIABILITY = .14;
 	public static final double UZI_BULLET_VELOCITY = 16;
 	public static final double UZI_DAMAGE = 13.5;
 	public static final String UZI_NAME = "UZI";
@@ -154,7 +159,7 @@ public abstract class Ranged {
 	public static final int VECTOR_MAGAZINE_SIZE = 30;
 	public static final int VECTOR_MAX_AMMO = 150;
 	public static final int VECTOR_FIRE_MODE = 1;
-	public static final double VECTOR_VARIABILITY = .14*Math.random()-.07;
+	public static final double VECTOR_VARIABILITY = .14;
 	public static final double VECTOR_BULLET_VELOCITY = 18;
 	public static final double VECTOR_DAMAGE = 14.5;
 	public static final String VECTOR_NAME = "VECTOR";
@@ -168,8 +173,8 @@ public abstract class Ranged {
 	public static final int REMINGTON870_MAGAZINE_SIZE = 6;
 	public static final int REMINGTON870_MAX_AMMO = 48;
 	public static final int REMINGTON870_FIRE_MODE = 0;
-	public static final double REMINGTON870_VARIABILITY = .4*Math.random()-.2;
-	public static final double REMINGTON870_BULLET_VELOCITY = 15+2*Math.random();
+	public static final double REMINGTON870_VARIABILITY = .4;
+	public static final double REMINGTON870_BULLET_VELOCITY = 15;
 	public static final double REMINGTON870_DAMAGE = 9;
 	public static final String REMINGTON870_NAME = "REMINGTON 870";
 	//public static final int REMINGTON870_PLAYER_MOVESPEED = ;
@@ -180,8 +185,8 @@ public abstract class Ranged {
 	public static final int ARMSEL_STRIKER_MAGAZINE_SIZE = 12;
 	public static final int ARMSEL_STRIKER_MAX_AMMO = 96;
 	public static final int ARMSEL_STRIKER_FIRE_MODE = 0;
-	public static final double ARMSEL_STRIKER_VARIABILITY = .5*Math.random()-.25;
-	public static final double ARMSEL_STRIKER_BULLET_VELOCITY = 13+2*Math.random();
+	public static final double ARMSEL_STRIKER_VARIABILITY = .5;
+	public static final double ARMSEL_STRIKER_BULLET_VELOCITY = 13;
 	public static final double ARMSEL_STRIKER_DAMAGE = 8.4;
 	public static final String ARMSEL_STRIKER_NAME = "ARMSEL STRIKER";
 	//public static final int ARMSEL_STRIKER_PLAYER_MOVESPEED = ;
@@ -192,8 +197,8 @@ public abstract class Ranged {
 	public static final int USAS12_MAGAZINE_SIZE = 10;
 	public static final int USAS12_MAX_AMMO = 70;
 	public static final int USAS12_FIRE_MODE = 1;
-	public static final double USAS12_VARIABILITY = .5*Math.random();
-	public static final double USAS12_BULLET_VELOCITY = 14+3*Math.random();
+	public static final double USAS12_VARIABILITY = .5;
+	public static final double USAS12_BULLET_VELOCITY = 14;
 	public static final double USAS12_DAMAGE = 6.5;
 	public static final String USAS12_NAME = "USAS 12";
 	//public static final int USAS12_PLAYER_MOVESPEED = ;
@@ -204,7 +209,7 @@ public abstract class Ranged {
 	public static final int SAWED_OFF_MAGAZINE_SIZE = 2;
 	public static final int SAWED_OFF_MAX_AMMO = 28;
 	public static final int SAWED_OFF_FIRE_MODE = 0;
-	public static final double SAWED_OFF_VARIABILITY = .6*Math.random()-.3;
+	public static final double SAWED_OFF_VARIABILITY = .6;
 	public static final double SAWED_OFF_BULLET_VELOCITY = 20;
 	public static final double SAWED_OFF_DAMAGE = 12;
 	public static final String SAWED_OFF_NAME = "SAWED-OFF";
@@ -216,8 +221,8 @@ public abstract class Ranged {
 	public static final int SPAS12_MAGAZINE_SIZE = 7;
 	public static final int SPAS12_MAX_AMMO = 56;
 	public static final int SPAS12_FIRE_MODE = 0;
-	public static final double SPAS12_VARIABILITY = .4*Math.random()-.2;
-	public static final double SPAS12_BULLET_VELOCITY = 16+Math.random()*2;
+	public static final double SPAS12_VARIABILITY = .4;
+	public static final double SPAS12_BULLET_VELOCITY = 16;
 	public static final double SPAS12_DAMAGE = 9.2;
 	public static final String SPAS12_NAME = "SPAS12";
 	//public static final int SPAS12_PLAYER_MOVESPEED = ;
@@ -230,7 +235,7 @@ public abstract class Ranged {
 	public static final int AEK971_MAGAZINE_SIZE = 30;
 	public static final int AEK971_MAX_AMMO = 210;
 	public static final int AEK971_FIRE_MODE = 1;
-	public static final double AEK971_VARIABILITY = .2*Math.random()-.1;
+	public static final double AEK971_VARIABILITY = .2;
 	public static final double AEK971_BULLET_VELOCITY = 19;
 	public static final double AEK971_DAMAGE = 24;
 	public static final String AEK971_NAME = "AEK971";
@@ -242,7 +247,7 @@ public abstract class Ranged {
 	public static final int AR15_MAGAZINE_SIZE = 20;
 	public static final int AR15_MAX_AMMO = 180;
 	public static final int AR15_FIRE_MODE = 0;
-	public static final double AR15_VARIABILITY = .15*Math.random()-.075;
+	public static final double AR15_VARIABILITY = .15;
 	public static final double AR15_BULLET_VELOCITY = 20;
 	public static final double AR15_DAMAGE = 24.5;
 	public static final String AR15_NAME = "AR 15";
@@ -254,7 +259,7 @@ public abstract class Ranged {
 	public static final int AK47_MAGAZINE_SIZE = 30;
 	public static final int AK47_MAX_AMMO = 240;
 	public static final int AK47_FIRE_MODE = 1;
-	public static final double AK47_VARIABILITY = .3*Math.random()-.15;
+	public static final double AK47_VARIABILITY = .3;
 	public static final double AK47_BULLET_VELOCITY = 22;
 	public static final double AK47_DAMAGE = 26;
 	public static final String AK47_NAME = "AK 47";
@@ -266,11 +271,11 @@ public abstract class Ranged {
 	public static final int M4A1_MAGAZINE_SIZE = 30;
 	public static final int M4A1_MAX_AMMO = 240;
 	public static final int M4A1_FIRE_MODE = 1;
-	public static final double M4A1_VARIABILITY = .23*Math.random()-.115;
+	public static final double M4A1_VARIABILITY = .23;
 	public static final double M4A1_BULLET_VELOCITY = 19.5;
 	public static final double M4A1_DAMAGE = 24;
 	public static final String M4A1_NAME = "M4A1";
-	
+
 	//public static final int AK47_PLAYER_MOVESPEED = ;
 
 	public static final int SR47 = 21;
@@ -279,7 +284,7 @@ public abstract class Ranged {
 	public static final int SR47_MAGAZINE_SIZE = 30;
 	public static final int SR47_MAX_AMMO = 240;
 	public static final int SR47_FIRE_MODE = 1;
-	public static final double SR47_VARIABILITY = .26*Math.random()-.13;
+	public static final double SR47_VARIABILITY = .26;
 	public static final double SR47_BULLET_VELOCITY = 18;
 	public static final double SR47_DAMAGE = 23;
 	public static final String SR47_NAME = "SR 47";
@@ -294,7 +299,7 @@ public abstract class Ranged {
 	public static final int BROWNING_MAGAZINE_SIZE = 150;
 	public static final int BROWNING_MAX_AMMO = 300;
 	public static final int BROWNING_FIRE_MODE = 1;
-	public static final double BROWNING_VARIABILITY = .4*Math.random()-.2;
+	public static final double BROWNING_VARIABILITY = .4;
 	public static final double BROWNING_BULLET_VELOCITY = 14;
 	public static final double BROWNING_DAMAGE = 14;
 	public static final String BROWNING_NAME = "BROWNING";
@@ -306,37 +311,37 @@ public abstract class Ranged {
 	public static final int L86_MAGAZINE_SIZE = 80;
 	public static final int L86_MAX_AMMO = 240;
 	public static final int L86_FIRE_MODE = 1;
-	public static final double L86_VARIABILITY = .4*Math.random();
+	public static final double L86_VARIABILITY = .4;
 	public static final double L86_BULLET_VELOCITY = 16;
 	public static final double L86_DAMAGE = 16;
 	public static final String L86_NAME = "L86";
 	//public static final int L86_PLAYER_MOVESPEED = ;
-	
+
 	public static final int TYPE99 = 24;
 	public static final int TYPE99_RATE_OF_FIRE = 90;
 	public static final int TYPE99_RELOAD_SPEED = 6000;
 	public static final int TYPE99_MAGAZINE_SIZE = 60;
 	public static final int TYPE99_MAX_AMMO = 240;
 	public static final int TYPE99_FIRE_MODE = 1;
-	public static final double TYPE99_VARIABILITY = .45*Math.random()-.225;
+	public static final double TYPE99_VARIABILITY = .45;
 	public static final double TYPE99_BULLET_VELOCITY = 15;
 	public static final double TYPE99_DAMAGE = 15;
 	public static final String TYPE99_NAME = "TYPE 99";
 	//public static final int TYPE99_PLAYER_MOVESPEED = ;
-	
+
 	public static final int FN_MAG = 25;
 	public static final int FN_MAG_RATE_OF_FIRE = 73;
 	public static final int FN_MAG_RELOAD_SPEED = 5500;
 	public static final int FN_MAG_MAGAZINE_SIZE = 125;
 	public static final int FN_MAG_MAX_AMMO = 350;
 	public static final int FN_MAG_FIRE_MODE = 1;
-	public static final double FN_MAG_VARIABILITY = .35*Math.random()-.175;
+	public static final double FN_MAG_VARIABILITY = .35;
 	public static final double FN_MAG_BULLET_VELOCITY = 15.5;
 	public static final double FN_MAG_DAMAGE = 15.5;
 	public static final String FN_MAG_NAME = "FN MAG";
 	//public static final int FN_MAG_PLAYER_MOVESPEED = ;
-	
-	
+
+
 	//SNIPER RIFLES
 	public static final int ALEJANDRO = 26;
 	public static final int ALEJANDRO_RATE_OF_FIRE = 900;
@@ -344,49 +349,49 @@ public abstract class Ranged {
 	public static final int ALEJANDRO_MAGAZINE_SIZE = 8;
 	public static final int ALEJANDRO_MAX_AMMO = 40;
 	public static final int ALEJANDRO_FIRE_MODE = 0;
-	public static final double ALEJANDRO_VARIABILITY = .025*Math.random()-.0125;
+	public static final double ALEJANDRO_VARIABILITY = .025;
 	public static final double ALEJANDRO_BULLET_VELOCITY = 30;
 	public static final double ALEJANDRO_DAMAGE = 70;
 	public static final String ALEJANDRO_NAME = "ALEJANDRO";
 	//public static final int ALEJANDRO_PLAYER_MOVESPEED = ;
-		
+
 	public static final int BARRETT50 = 27;
 	public static final int BARRETT50_RATE_OF_FIRE = 550;
 	public static final int BARRETT50_RELOAD_SPEED = 4500;
 	public static final int BARRETT50_MAGAZINE_SIZE = 10;
 	public static final int BARRETT50_MAX_AMMO = 50;
 	public static final int BARRETT50_FIRE_MODE = 0;
-	public static final double BARRETT50_VARIABILITY = .02*Math.random()-.01;
+	public static final double BARRETT50_VARIABILITY = .02;
 	public static final double BARRETT50_BULLET_VELOCITY = 35;
 	public static final double BARRETT50_DAMAGE = 75;
 	public static final String BARRETT50_NAME = ".50 CAL";
 	//public static final int BARRET50_PLAYER_MOVESPEED = ;
-	
+
 	public static final int DRAGUNOV = 28;
 	public static final int DRAGUNOV_RATE_OF_FIRE = 850;
 	public static final int DRAGUNOV_RELOAD_SPEED = 3500;
 	public static final int DRAGUNOV_MAGAZINE_SIZE = 9;
 	public static final int DRAGUNOV_MAX_AMMO = 45;
 	public static final int DRAGUNOV_FIRE_MODE = 0;
-	public static final double DRAGUNOV_VARIABILITY = .03*Math.random()-.015;
+	public static final double DRAGUNOV_VARIABILITY = .03;
 	public static final double DRAGUNOV_BULLET_VELOCITY = 34;
 	public static final double DRAGUNOV_DAMAGE = 68;
 	public static final String DRAGUNOV_NAME = "DRAGUNOV";
 	//public static final int DRAGUNOV_PLAYER_MOVESPEED = ;
-	
+
 	public static final int SV98 = 29;
 	public static final int SV98_RATE_OF_FIRE = 900;
 	public static final int SV98_RELOAD_SPEED = 4750;
 	public static final int SV98_MAGAZINE_SIZE = 10;
 	public static final int SV98_MAX_AMMO = 50;
 	public static final int SV98_FIRE_MODE = 0;
-	public static final double SV98_VARIABILITY = .04*Math.random()-.02;
+	public static final double SV98_VARIABILITY = .04;
 	public static final double SV98_BULLET_VELOCITY = 45;
 	public static final double SV98_DAMAGE = 77;
 	public static final String SV98_NAME = "SV 98";
 	//public static final int SV98_PLAYER_MOVESPEED = ;
-	
-	
+
+
 	//SPECIAL
 	public static final int GRENADE_LAUNCHER = 30;
 	public static final int GRENADE_LAUNCHER_RATE_OF_FIRE = 750;
@@ -396,28 +401,29 @@ public abstract class Ranged {
 	public static final int GRENADE_LAUNCHER_FIRE_MODE = 0;
 	public static final String GRENADE_LAUNCHER_NAME = "GRENADE LAUNCHER";
 	//public static final int GRENADE_LAUNCHER_PLAYER_MOVESPEED = ;
-	
+
 	public static final int RPG = 31;
 	public static final int RPG_RATE_OF_FIRE = 250;
 	public static final int RPG_RELOAD_SPEED = 1750;
 	public static final int RPG_MAGAZINE_SIZE = 1;
 	public static final int RPG_MAX_AMMO = 5;
 	public static final int RPG_FIRE_MODE = 0;
+	public static final double RPG_VARIABLITY = 0;
 	public static final String RPG_NAME = "RPG";
 	//public static final int RPG_PLAYER_MOVESPEED = ;
-	
+
 	public static final int MINIGUN = 32;
 	public static final int MINIGUN_RATE_OF_FIRE = 25;
 	public static final int MINIGUN_RELOAD_SPEED = 7500;
 	public static final int MINIGUN_MAGAZINE_SIZE = 250;
 	public static final int MINIGUN_MAX_AMMO = 500;
 	public static final int MINIGUN_FIRE_MODE = 1;
-	public static final double MINIGUN_VARIABILITY = .6*Math.random()-.3;
+	public static final double MINIGUN_VARIABILITY = .6;
 	public static final double MINIGUN_BULLET_VELOCITY = 16;
 	public static final double MINIGUN_DAMAGE = 14;
 	public static final String MINIGUN_NAME = "PIECEMAKER";
 	//public static final int MINIGUN_PLAYER_MOVESPEED = ;
-	
+
 	public static final int CROSSBOW = 33;
 	public static final int CROSSBOW_RATE_OF_FIRE = 250;
 	public static final int CROSSBOW_RELOAD_SPEED = 1450;
@@ -429,8 +435,8 @@ public abstract class Ranged {
 	public static final double CROSSBOW_DAMAGE = 55;
 	public static final String CROSSBOW_NAME = "CROSSBOW";
 	//public static final int CROSSBOW_PLAYER_MOVESPEED = ;
-	
-	
+
+
 	//I REALIZED INSTEAD OF A CASE AND SWITCH IN EVERY SCENARIO WE CAN JUST USE A SINGLE
 	//ARRAY AND ACCESS THE INFORMATION MUCH EASIER
 
@@ -470,7 +476,7 @@ public abstract class Ranged {
 			MINIGUN_MAGAZINE_SIZE,
 			CROSSBOW_MAGAZINE_SIZE
 	};
-	
+
 	public static final int[] reloadSpeeds = {
 			M1911_RELOAD_SPEED,
 			M9_RELOAD_SPEED,
@@ -507,7 +513,7 @@ public abstract class Ranged {
 			MINIGUN_RELOAD_SPEED,
 			CROSSBOW_RELOAD_SPEED
 	};
-	
+
 	public static final int[] fireRates = {
 			M1911_RATE_OF_FIRE,
 			M9_RATE_OF_FIRE,
@@ -544,7 +550,7 @@ public abstract class Ranged {
 			MINIGUN_RATE_OF_FIRE,
 			CROSSBOW_RATE_OF_FIRE
 	};
-	
+
 	public static final int[] maxAmmoStashes = {
 			M1911_MAX_AMMO,
 			M9_MAX_AMMO,
@@ -581,7 +587,7 @@ public abstract class Ranged {
 			MINIGUN_MAX_AMMO,
 			CROSSBOW_MAX_AMMO
 	};
-	
+
 	public static final int[] fireModes = {
 			M1911_FIRE_MODE,
 			M9_FIRE_MODE,
@@ -618,7 +624,7 @@ public abstract class Ranged {
 			MINIGUN_FIRE_MODE,
 			CROSSBOW_FIRE_MODE
 	};
-	
+
 	public static final String[] weaponNames = {
 			M1911_NAME,
 			M9_NAME,
@@ -655,9 +661,9 @@ public abstract class Ranged {
 			MINIGUN_NAME,
 			CROSSBOW_NAME
 	};
-	
+
 	public static final double[] variabilities = {
-			
+
 			M1911_VARIABILITY,
 			M9_VARIABILITY,
 			GLOCK18_VARIABILITY,
@@ -693,7 +699,7 @@ public abstract class Ranged {
 			MINIGUN_VARIABILITY,
 			CROSSBOW_VARIABILITY
 	};
-	
+
 	public static final double[] bulletVelocities = {
 			M1911_BULLET_VELOCITY,
 			M9_BULLET_VELOCITY,
@@ -729,11 +735,11 @@ public abstract class Ranged {
 			10,//RPG_BULLET_VELOCITY,
 			MINIGUN_BULLET_VELOCITY,
 			CROSSBOW_BULLET_VELOCITY
-			
+
 	};
-	
+
 	public static final double[] damages = {
-			
+
 			M1911_DAMAGE,
 			M9_DAMAGE,
 			GLOCK18_DAMAGE,
@@ -768,6 +774,6 @@ public abstract class Ranged {
 			1000,//RPG_DAMAGE,
 			MINIGUN_DAMAGE,
 			CROSSBOW_DAMAGE
-			
+
 	};
 }
