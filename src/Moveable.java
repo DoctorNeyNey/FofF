@@ -1,3 +1,4 @@
+import java.awt.Polygon;
 import java.awt.geom.Rectangle2D;
 
 
@@ -6,7 +7,7 @@ public class Moveable {
 	//for now we will use rectangles as rough hitboxes but will switch to polygons
 	//for more exact ones once we figure out what all the models will look like.
 	protected double xCoord, yCoord, width, height, dx = 0, dy = 0;
-	protected Polygon2D poly;
+	protected Polygon poly;
 	protected Rectangle2D rect;
 	
 	
@@ -14,7 +15,7 @@ public class Moveable {
 
 		this.xCoord = xCoord;
 		this.yCoord = yCoord;
-		poly = new Polygon2D();
+		poly = new Polygon();
 	}
 
 	public void move(){

@@ -1,17 +1,18 @@
+import java.awt.geom.Area;
+import java.awt.geom.Rectangle2D;
+
 import org.lwjgl.opengl.GL11;
+import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.openal.Audio;
-import org.newdawn.slick.openal.AudioLoader;
-import org.newdawn.slick.util.ResourceLoader;
 
 public class Bullet extends Moveable {
 
 	private double damage;
 	private double theta;
-	private Audio gunShot;
+	private Area area = new Area();
 
 	public Bullet(double xCoord, double yCoord, double theta, int type){	
 		super(xCoord, yCoord);
-
 		double bulletVelocity;
 		if (type >= 12 && type <= 16)
 			bulletVelocity = Ranged.bulletVelocities[type]+2*Math.random();
@@ -29,25 +30,26 @@ public class Bullet extends Moveable {
 
 	private void createPolygon(){
 
-		double[] xCoords = {
+		int[] xCoords = {
 
-				xCoord + 8.24264068712*Math.cos(theta+Math.PI/4),
-				xCoord + 8.24264068712*Math.cos(theta+3*Math.PI/4),
-				xCoord + 8.24264068712*Math.cos(theta+5*Math.PI/4),
-				xCoord + 8.24264068712*Math.cos(theta+7*Math.PI/4)
+				(int) (xCoord + 8.24264068712*Math.cos(theta+Math.PI/4)),
+				(int) (xCoord + 8.24264068712*Math.cos(theta+3*Math.PI/4)),
+				(int) (xCoord + 8.24264068712*Math.cos(theta+5*Math.PI/4)),
+				(int) (xCoord + 8.24264068712*Math.cos(theta+7*Math.PI/4))
 		};
 
-		double[] yCoords = {
+		int[] yCoords = {
 
-				yCoord + 8.24264068712*Math.sin(theta+Math.PI/4),
-				yCoord + 8.24264068712*Math.sin(theta+3*Math.PI/4),
-				yCoord + 8.24264068712*Math.sin(theta+5*Math.PI/4),
-				yCoord + 8.24264068712*Math.sin(theta+7*Math.PI/4)
+				(int) (yCoord + 8.24264068712*Math.sin(theta+Math.PI/4)),
+				(int) (yCoord + 8.24264068712*Math.sin(theta+3*Math.PI/4)),
+				(int) (yCoord + 8.24264068712*Math.sin(theta+5*Math.PI/4)),
+				(int) (yCoord + 8.24264068712*Math.sin(theta+7*Math.PI/4))
 		};
 
 		poly.npoints = xCoords.length;
 		poly.xpoints = xCoords;
 		poly.ypoints = yCoords;
+		area = new Area(poly);
 	}
 
 	public void draw(){
@@ -81,5 +83,10 @@ public class Bullet extends Moveable {
 	public double getDamage(){
 
 		return damage;
+	}
+	
+	public Area getArea(){
+		
+		return area;
 	}
 }

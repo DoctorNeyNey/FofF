@@ -2,15 +2,18 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.lwjgl.opengl.GL11;
+
 public class Board {
 
 	private Fabio fabio;
 	private List<Bullet> friendlyBullets = new ArrayList<Bullet>();
 	private List<Bullet> enemyBullets = new ArrayList<Bullet>();
+	private Barrier b = new Barrier(200, 200, 40, 40, 8, 5);
 
 	public Board() {
 
-		createFabio();	
+		createFabio();
 	}
 
 	public void moveAll(){
@@ -33,21 +36,30 @@ public class Board {
 	}
 
 	public void drawAll(){
-		
-		drawHUD();		
+
+		drawHUD();
 		for (Bullet b : friendlyBullets)
 			b.draw();		
 		for (Bullet b : enemyBullets)
 			b.draw();
 		fabio.draw();
-
+		b.draw();
 	}
 
 	public void checkCollisions(){
 
+		//ENEMY BULLETS THAT HIT FABIO
 		for (int x = enemyBullets.size() - 1; x > -1; x--)
 			if (enemyBullets.get(x).collision(fabio))
 				enemyBullets.remove(x);
+
+		//BULLETS THAT COLLIDE INTO A WALL
+		for (int x = enemyBullets.size() - 1; x > -1; x--)
+			if (b.collision(enemyBullets.get(x)))
+				enemyBullets.remove(x);
+		for (int x = friendlyBullets.size() - 1; x > -1; x--)
+			if (b.collision(friendlyBullets.get(x)))
+				friendlyBullets.remove(x);
 	}
 
 	private void createFabio(){
@@ -158,9 +170,5 @@ public class Board {
 
 	public void openPlayerInventory(){
 		fabio.openInventory();
-	}
-
-	public boolean playerMagEmpty(){
-		return fabio.magEmpty();
 	}
 }

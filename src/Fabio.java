@@ -1,6 +1,5 @@
 import java.awt.Font;
 import java.awt.Point;
-import java.awt.geom.Rectangle2D;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +15,6 @@ import org.newdawn.slick.util.ResourceLoader;
 
 public class Fabio extends Person{
 
-	private Texture texture;
 	private TrueTypeFont ammoFont;
 	private static int baseHealth = 100;
 	private Outfit outfit;
@@ -44,7 +42,6 @@ public class Fabio extends Person{
 
 	private void initiatePolygon(){
 
-		poly = new Polygon2D();
 		createPolygon();
 	}
 
@@ -81,7 +78,7 @@ public class Fabio extends Person{
 
 		GL11.glEnd();
 		GL11.glPopMatrix();
-		
+
 		GL11.glRotated(180, 0, Display.getHeight()/2, 0	);
 		GL11.glRotated(180, 0, 0, 0);
 
@@ -96,7 +93,7 @@ public class Fabio extends Person{
 	public void drawInventory(){
 		if (isInventoryOpen){
 
-			
+
 
 		}
 	}
@@ -201,18 +198,18 @@ public class Fabio extends Person{
 	public void createPolygon(){
 
 		//declare polygon
-		double[] tempX = {
-				xCoord + 14.1421356237*Math.cos(theta + Math.PI/4),
-				xCoord + 14.1421356237*Math.cos(theta + 3*Math.PI/4),
-				xCoord + 14.1421356237*Math.cos(theta + 5*Math.PI/4),
-				xCoord + 14.1421356237*Math.cos(theta + 7*Math.PI/4)
+		int[] tempX = {
+				(int) (xCoord + 14.1421356237*Math.cos(theta + Math.PI/4)),
+				(int) (xCoord + 14.1421356237*Math.cos(theta + 3*Math.PI/4)),
+				(int) (xCoord + 14.1421356237*Math.cos(theta + 5*Math.PI/4)),
+				(int) (xCoord + 14.1421356237*Math.cos(theta + 7*Math.PI/4))
 		};
 
-		double[] tempY = {
-				yCoord + 14.1421356237*Math.sin(theta + Math.PI/4),
-				yCoord + 14.1421356237*Math.sin(theta + 3*Math.PI/4),
-				yCoord + 14.1421356237*Math.sin(theta + 5*Math.PI/4),
-				yCoord + 14.1421356237*Math.sin(theta + 7*Math.PI/4)
+		int[] tempY = {
+				(int) (yCoord + 14.1421356237*Math.sin(theta + Math.PI/4)),
+				(int) (yCoord + 14.1421356237*Math.sin(theta + 3*Math.PI/4)),
+				(int) (yCoord + 14.1421356237*Math.sin(theta + 5*Math.PI/4)),
+				(int) (yCoord + 14.1421356237*Math.sin(theta + 7*Math.PI/4))
 		};
 
 		poly.npoints = tempX.length;
@@ -350,7 +347,7 @@ public class Fabio extends Person{
 			equippedIndex++;
 		else
 			equippedIndex = 0;
-		
+
 		reloading = false;
 	}
 
@@ -379,7 +376,6 @@ public class Fabio extends Person{
 		}
 	}
 
-
 	public void reload(){
 
 		if (!ammoStores.get(equippedWeapon).isEmpty())
@@ -391,7 +387,7 @@ public class Fabio extends Person{
 	}
 
 	public boolean magEmpty(){
-		
+
 		return magazines.get(equippedWeapon).isEmpty();
 	}
 
@@ -471,27 +467,30 @@ public class Fabio extends Person{
 
 	public void checkFireMode(){
 
-		switch (Ranged.fireModes[equippedWeapon]){
-		case 0 :
+		if (Ranged.fireModes[equippedWeapon] == 0)
 			mustReleaseShoot = true;
-			break;
-		case 1:
+		
+		else if (Ranged.fireModes[equippedWeapon] == 1)
 			mustReleaseShoot = false;
-			break;
-		default:
+		
+		else {
 			System.out.println("There was an error in selecting a fire mode");
-			break;
+			System.exit(3);
 		}
 	}
 
 	public void aoePickUp(){
 
-		
-		
+
 	}
 
 	public void resetShot(){
-
+		
 		mustReleaseShoot = false;
+	}
+
+	public boolean isPlayerPathClear(){
+		
+		return true;
 	}
 }
