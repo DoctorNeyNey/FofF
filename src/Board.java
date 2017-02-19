@@ -18,7 +18,8 @@ public class Board {
 
 	public void moveAll(){
 
-		fabio.move();
+		fabio.move(b);
+		
 		for (Bullet b : friendlyBullets)
 			b.move();
 
@@ -37,17 +38,19 @@ public class Board {
 
 	public void drawAll(){
 
-		drawHUD();
 		for (Bullet b : friendlyBullets)
 			b.draw();		
 		for (Bullet b : enemyBullets)
 			b.draw();
 		fabio.draw();
+		drawHUD();
 		b.draw();
 	}
 
 	public void checkCollisions(){
-
+		
+		/**FABIO CHECKS IF HE RUNS INTO A WALL IN HIS OWN MOVE METHOD**/
+		
 		//ENEMY BULLETS THAT HIT FABIO
 		for (int x = enemyBullets.size() - 1; x > -1; x--)
 			if (enemyBullets.get(x).collision(fabio))
@@ -55,11 +58,11 @@ public class Board {
 
 		//BULLETS THAT COLLIDE INTO A WALL
 		for (int x = enemyBullets.size() - 1; x > -1; x--)
-			if (b.collision(enemyBullets.get(x)))
+			if (b.collision(enemyBullets.get(x).getArea()))
 				enemyBullets.remove(x);
 		for (int x = friendlyBullets.size() - 1; x > -1; x--)
-			if (b.collision(friendlyBullets.get(x)))
-				friendlyBullets.remove(x);
+			if (b.collision(friendlyBullets.get(x).getArea()))
+				friendlyBullets.remove(x);	
 	}
 
 	private void createFabio(){
@@ -110,10 +113,8 @@ public class Board {
 	public void playerShoot(Point p){
 
 		List<Bullet> list = fabio.shoot(p);
-		if (list != null)
 			for (Bullet b : list)
-				if (b != null)
-					friendlyBullets.add(b);
+				friendlyBullets.add(b);
 	}
 
 	public void playerInteract(){

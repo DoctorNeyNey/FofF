@@ -25,7 +25,7 @@ public class Moveable {
 	}	
 
 	public void draw(){
-		
+
 	}
 	
 	public Rectangle2D getRect(){

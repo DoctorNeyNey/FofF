@@ -15,5 +15,23 @@ public class Immoveable {
 
 	public void draw(){			
 		
+	}
+
+	public int getxCoord() {
+		return xCoord;
+	}
+
+	public int getyCoord() {
+		return yCoord;
+	}
+
+	public int getWidth() {
+		return width;
+	}
+
+	public int getHeight() {
+		return height;
 	}	
+	
+	
 }

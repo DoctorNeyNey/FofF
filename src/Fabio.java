@@ -1,5 +1,7 @@
 import java.awt.Font;
 import java.awt.Point;
+import java.awt.Polygon;
+import java.awt.geom.Area;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +11,6 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.TrueTypeFont;
-import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.util.ResourceLoader;
 
 
@@ -22,7 +23,7 @@ public class Fabio extends Person{
 	private Integer[] availableWeapons = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
 	private List<List<Integer>> magazines = new ArrayList<List<Integer>>();
 	private List<List<Integer>> ammoStores = new ArrayList<List<Integer>>();
-	private Item[] inventory = new Item[25];
+	private Item[] inventory = new Item[24];
 	private int equippedWeapon, equippedIndex = 0, rateOfFire = 0,
 			previousEquippedIndex = -1000, currentHealth = 100;
 	private boolean reloading = false, mustReleaseShoot = false;
@@ -33,8 +34,6 @@ public class Fabio extends Person{
 	public Fabio(double xCoord, double yCoord) {
 		super(xCoord, yCoord, baseHealth);
 		outfit = new Outfit(null, null, null, null);
-		width = 20;
-		height = 20;
 		createMagazinesAndAmmoStores();
 		createFont();
 		initiatePolygon();
@@ -48,7 +47,7 @@ public class Fabio extends Person{
 	private void createFont(){
 
 		try {
-			InputStream inputStream = ResourceLoader.getResourceAsStream("Fonts/Kirbys-Adventure.ttf");	
+			InputStream inputStream = ResourceLoader.getResourceAsStream("Fonts/ammoFont.ttf");	
 			Font ammoFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);
 			this.ammoFont = new TrueTypeFont(ammoFont.deriveFont(24f), false);
 		}
@@ -59,16 +58,15 @@ public class Fabio extends Person{
 	}
 
 	public void drawAmmoCount(){
-
+		
 		Integer currentAmmo = magazines.get(equippedWeapon).size();
 		Integer totalAmmo = ammoStores.get(equippedWeapon).size();
 		String ammoPrintOut = currentAmmo.toString() + "-" + totalAmmo.toString();
-
+			
 		GL11.glEnable(GL11.GL_BLEND);
 		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-
-		GL11.glColor4f(.831372549f, .431372549f, .2862745098f, .5f);
-		GL11.glPushMatrix();
+		
+		GL11.glColor4f(.831372549f, .431372549f, .2862745098f, .7f);
 		GL11.glBegin(GL11.GL_QUADS);
 
 		GL11.glVertex2d(600, 600);
@@ -77,7 +75,6 @@ public class Fabio extends Person{
 		GL11.glVertex2d(600, 700);
 
 		GL11.glEnd();
-		GL11.glPopMatrix();
 
 		GL11.glRotated(180, 0, Display.getHeight()/2, 0	);
 		GL11.glRotated(180, 0, 0, 0);
@@ -91,8 +88,8 @@ public class Fabio extends Person{
 	}
 
 	public void drawInventory(){
+		
 		if (isInventoryOpen){
-
 
 
 		}
@@ -102,7 +99,7 @@ public class Fabio extends Person{
 
 		//HEALTH BAR
 		//outline
-		GL11.glColor3d(.381019078, .381019078, .381019078);
+		GL11.glColor4f(.381019078f, .381019078f, .381019078f, 1f);
 		GL11.glBegin(GL11.GL_QUADS);
 
 		GL11.glVertex2d(x-5, y+4);
@@ -113,7 +110,7 @@ public class Fabio extends Person{
 		GL11.glEnd();
 
 		//missingHealth
-		GL11.glColor3d(.731372549, .1568627451, .1882352941);
+		GL11.glColor4f(.731372549f, .1568627451f, .1882352941f, 1f);
 		GL11.glBegin(GL11.GL_QUADS);
 
 		GL11.glVertex2d(x+baseHealth*2, y);
@@ -124,7 +121,7 @@ public class Fabio extends Person{
 		GL11.glEnd();
 
 		//current health
-		GL11.glColor3d(0, 1, 0);
+		GL11.glColor4f(0f, 1f, 0f, 1f);
 		GL11.glBegin(GL11.GL_QUADS);
 
 		GL11.glVertex2d(x, y);
@@ -144,7 +141,7 @@ public class Fabio extends Person{
 		if (reloading){
 
 			//Outline
-			GL11.glColor3d(.381019078, .381019078, .381019078);
+			GL11.glColor4f(.381019078f, .381019078f, .381019078f, 1f);
 			GL11.glBegin(GL11.GL_QUADS);
 
 			GL11.glVertex2d(xCoord - 23, yCoord + 31);
@@ -155,7 +152,7 @@ public class Fabio extends Person{
 			GL11.glEnd();
 
 			//moving reload bar
-			GL11.glColor3d(1, 0.75294117647, 0.01960784313);
+			GL11.glColor4f(1f, 0.75294117647f, 0.01960784313f, 1f);
 			GL11.glBegin(GL11.GL_QUADS);
 
 			GL11.glVertex2d(xCoord - 20, yCoord + 28);
@@ -167,11 +164,13 @@ public class Fabio extends Person{
 		}
 	}
 
-	@Override
-	public void move(){
+	public void move(Barrier b){
 
-		xCoord += dx;
-		yCoord += dy;
+		if (horizontalPathClear(b))
+			xCoord += dx;
+
+		if (verticalPathClear(b))
+			yCoord += dy;
 	}
 
 	public void createMagazinesAndAmmoStores(){
@@ -220,7 +219,6 @@ public class Fabio extends Person{
 	@Override
 	public void draw(){
 
-
 		double x = Mouse.getX()-xCoord;
 		double y = Mouse.getY()-yCoord;
 		theta = Math.atan(y/x);
@@ -232,7 +230,7 @@ public class Fabio extends Person{
 		createPolygon();
 
 		outfit.draw(xCoord, yCoord);
-		GL11.glColor3d(1, 1, 1);
+		GL11.glColor4f(1f, 1f, 1f, 1f);
 		GL11.glBegin(GL11.GL_QUADS);		
 
 		for (int z = 0; z < poly.npoints; z++)
@@ -247,9 +245,8 @@ public class Fabio extends Person{
 		//movement speed of a player as well, we should add that later when we determine
 		//the size of the map
 		equippedWeapon = availableWeapons[equippedIndex];
-		if (previousEquippedIndex != equippedIndex){
+		if (previousEquippedIndex != equippedIndex)
 			rateOfFire = Ranged.fireRates[equippedWeapon];
-		}
 		previousEquippedIndex = equippedIndex;
 	}
 
@@ -399,9 +396,9 @@ public class Fabio extends Person{
 
 	public List<Bullet> shoot(Point p){
 
+		List<Bullet> list = new ArrayList<Bullet>();
 		if (!reloading && !magEmpty() && !mustReleaseShoot){
 			//add recoil and gun specific things: movespeed with gun, etc....
-			List<Bullet> list = new ArrayList<Bullet>();
 			if (System.currentTimeMillis()-lastTimeShot > rateOfFire){
 				lastTimeShot = System.currentTimeMillis();
 				double x = p.getX()-xCoord;
@@ -456,12 +453,11 @@ public class Fabio extends Person{
 				}
 			}
 		}
-		return null;
+		return list;
 	}
 
 	@Override
 	public void dealDamage(int d){
-
 		currentHealth -= d;
 	}
 
@@ -469,28 +465,44 @@ public class Fabio extends Person{
 
 		if (Ranged.fireModes[equippedWeapon] == 0)
 			mustReleaseShoot = true;
-		
+
 		else if (Ranged.fireModes[equippedWeapon] == 1)
 			mustReleaseShoot = false;
-		
+
 		else {
 			System.out.println("There was an error in selecting a fire mode");
 			System.exit(3);
 		}
 	}
 
-	public void aoePickUp(){
-
-
-	}
-
 	public void resetShot(){
-		
+
 		mustReleaseShoot = false;
 	}
 
-	public boolean isPlayerPathClear(){
-		
-		return true;
+	private boolean verticalPathClear(Barrier b){
+
+		Polygon temp = new Polygon();
+		temp.npoints = poly.npoints;
+		temp.xpoints = poly.xpoints;
+		temp.ypoints = poly.ypoints;
+
+		for (int x = 0; x < poly.npoints; x++)
+			poly.ypoints[x] += dy;
+
+		return !b.collision(new Area(temp));
+	}
+
+	private boolean horizontalPathClear(Barrier b){
+
+		Polygon temp = new Polygon();
+		temp.npoints = poly.npoints;
+		temp.xpoints = poly.xpoints;
+		temp.ypoints = poly.ypoints;
+
+		for (int x = 0; x < poly.npoints; x++)
+			poly.xpoints[x]  += dx;
+
+		return !b.collision(new Area(temp));
 	}
 }

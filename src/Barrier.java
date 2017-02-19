@@ -17,6 +17,7 @@ public class Barrier extends Immoveable{
 		this.horizontalStack = horizontalStack;
 	}
 
+	
 	public void draw(){
 		
 		int[] xCoords = {
@@ -51,10 +52,20 @@ public class Barrier extends Immoveable{
 		GL11.glEnd();
 	}
 	
-	public boolean collision(Bullet b){
+	public boolean collision(Area a){
 
 		area = new Area(poly);
-		area.intersect(b.getArea());
+		area.intersect(a);
 		return !area.isEmpty();
 	}
+
+	public int getVerticalStack() {
+		return verticalStack;
+	}
+
+	public int getHorizontalStack() {
+		return horizontalStack;
+	}
+
+	
 }
