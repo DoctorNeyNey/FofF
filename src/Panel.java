@@ -13,9 +13,9 @@ public class Panel {
 	private Board board;
 	private IntroScreen introScreen;
 
-	
+
 	public static void main(String[] args){
-	
+
 		new Panel();
 	}
 
@@ -103,27 +103,40 @@ public class Panel {
 	private void pollInputs(){
 
 		if (pastIntroScreen){
-			//upward velocity
-			if (Keyboard.isKeyDown(Keyboard.KEY_W))
-				board.playerUp();
 
-			//downward velocity
-			if (Keyboard.isKeyDown(Keyboard.KEY_S))
+			if (Keyboard.isKeyDown(Keyboard.KEY_W) && Keyboard.isKeyDown(Keyboard.KEY_D))
+				board.playerUpRight();			
+
+			else if (Keyboard.isKeyDown(Keyboard.KEY_D) && Keyboard.isKeyDown(Keyboard.KEY_S))
+				board.playerDownRight();		
+
+			else if (Keyboard.isKeyDown(Keyboard.KEY_S) && Keyboard.isKeyDown(Keyboard.KEY_A))
+				board.playerDownLeft();
+			
+			else if (Keyboard.isKeyDown(Keyboard.KEY_W) && Keyboard.isKeyDown(Keyboard.KEY_A))
+				board.playerUpLeft();
+
+			//DOWN
+			else if (Keyboard.isKeyDown(Keyboard.KEY_S))
 				board.playerDown();
 
-			//up and down stop
+			//UP
+			else if (Keyboard.isKeyDown(Keyboard.KEY_W))
+				board.playerUp();
+
+			//RIGHT
+			else if (Keyboard.isKeyDown(Keyboard.KEY_D))
+				board.playerRight();
+
+			//LEFT
+			else if (Keyboard.isKeyDown(Keyboard.KEY_A))
+				board.playerLeft();	
+
+			//SETS DY COMPONENT TO 0
 			if (!(Keyboard.isKeyDown(Keyboard.KEY_S) || Keyboard.isKeyDown(Keyboard.KEY_W)))
 				board.playerStopVertical();
 
-			//rightward velocity
-			if (Keyboard.isKeyDown(Keyboard.KEY_D))
-				board.playerRight();
-
-			//leftward velocity
-			if (Keyboard.isKeyDown(Keyboard.KEY_A))
-				board.playerLeft();	
-
-			//left and right stop
+			//SETS DX COMPONENT TO 0
 			if (!(Keyboard.isKeyDown(Keyboard.KEY_D) || Keyboard.isKeyDown(Keyboard.KEY_A)))
 				board.playerStopHorizontal();
 
@@ -185,7 +198,7 @@ public class Panel {
 				System.exit(0);
 		}
 		else {
-			
+
 			//quick close
 			if (Keyboard.isKeyDown(Keyboard.KEY_EQUALS))
 				System.exit(0);

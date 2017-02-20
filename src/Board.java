@@ -30,20 +30,20 @@ public class Board {
 
 	private void drawHUD(){
 
+		fabio.drawAmmoCount();
 		fabio.drawHealthBar(100, 100);
 		fabio.drawReloadBar();
-		fabio.drawAmmoCount();
 		fabio.drawInventory();
 	}
 
 	public void drawAll(){
 
+		drawHUD();
 		for (Bullet b : friendlyBullets)
 			b.draw();		
 		for (Bullet b : enemyBullets)
 			b.draw();
 		fabio.draw();
-		drawHUD();
 		b.draw();
 	}
 
@@ -80,6 +80,26 @@ public class Board {
 		fabio.down();
 	}
 
+	public void playerUpLeft(){
+		
+		fabio.upLeft();
+	}
+	
+	public void playerUpRight(){
+		
+		fabio.upRight();
+	}
+	
+	public void playerDownRight(){
+		
+		fabio.downRight();
+	}
+	
+	public void playerDownLeft(){
+	
+		fabio.downLeft();
+	}
+	
 	public void playerStopVertical(){
 
 		fabio.stopVertical();

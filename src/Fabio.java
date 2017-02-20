@@ -58,15 +58,15 @@ public class Fabio extends Person{
 	}
 
 	public void drawAmmoCount(){
-		
+
 		Integer currentAmmo = magazines.get(equippedWeapon).size();
 		Integer totalAmmo = ammoStores.get(equippedWeapon).size();
 		String ammoPrintOut = currentAmmo.toString() + "-" + totalAmmo.toString();
-			
-		GL11.glEnable(GL11.GL_BLEND);
+
+
+		GL11.glEnable(GL11.GL_BLEND_SRC);
 		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		
-		GL11.glColor4f(.831372549f, .431372549f, .2862745098f, .7f);
+		GL11.glColor4f(.831372549f, .431372549f, .2862745098f, 1f);
 		GL11.glBegin(GL11.GL_QUADS);
 
 		GL11.glVertex2d(600, 600);
@@ -75,9 +75,10 @@ public class Fabio extends Person{
 		GL11.glVertex2d(600, 700);
 
 		GL11.glEnd();
-
+		GL11.glDisable(GL11.GL_BLEND_SRC);
 		GL11.glRotated(180, 0, Display.getHeight()/2, 0	);
 		GL11.glRotated(180, 0, 0, 0);
+		GL11.glEnable(GL11.GL_BLEND);
 
 		//need to use the negative in the y position
 		ammoFont.drawString(0, -900, ammoPrintOut, Color.white);
@@ -88,7 +89,7 @@ public class Fabio extends Person{
 	}
 
 	public void drawInventory(){
-		
+
 		if (isInventoryOpen){
 
 
@@ -165,12 +166,16 @@ public class Fabio extends Person{
 	}
 
 	public void move(Barrier b){
-
+	
 		if (horizontalPathClear(b))
 			xCoord += dx;
-
+	
 		if (verticalPathClear(b))
 			yCoord += dy;
+		
+		if (!verticalPathClear(b))
+			System.out.println("Obstacle in the path");
+		
 	}
 
 	public void createMagazinesAndAmmoStores(){
@@ -218,7 +223,6 @@ public class Fabio extends Person{
 
 	@Override
 	public void draw(){
-
 		double x = Mouse.getX()-xCoord;
 		double y = Mouse.getY()-yCoord;
 		theta = Math.atan(y/x);
@@ -313,6 +317,30 @@ public class Fabio extends Person{
 		dy = 5;
 	}
 
+	public void upLeft(){
+		
+		dy = 3.53553390593;
+		dx = -3.53553390593;
+	}
+	
+	public void upRight(){
+		
+		dy = 3.53553390593;
+		dx = 3.53553390593;
+	}
+	
+	public void downLeft(){
+		
+		dy = -3.53553390593;
+		dx = -3.53553390593;
+	}
+	
+	public void downRight(){
+		
+		dy = -3.53553390593;
+		dx = 3.53553390593;
+	}
+	
 	public void down(){
 
 		dy = -5;
@@ -476,19 +504,31 @@ public class Fabio extends Person{
 	}
 
 	public void resetShot(){
-
 		mustReleaseShoot = false;
 	}
 
 	private boolean verticalPathClear(Barrier b){
 
 		Polygon temp = new Polygon();
-		temp.npoints = poly.npoints;
-		temp.xpoints = poly.xpoints;
-		temp.ypoints = poly.ypoints;
+		int[] tempX = {
+				(int) (xCoord + 14.1421356237*Math.cos(theta + Math.PI/4)),
+				(int) (xCoord + 14.1421356237*Math.cos(theta + 3*Math.PI/4)),
+				(int) (xCoord + 14.1421356237*Math.cos(theta + 5*Math.PI/4)),
+				(int) (xCoord + 14.1421356237*Math.cos(theta + 7*Math.PI/4))
+		};
 
-		for (int x = 0; x < poly.npoints; x++)
-			poly.ypoints[x] += dy;
+		int[] tempY = {
+				(int) (yCoord + 14.1421356237*Math.sin(theta + Math.PI/4)),
+				(int) (yCoord + 14.1421356237*Math.sin(theta + 3*Math.PI/4)),
+				(int) (yCoord + 14.1421356237*Math.sin(theta + 5*Math.PI/4)),
+				(int) (yCoord + 14.1421356237*Math.sin(theta + 7*Math.PI/4))
+		};
+		temp.npoints = tempX.length;
+		temp.xpoints = tempX;
+		temp.ypoints = tempY;
+
+		for (int x = 0; x < temp.npoints; x++)
+			temp.ypoints[x] += dy;
 
 		return !b.collision(new Area(temp));
 	}
@@ -501,7 +541,7 @@ public class Fabio extends Person{
 		temp.ypoints = poly.ypoints;
 
 		for (int x = 0; x < poly.npoints; x++)
-			poly.xpoints[x]  += dx;
+			temp.xpoints[x]  += dx;
 
 		return !b.collision(new Area(temp));
 	}
