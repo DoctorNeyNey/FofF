@@ -20,7 +20,7 @@ public class Fabio extends Person{
 	private static int baseHealth = 100;
 	private Outfit outfit;
 	private long lastTimeShot = 0, beganReloading = 0;
-	private Integer[] availableWeapons = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+	private Integer[] availableWeapons = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,32};
 	private List<List<Integer>> magazines = new ArrayList<List<Integer>>();
 	private List<List<Integer>> ammoStores = new ArrayList<List<Integer>>();
 	private Item[] inventory = new Item[24];
@@ -36,11 +36,6 @@ public class Fabio extends Person{
 		outfit = new Outfit(null, null, null, null);
 		createMagazinesAndAmmoStores();
 		createFont();
-		initiatePolygon();
-	}
-
-	private void initiatePolygon(){
-
 		createPolygon();
 	}
 
@@ -62,11 +57,9 @@ public class Fabio extends Person{
 		Integer currentAmmo = magazines.get(equippedWeapon).size();
 		Integer totalAmmo = ammoStores.get(equippedWeapon).size();
 		String ammoPrintOut = currentAmmo.toString() + "-" + totalAmmo.toString();
-
-
-		GL11.glEnable(GL11.GL_BLEND_SRC);
+		GL11.glEnable(GL11.GL_BLEND);
 		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		GL11.glColor4f(.831372549f, .431372549f, .2862745098f, 1f);
+		GL11.glColor4f(.831372549f, .431372549f, .2862745098f, .5f);
 		GL11.glBegin(GL11.GL_QUADS);
 
 		GL11.glVertex2d(600, 600);
@@ -75,10 +68,8 @@ public class Fabio extends Person{
 		GL11.glVertex2d(600, 700);
 
 		GL11.glEnd();
-		GL11.glDisable(GL11.GL_BLEND_SRC);
 		GL11.glRotated(180, 0, Display.getHeight()/2, 0	);
 		GL11.glRotated(180, 0, 0, 0);
-		GL11.glEnable(GL11.GL_BLEND);
 
 		//need to use the negative in the y position
 		ammoFont.drawString(0, -900, ammoPrintOut, Color.white);
@@ -166,16 +157,12 @@ public class Fabio extends Person{
 	}
 
 	public void move(Barrier b){
-	
+
 		if (horizontalPathClear(b))
 			xCoord += dx;
-	
+
 		if (verticalPathClear(b))
 			yCoord += dy;
-		
-		if (!verticalPathClear(b))
-			System.out.println("Obstacle in the path");
-		
 	}
 
 	public void createMagazinesAndAmmoStores(){
@@ -254,51 +241,30 @@ public class Fabio extends Person{
 		previousEquippedIndex = equippedIndex;
 	}
 
-	public void equipWeapon1(){
+	public void equipWeapon0(){
 		if (availableWeapons[0] != null){
 			equippedIndex = 0;
 			reloading = false;
 		}
 	}
 
-	public void equipWeapon2(){
+	public void equipWeapon1(){
 		if (availableWeapons[1] != null){
 			equippedIndex = 1;
 			reloading = false;
 		}
 	}
 
-	public void equipWeapon3(){
+	public void equipWeapon2(){
 		if (availableWeapons[2] != null){
 			equippedIndex = 2;
 			reloading = false;
 		}
 	}
 
-	public void equipWeapon4(){
+	public void equipWeapon3(){
 		if (availableWeapons[3] != null){
 			equippedIndex = 3;
-			reloading = false;
-		}
-	}
-
-	public void equipWeapon5(){
-		if (availableWeapons[4] != null){
-			equippedIndex = 4;
-			reloading = false;
-		}
-	}
-
-	public void equipWeapon6(){
-		if (availableWeapons[5] != null){
-			equippedIndex = 5;
-			reloading = false;
-		}
-	}
-
-	public void equipWeapon7(){
-		if (availableWeapons[6] != null){
-			equippedIndex = 6;
 			reloading = false;
 		}
 	}
@@ -312,35 +278,35 @@ public class Fabio extends Person{
 		isInventoryOpen = true;		
 	}
 
+	public void upLeft(){
+
+		dy = 3.53553390593;
+		dx = -3.53553390593;
+	}
+
+	public void upRight(){
+
+		dy = 3.53553390593;
+		dx = 3.53553390593;
+	}
+
+	public void downLeft(){
+
+		dy = -3.53553390593;
+		dx = -3.53553390593;
+	}
+
+	public void downRight(){
+
+		dy = -3.53553390593;
+		dx = 3.53553390593;
+	}
+
 	public void up(){
 
 		dy = 5;
 	}
 
-	public void upLeft(){
-		
-		dy = 3.53553390593;
-		dx = -3.53553390593;
-	}
-	
-	public void upRight(){
-		
-		dy = 3.53553390593;
-		dx = 3.53553390593;
-	}
-	
-	public void downLeft(){
-		
-		dy = -3.53553390593;
-		dx = -3.53553390593;
-	}
-	
-	public void downRight(){
-		
-		dy = -3.53553390593;
-		dx = 3.53553390593;
-	}
-	
 	public void down(){
 
 		dy = -5;
@@ -435,60 +401,21 @@ public class Fabio extends Person{
 				//because of arccos's range we need to add pi if they are shooting to the left
 				if (p.getX()-xCoord < 0)
 					theta += Math.PI;
-
 				checkFireMode();
-				switch (equippedWeapon){
-				//shotguns need to shoot multiple bullets so i looped it to add several bullets
-				//also need to add the explosives for rpg and nade launcher, as well as 
-				//arrows for crossbow, other than that all other guns will just run through
-				//the default that adds a bullet normally
-				case 12:
-					for (int i = 0; i < 8; i++)
-						list.add(new Bullet(xCoord, yCoord, theta, equippedWeapon));
-					magazines.get(equippedWeapon).remove(0);
-					return list;
-				case 13:
-					for (int i = 0; i < 6; i++)
-						list.add(new Bullet(xCoord, yCoord, theta, equippedWeapon));
-					magazines.get(equippedWeapon).remove(0);
-					return list;
-				case 14:
-					for (int i = 0; i < 5; i++)
-						list.add(new Bullet(xCoord, yCoord, theta, equippedWeapon));
-					magazines.get(equippedWeapon).remove(0);
-					return list;
-				case 15:
-					for (int i = 0; i < 9; i++)
-						list.add(new Bullet(xCoord, yCoord, theta, equippedWeapon));
-					magazines.get(equippedWeapon).remove(0);
-					return list;
-				case 16:
-					for (int i = 0; i < 7; i++)
-						list.add(new Bullet(xCoord, yCoord, theta, equippedWeapon));
-					magazines.get(equippedWeapon).remove(0);
-					return list;
-				case 30:
-					System.out.println("need to add something for the grenade launcher");
-					break;
-				case 31:
-					System.out.println("need to add something for the RPG");
-					break;
-					//default used for all other weapons
-				default :
+				for (int z = 0; z < Ranged.bulletCounts[equippedWeapon]; z++)
 					list.add(new Bullet(xCoord, yCoord, theta, equippedWeapon));
-					magazines.get(equippedWeapon).remove(0);
-					return list;
-				}
+				magazines.get(equippedWeapon).remove(0);
+				return list;
 			}
 		}
 		return list;
 	}
 
 	@Override
-	public void dealDamage(int d){
+	public void dealDamage(double d){
 		currentHealth -= d;
 	}
-
+	
 	public void checkFireMode(){
 
 		if (Ranged.fireModes[equippedWeapon] == 0)

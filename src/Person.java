@@ -13,7 +13,6 @@ public class Person extends Moveable{
 	}
 
 	public void move(){
-			
 		
 	}
 	
@@ -21,16 +20,17 @@ public class Person extends Moveable{
 		
 	}
 	
-	public void attack(){
-		
-	}
-	
 	public int getHealth(){
 		return health;
 	}
 	
-	public void dealDamage(int d){
+	public void dealDamage(double d){
 		health -= d;
+	}
+	
+	public boolean timeToDie(){
+		
+		return health < 0;
 	}
 	
 }

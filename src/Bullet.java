@@ -1,3 +1,4 @@
+import java.awt.Polygon;
 import java.awt.geom.Area;
 import java.awt.geom.Rectangle2D;
 
@@ -7,9 +8,7 @@ import org.newdawn.slick.openal.Audio;
 
 public class Bullet extends Moveable {
 
-	private double damage;
-	private double theta;
-	private Area area = new Area();
+	private double damage, theta;
 
 	public Bullet(double xCoord, double yCoord, double theta, int type){	
 		super(xCoord, yCoord);
@@ -49,7 +48,6 @@ public class Bullet extends Moveable {
 		poly.npoints = xCoords.length;
 		poly.xpoints = xCoords;
 		poly.ypoints = yCoords;
-		area = new Area(poly);
 	}
 
 	public void draw(){
@@ -65,19 +63,20 @@ public class Bullet extends Moveable {
 	}
 
 
-	public boolean collision(Fabio f){		
+	public boolean collision(Fabio fabio){		
 
-		return false;
+		Area f = new Area(fabio.getPoly());
+		Area b = new Area(poly);
+		f.intersect(b);
+		
+		return !f.isEmpty();
 	}
 
-	public boolean collision(Immoveable i){
+	public boolean collision(NPC npc){
 
-		return false;
-	}	
-
-	public boolean collision(Person npc){
-
-		return false;
+		Area a = new Area(poly);
+		a.intersect(new Area(npc.getPoly()));
+		return !a.isEmpty();
 	}
 
 	public double getDamage(){
@@ -85,8 +84,8 @@ public class Bullet extends Moveable {
 		return damage;
 	}
 	
-	public Area getArea(){
+	public Polygon getPoly(){
 		
-		return area;
+		return poly;
 	}
 }

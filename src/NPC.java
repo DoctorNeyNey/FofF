@@ -1,14 +1,24 @@
+import java.util.ArrayList;
+import java.util.List;
 
 public class NPC extends Person {
 
-	private boolean hostile;
+	protected int model;
+	protected String name;
 	
-	public NPC(int xCoord, int yCoord, int health, boolean hostile) {
+	public NPC(int xCoord, int yCoord, int health, int model) {
 		super(xCoord, yCoord, health);
-		this.hostile = hostile;
+		this.model = model;
+
 	}
 
 	public void speak(){
 		
 	}	
+	
+	public List<Bullet> attack(Fabio f){
+		
+		List<Bullet> list = new ArrayList<Bullet>();
+		return list;
+	}
 }

@@ -66,6 +66,11 @@ public class Barrier extends Immoveable{
 	public int getHorizontalStack() {
 		return horizontalStack;
 	}
+	
+	public Polygon getPoly(){
+		
+		return poly;
+	}
 
 	
 }
