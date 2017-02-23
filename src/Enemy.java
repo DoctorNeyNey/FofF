@@ -49,7 +49,16 @@ public class Enemy extends NPC{
 	}
 	
 	public void search(){
+	
 		
+		
+	}
+	
+	public boolean hearFootsteps(Fabio fabio){
+		
+		
+		
+		return false;
 	}
 	
 	public void reload(){
@@ -61,7 +70,6 @@ public class Enemy extends NPC{
 	public boolean hasLineOfSight(Fabio f, Barrier b){
 
 		Polygon p = new Polygon();
-
 		int[] x = {
 
 				(int) f.getxCoord(),
@@ -84,7 +92,6 @@ public class Enemy extends NPC{
 
 		Area a = new Area(p);
 		a.intersect(new Area(b.getPoly()));
-
 		return a.isEmpty();
 	}
 

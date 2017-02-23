@@ -13,27 +13,28 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.util.ResourceLoader;
 
-
 public class Fabio extends Person{
 
 	private TrueTypeFont ammoFont;
 	private static int baseHealth = 100;
 	private Outfit outfit;
 	private long lastTimeShot = 0, beganReloading = 0;
-	private Integer[] availableWeapons = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,32};
-	private List<List<Integer>> magazines = new ArrayList<List<Integer>>();
-	private List<List<Integer>> ammoStores = new ArrayList<List<Integer>>();
+	private Integer[] availableWeapons = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,32};//new Integer[4];
+	private List<List<Integer>> magazines = new ArrayList<List<Integer>>(), ammoStores = new ArrayList<List<Integer>>();
 	private Item[] inventory = new Item[24];
-	private int equippedWeapon, equippedIndex = 0, rateOfFire = 0,
+	private Head head = null;
+	private Shirt shirt = null;
+	private Pants pants = null;
+	private Shoes shoes = null;
+	private int dolmas = 0, equippedWeapon, equippedIndex = 0, rateOfFire = 0,
 			previousEquippedIndex = -1000, currentHealth = 100;
-	private boolean reloading = false, mustReleaseShoot = false;
-	private boolean isInventoryOpen = false;
+	private boolean reloading = false, mustReleaseShoot = false, inventoryOpen = false,
+			iKeyHasBeenReleased = true;
 	private double theta = 0;
 
 
 	public Fabio(double xCoord, double yCoord) {
 		super(xCoord, yCoord, baseHealth);
-		outfit = new Outfit(null, null, null, null);
 		createMagazinesAndAmmoStores();
 		createFont();
 		createPolygon();
@@ -81,7 +82,7 @@ public class Fabio extends Person{
 
 	public void drawInventory(){
 
-		if (isInventoryOpen){
+		if (inventoryOpen){
 
 
 		}
@@ -220,7 +221,6 @@ public class Fabio extends Person{
 
 		createPolygon();
 
-		outfit.draw(xCoord, yCoord);
 		GL11.glColor4f(1f, 1f, 1f, 1f);
 		GL11.glBegin(GL11.GL_QUADS);		
 
@@ -273,9 +273,23 @@ public class Fabio extends Person{
 
 	}
 
-	public void openInventory(){
+	public void openAndCloseInventory(){
+		
+		System.out.println("called");
+		if (iKeyHasBeenReleased){
+			if (!inventoryOpen){
+				inventoryOpen = true;
+				iKeyHasBeenReleased = false;
+			}
+			else
+				inventoryOpen = false;
+			
+		}
+	}
 
-		isInventoryOpen = true;		
+	public void resetIKey(){
+
+		iKeyHasBeenReleased = true;
 	}
 
 	public void upLeft(){
@@ -338,7 +352,6 @@ public class Fabio extends Person{
 			equippedIndex++;
 		else
 			equippedIndex = 0;
-
 		reloading = false;
 	}
 
@@ -414,8 +427,10 @@ public class Fabio extends Person{
 	@Override
 	public void dealDamage(double d){
 		currentHealth -= d;
+		if (currentHealth < -1)
+			currentHealth = 0;
 	}
-	
+
 	public void checkFireMode(){
 
 		if (Ranged.fireModes[equippedWeapon] == 0)
@@ -471,5 +486,15 @@ public class Fabio extends Person{
 			temp.xpoints[x]  += dx;
 
 		return !b.collision(new Area(temp));
+	}
+
+	public boolean isInventoryOpen(){
+
+		return inventoryOpen;
+	}
+
+	public boolean isPlayerMenuOpen(){
+
+		return false;
 	}
 }

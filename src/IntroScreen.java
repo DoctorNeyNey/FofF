@@ -45,13 +45,13 @@ public class IntroScreen {
 		GL11.glBegin(GL11.GL_QUADS);
 
 		GL11.glTexCoord2f(0,0);
-		GL11.glVertex2f(680,-900);
+		GL11.glVertex2f(650,-900);
 		GL11.glTexCoord2f(1,0);
-		GL11.glVertex2f(680+texture.getTextureWidth(),-900);
+		GL11.glVertex2f(650+texture.getTextureWidth(),-900);
 		GL11.glTexCoord2f(1,1);
-		GL11.glVertex2f(680+texture.getTextureWidth(),-900+texture.getTextureHeight());
+		GL11.glVertex2f(650+texture.getTextureWidth(),-900+texture.getTextureHeight());
 		GL11.glTexCoord2f(0,1);
-		GL11.glVertex2f(680,-900+texture.getTextureHeight());
+		GL11.glVertex2f(650,-900+texture.getTextureHeight());
 
 		GL11.glEnd();
 	}
@@ -64,7 +64,7 @@ public class IntroScreen {
 
 		//need to use the negative in the y position
 		for (int x = 0; x < menu.length; x++)
-			menuFont.drawString(1000-menuFont.getWidth(menu[x])/2, -700+100*x, menu[x], colors[x]);
+			menuFont.drawString(960-menuFont.getWidth(menu[x])/2, -700+100*x, menu[x], colors[x]);
 
 		drawTitle();
 		GL11.glDisable(GL11.GL_BLEND);

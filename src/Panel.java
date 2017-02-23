@@ -9,7 +9,7 @@ import org.lwjgl.opengl.GL11;
 
 
 public class Panel {
-	
+
 	private boolean pastIntroScreen = false;
 	private Board board;
 	private IntroScreen introScreen;
@@ -93,17 +93,26 @@ public class Panel {
 	private void boardFunctions(){
 
 		board.drawAll();
-		board.moveAll();
-		board.checkCollisions();
-		board.playerEquipWeapon();
-		board.playerReloadingAction();
-		board.checkEnemyShots();
-		board.killEnemies();
+		
+		
+		
+		if (!board.isGamePaused()){
+			board.moveAll();
+			board.checkCollisions();
+			board.playerEquipWeapon();
+			board.playerReloadingAction();
+			board.checkEnemyShots();
+			board.killEnemies();
+		}
+		else {
+			if (!Keyboard.isKeyDown(Keyboard.KEY_I))
+				board.resetIKey();
+		}
 	}
 
 	private void pollInputs(){
 
-		if (pastIntroScreen){
+		if (pastIntroScreen && !board.isGamePaused()){
 
 			if (Keyboard.isKeyDown(Keyboard.KEY_W) && Keyboard.isKeyDown(Keyboard.KEY_D))
 				board.playerUpRight();			
@@ -113,7 +122,7 @@ public class Panel {
 
 			else if (Keyboard.isKeyDown(Keyboard.KEY_S) && Keyboard.isKeyDown(Keyboard.KEY_A))
 				board.playerDownLeft();
-			
+
 			else if (Keyboard.isKeyDown(Keyboard.KEY_W) && Keyboard.isKeyDown(Keyboard.KEY_A))
 				board.playerUpLeft();
 
@@ -151,7 +160,7 @@ public class Panel {
 
 			//open inventory
 			if (Keyboard.isKeyDown(Keyboard.KEY_I))
-				board.openPlayerInventory();
+				board.openAndClosePlayerInventory();
 
 			//interact
 			if (Keyboard.isKeyDown(Keyboard.KEY_E))
@@ -187,7 +196,7 @@ public class Panel {
 			if (Keyboard.isKeyDown(Keyboard.KEY_EQUALS))
 				System.exit(0);
 		}
-		else {
+		else if (introScreen != null){
 			//quick close
 			if (Keyboard.isKeyDown(Keyboard.KEY_EQUALS))
 				System.exit(0);
