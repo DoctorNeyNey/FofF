@@ -19,9 +19,9 @@ public class Fabio extends Person{
 	private static int baseHealth = 100;
 	private Outfit outfit;
 	private long lastTimeShot = 0, beganReloading = 0;
-	private Integer[] availableWeapons = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,32};//new Integer[4];
+	private Integer[] availableWeapons = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31};//new Integer[4];
 	private List<List<Integer>> magazines = new ArrayList<List<Integer>>(), ammoStores = new ArrayList<List<Integer>>();
-	private Item[] inventory = new Item[24];
+	private Item[] inventory = new Item[36];
 	private Head head = null;
 	private Shirt shirt = null;
 	private Pants pants = null;
@@ -29,7 +29,7 @@ public class Fabio extends Person{
 	private int dolmas = 0, equippedWeapon, equippedIndex = 0, rateOfFire = 0,
 			previousEquippedIndex = -1000, currentHealth = 100;
 	private boolean reloading = false, mustReleaseShoot = false, inventoryOpen = false,
-			iKeyHasBeenReleased = true;
+			iHasBeenReleased = true;
 	private double theta = 0;
 
 
@@ -80,10 +80,21 @@ public class Fabio extends Person{
 		GL11.glRotated(180, 0, 0, 0);
 	}
 
+	public void toggleInventory(){
+
+		if (iHasBeenReleased){
+			inventoryOpen = !inventoryOpen;
+			iHasBeenReleased = false;
+		}
+	}
+
+	public void resetI(){
+		iHasBeenReleased = true;
+	}
+	
 	public void drawInventory(){
 
 		if (inventoryOpen){
-
 
 		}
 	}
@@ -271,25 +282,6 @@ public class Fabio extends Person{
 
 	public void interact(){
 
-	}
-
-	public void openAndCloseInventory(){
-		
-		System.out.println("called");
-		if (iKeyHasBeenReleased){
-			if (!inventoryOpen){
-				inventoryOpen = true;
-				iKeyHasBeenReleased = false;
-			}
-			else
-				inventoryOpen = false;
-			
-		}
-	}
-
-	public void resetIKey(){
-
-		iKeyHasBeenReleased = true;
 	}
 
 	public void upLeft(){

@@ -93,10 +93,8 @@ public class Panel {
 	private void boardFunctions(){
 
 		board.drawAll();
-		
-		
-		
-		if (!board.isGamePaused()){
+
+		if (!board.inventoryOpen()){
 			board.moveAll();
 			board.checkCollisions();
 			board.playerEquipWeapon();
@@ -104,15 +102,34 @@ public class Panel {
 			board.checkEnemyShots();
 			board.killEnemies();
 		}
-		else {
-			if (!Keyboard.isKeyDown(Keyboard.KEY_I))
-				board.resetIKey();
-		}
 	}
 
 	private void pollInputs(){
 
-		if (pastIntroScreen && !board.isGamePaused()){
+		if (introScreen != null){
+			//quick close
+			if (Keyboard.isKeyDown(Keyboard.KEY_EQUALS))
+				System.exit(0);
+
+			if (Keyboard.isKeyDown(Keyboard.KEY_DOWN) || Keyboard.isKeyDown(Keyboard.KEY_S))
+				introScreen.down();
+
+			if (Keyboard.isKeyDown(Keyboard.KEY_UP) || Keyboard.isKeyDown(Keyboard.KEY_W))
+				introScreen.up();
+
+			if (!Keyboard.isKeyDown(Keyboard.KEY_UP) && !Keyboard.isKeyDown(Keyboard.KEY_DOWN)
+					&& !Keyboard.isKeyDown(Keyboard.KEY_S) && !Keyboard.isKeyDown(Keyboard.KEY_W)
+					&& !Keyboard.isKeyDown(Keyboard.KEY_ESCAPE) && !Keyboard.isKeyDown(Keyboard.KEY_SPACE))
+				introScreen.resetRelease();
+
+			if (Keyboard.isKeyDown(Keyboard.KEY_SPACE))
+				introScreen.execute();
+
+			if (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE))
+				introScreen.back();
+		}
+
+		else if (pastIntroScreen && !board.inventoryOpen()){
 
 			if (Keyboard.isKeyDown(Keyboard.KEY_W) && Keyboard.isKeyDown(Keyboard.KEY_D))
 				board.playerUpRight();			
@@ -160,7 +177,11 @@ public class Panel {
 
 			//open inventory
 			if (Keyboard.isKeyDown(Keyboard.KEY_I))
-				board.openAndClosePlayerInventory();
+				board.togglePlayerInventory();
+
+			if (!Keyboard.isKeyDown(Keyboard.KEY_I)){
+				board.resetI();
+			}
 
 			//interact
 			if (Keyboard.isKeyDown(Keyboard.KEY_E))
@@ -196,27 +217,17 @@ public class Panel {
 			if (Keyboard.isKeyDown(Keyboard.KEY_EQUALS))
 				System.exit(0);
 		}
-		else if (introScreen != null){
-			//quick close
-			if (Keyboard.isKeyDown(Keyboard.KEY_EQUALS))
-				System.exit(0);
 
-			if (Keyboard.isKeyDown(Keyboard.KEY_DOWN) || Keyboard.isKeyDown(Keyboard.KEY_S))
-				introScreen.down();
-
-			if (Keyboard.isKeyDown(Keyboard.KEY_UP) || Keyboard.isKeyDown(Keyboard.KEY_W))
-				introScreen.up();
-
-			if (!Keyboard.isKeyDown(Keyboard.KEY_UP) && !Keyboard.isKeyDown(Keyboard.KEY_DOWN)
-					&& !Keyboard.isKeyDown(Keyboard.KEY_S) && !Keyboard.isKeyDown(Keyboard.KEY_W)
-					&& !Keyboard.isKeyDown(Keyboard.KEY_ESCAPE) && !Keyboard.isKeyDown(Keyboard.KEY_SPACE))
-				introScreen.resetRelease();
-
-			if (Keyboard.isKeyDown(Keyboard.KEY_SPACE))
-				introScreen.execute();
-
+		else if (board.inventoryOpen()){
+				
+			if (Keyboard.isKeyDown(Keyboard.KEY_I))
+				board.togglePlayerInventory();
+			
+			if (!Keyboard.isKeyDown(Keyboard.KEY_I))
+				board.resetI();
+			
 			if (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE))
-				introScreen.back();
+				board.togglePlayerInventory();			
 		}
 	}
 }

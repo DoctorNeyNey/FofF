@@ -424,28 +424,7 @@ public abstract class Ranged {
 
 
 	//SPECIAL
-	public static final int GRENADE_LAUNCHER = 30;
-	public static final int GRENADE_LAUNCHER_RATE_OF_FIRE = 750;
-	public static final int GRENADE_LAUNCHER_RELOAD_SPEED = 230;
-	public static final int GRENADE_LAUNCHER_MAGAZINE_SIZE = 4;
-	public static final int GRENADE_LAUNCHER_MAX_AMMO = 16;
-	public static final int GRENADE_LAUNCHER_FIRE_MODE = 0;
-	public static final int GRENADE__LAUNCHER_BULLET_COUNT = 1;
-	public static final String GRENADE_LAUNCHER_NAME = "GRENADE LAUNCHER";
-	//public static final int GRENADE_LAUNCHER_PLAYER_MOVESPEED = ;
-
-	public static final int RPG = 31;
-	public static final int RPG_RATE_OF_FIRE = 250;
-	public static final int RPG_RELOAD_SPEED = 1750;
-	public static final int RPG_MAGAZINE_SIZE = 1;
-	public static final int RPG_MAX_AMMO = 5;
-	public static final int RPG_FIRE_MODE = 0;
-	public static final int RPG_BULLET_COUNT = 1;
-	public static final double RPG_VARIABLITY = 0;
-	public static final String RPG_NAME = "RPG";
-	//public static final int RPG_PLAYER_MOVESPEED = ;
-
-	public static final int MINIGUN = 32;
+	public static final int MINIGUN = 30;
 	public static final int MINIGUN_RATE_OF_FIRE = 25;
 	public static final int MINIGUN_RELOAD_SPEED = 7500;
 	public static final int MINIGUN_MAGAZINE_SIZE = 250;
@@ -458,7 +437,7 @@ public abstract class Ranged {
 	public static final String MINIGUN_NAME = "PIECEMAKER";
 	//public static final int MINIGUN_PLAYER_MOVESPEED = ;
 
-	public static final int CROSSBOW = 33;
+	public static final int CROSSBOW = 31;
 	public static final int CROSSBOW_RATE_OF_FIRE = 250;
 	public static final int CROSSBOW_RELOAD_SPEED = 1450;
 	public static final int CROSSBOW_MAGAZINE_SIZE = 1;
@@ -506,8 +485,6 @@ public abstract class Ranged {
 			BARRETT50_MAGAZINE_SIZE,
 			DRAGUNOV_MAGAZINE_SIZE,
 			SV98_MAGAZINE_SIZE,
-			GRENADE_LAUNCHER_MAGAZINE_SIZE,
-			RPG_MAGAZINE_SIZE,
 			MINIGUN_MAGAZINE_SIZE,
 			CROSSBOW_MAGAZINE_SIZE
 	};
@@ -543,8 +520,6 @@ public abstract class Ranged {
 			BARRETT50_RELOAD_SPEED,
 			DRAGUNOV_RELOAD_SPEED,
 			SV98_RELOAD_SPEED,
-			GRENADE_LAUNCHER_RELOAD_SPEED,
-			RPG_RELOAD_SPEED,
 			MINIGUN_RELOAD_SPEED,
 			CROSSBOW_RELOAD_SPEED
 	};
@@ -580,8 +555,6 @@ public abstract class Ranged {
 			BARRETT50_RATE_OF_FIRE,
 			DRAGUNOV_RATE_OF_FIRE,
 			SV98_RATE_OF_FIRE,
-			GRENADE_LAUNCHER_RATE_OF_FIRE,
-			RPG_RATE_OF_FIRE,
 			MINIGUN_RATE_OF_FIRE,
 			CROSSBOW_RATE_OF_FIRE
 	};
@@ -617,8 +590,6 @@ public abstract class Ranged {
 			BARRETT50_MAX_AMMO,
 			DRAGUNOV_MAX_AMMO,
 			SV98_MAX_AMMO,
-			GRENADE_LAUNCHER_MAX_AMMO,
-			RPG_MAX_AMMO,
 			MINIGUN_MAX_AMMO,
 			CROSSBOW_MAX_AMMO
 	};
@@ -654,8 +625,6 @@ public abstract class Ranged {
 			BARRETT50_FIRE_MODE,
 			DRAGUNOV_FIRE_MODE,
 			SV98_FIRE_MODE,
-			GRENADE_LAUNCHER_FIRE_MODE,
-			RPG_FIRE_MODE,
 			MINIGUN_FIRE_MODE,
 			CROSSBOW_FIRE_MODE
 	};
@@ -691,8 +660,6 @@ public abstract class Ranged {
 			BARRETT50_NAME,
 			DRAGUNOV_NAME,
 			SV98_NAME,
-			GRENADE_LAUNCHER_NAME,
-			RPG_NAME,
 			MINIGUN_NAME,
 			CROSSBOW_NAME
 	};
@@ -729,8 +696,6 @@ public abstract class Ranged {
 			BARRETT50_VARIABILITY,
 			DRAGUNOV_VARIABILITY,
 			SV98_VARIABILITY,
-			0,//GRENADE_LAUNCHER_VARIABILITY,
-			0,//RPG_VARIABILITY,
 			MINIGUN_VARIABILITY,
 			CROSSBOW_VARIABILITY
 	};
@@ -766,8 +731,6 @@ public abstract class Ranged {
 			BARRETT50_BULLET_VELOCITY,
 			DRAGUNOV_BULLET_VELOCITY,
 			SV98_BULLET_VELOCITY,
-			10,//GRENADE_LAUNCHER_BULLET_VELOCITY,
-			10,//RPG_BULLET_VELOCITY,
 			MINIGUN_BULLET_VELOCITY,
 			CROSSBOW_BULLET_VELOCITY
 
@@ -805,8 +768,6 @@ public abstract class Ranged {
 			BARRETT50_DAMAGE,
 			DRAGUNOV_DAMAGE,
 			SV98_DAMAGE,
-			1000,//GRENADE_LAUNCHER_DAMAGE,
-			1000,//RPG_DAMAGE,
 			MINIGUN_DAMAGE,
 			CROSSBOW_DAMAGE
 
@@ -844,8 +805,6 @@ public abstract class Ranged {
 			BARRETT50_BULLET_COUNT,
 			DRAGUNOV_BULLET_COUNT,
 			SV98_BULLET_COUNT,
-			1000,//GRENADE_LAUNCHER_BULLET_COUNT,
-			1000,//RPG_BULLET_COUNT,
 			MINIGUN_BULLET_COUNT,
 			CROSSBOW_BULLET_COUNT
 

@@ -28,18 +28,15 @@ public class Board {
 
 		for (Bullet b : enemyBullets)
 			b.move();
-	}
-
-	public boolean isGamePaused(){
 		
-		if (fabio.isPlayerMenuOpen())
-			return true;
-			
-		if (fabio.isInventoryOpen())
-			return true;
+		for (Enemy e : enemies){
+			e.search(fabio, b);
+			e.move(b);
+		}
 		
-		return false;		
 	}
+	
+	
 
 	private void drawHUD(){
 
@@ -216,11 +213,16 @@ public class Board {
 		fabio.equipWeapon3();
 	}
 
-	public void openAndClosePlayerInventory(){
-		fabio.openAndCloseInventory();
+	public void togglePlayerInventory(){
+		fabio.toggleInventory();
 	}
 	
-	public void resetIKey(){
-		fabio.resetIKey();
+	public boolean inventoryOpen(){
+		return fabio.isInventoryOpen();
 	}
+	
+	public void resetI(){
+		fabio.resetI();
+	}
+	
 }
