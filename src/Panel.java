@@ -23,7 +23,7 @@ public class Panel {
 
 		try {
 			//create display and mouse and keyboard listeners
-			Display.setDisplayMode(new DisplayMode(1920, 1080));
+			Display.setFullscreen(true);
 			Display.setTitle("Fable of Fabio");
 			Display.setVSyncEnabled(true);
 			Display.create();

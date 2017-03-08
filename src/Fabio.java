@@ -21,7 +21,7 @@ public class Fabio extends Person{
 	private long lastTimeShot = 0, beganReloading = 0;
 	private Integer[] availableWeapons = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31};//new Integer[4];
 	private List<List<Integer>> magazines = new ArrayList<List<Integer>>(), ammoStores = new ArrayList<List<Integer>>();
-	private Item[] inventory = new Item[36];
+	private Inventory inventory = new Inventory();
 	private Head head = null;
 	private Shirt shirt = null;
 	private Pants pants = null;
@@ -92,12 +92,6 @@ public class Fabio extends Person{
 		iHasBeenReleased = true;
 	}
 	
-	public void drawInventory(){
-
-		if (inventoryOpen){
-
-		}
-	}
 
 	public void drawHealthBar(int x, int y){
 
@@ -222,6 +216,7 @@ public class Fabio extends Person{
 
 	@Override
 	public void draw(){
+		
 		double x = Mouse.getX()-xCoord;
 		double y = Mouse.getY()-yCoord;
 		theta = Math.atan(y/x);
@@ -239,6 +234,9 @@ public class Fabio extends Person{
 			GL11.glVertex2d(poly.xpoints[z], poly.ypoints[z]);
 
 		GL11.glEnd();
+		
+		if (inventoryOpen)
+			inventory.draw();
 	}
 
 	public void equipWeapon(){

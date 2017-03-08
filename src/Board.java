@@ -28,22 +28,21 @@ public class Board {
 
 		for (Bullet b : enemyBullets)
 			b.move();
-		
+
 		for (Enemy e : enemies){
 			e.search(fabio, b);
 			e.move(b);
 		}
-		
+
 	}
-	
-	
+
+
 
 	private void drawHUD(){
 
 		fabio.drawAmmoCount();
 		fabio.drawHealthBar(100, 100);
 		fabio.drawReloadBar();
-		fabio.drawInventory();
 	}
 
 	public void drawAll(){
@@ -53,11 +52,14 @@ public class Board {
 			b.draw();		
 		for (Bullet b : enemyBullets)
 			b.draw();
-		fabio.draw();
 		b.draw();
 
 		for (Enemy e : enemies)
 			e.draw();
+
+		fabio.draw();
+
+
 	}
 
 	public void killEnemies(){
@@ -77,7 +79,7 @@ public class Board {
 				fabio.dealDamage(enemyBullets.get(x).getDamage());
 				enemyBullets.remove(x);
 			}
-				
+
 		//FABIO'S BULLETS THAT HIT ENEMIES
 		for (int x = friendlyBullets.size()-1; x > -1; x--)
 			for (Enemy e : enemies)
@@ -157,7 +159,7 @@ public class Board {
 		fabio.stopHorizontal();
 	}
 
-	
+
 	public void playerReload(){
 
 		fabio.reload();
@@ -216,13 +218,13 @@ public class Board {
 	public void togglePlayerInventory(){
 		fabio.toggleInventory();
 	}
-	
+
 	public boolean inventoryOpen(){
 		return fabio.isInventoryOpen();
 	}
-	
+
 	public void resetI(){
 		fabio.resetI();
 	}
-	
+
 }
