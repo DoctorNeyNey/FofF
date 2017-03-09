@@ -92,9 +92,8 @@ public class Panel {
 
 	private void boardFunctions(){
 
-		board.drawAll();
-
 		if (!board.inventoryOpen()){
+			board.drawAll();
 			board.moveAll();
 			board.checkCollisions();
 			board.playerEquipWeapon();
@@ -102,6 +101,11 @@ public class Panel {
 			board.checkEnemyShots();
 			board.killEnemies();
 		}
+		else if (board.inventoryOpen()){
+			board.drawAll();
+			board.checkPlayerInventoryClick();
+		}
+
 	}
 
 	private void pollInputs(){
@@ -219,13 +223,13 @@ public class Panel {
 		}
 
 		else if (board.inventoryOpen()){
-				
+
 			if (Keyboard.isKeyDown(Keyboard.KEY_I))
 				board.togglePlayerInventory();
-			
+
 			if (!Keyboard.isKeyDown(Keyboard.KEY_I))
 				board.resetI();
-			
+
 			if (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE))
 				board.togglePlayerInventory();			
 		}

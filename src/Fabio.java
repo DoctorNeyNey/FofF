@@ -26,8 +26,8 @@ public class Fabio extends Person{
 	private Shirt shirt = null;
 	private Pants pants = null;
 	private Shoes shoes = null;
-	private int dolmas = 0, equippedWeapon, equippedIndex = 0, rateOfFire = 0,
-			previousEquippedIndex = -1000, currentHealth = 100;
+	private int equippedWeapon, equippedIndex = 0, rateOfFire = 0, previousEquippedIndex = -1000,
+			currentHealth = 100;
 	private boolean reloading = false, mustReleaseShoot = false, inventoryOpen = false,
 			iHasBeenReleased = true;
 	private double theta = 0;
@@ -39,7 +39,7 @@ public class Fabio extends Person{
 		createFont();
 		createPolygon();
 	}
-
+	
 	private void createFont(){
 
 		try {
@@ -91,7 +91,6 @@ public class Fabio extends Person{
 	public void resetI(){
 		iHasBeenReleased = true;
 	}
-	
 
 	public void drawHealthBar(int x, int y){
 
@@ -276,6 +275,12 @@ public class Fabio extends Person{
 			equippedIndex = 3;
 			reloading = false;
 		}
+	}
+	
+	public void checkInventory(){
+		
+		inventory.checkClick();
+		
 	}
 
 	public void interact(){

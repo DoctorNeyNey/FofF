@@ -59,7 +59,6 @@ public class Board {
 
 		fabio.draw();
 
-
 	}
 
 	public void killEnemies(){
@@ -98,6 +97,12 @@ public class Board {
 				friendlyBullets.remove(x);	
 	}
 
+	public void checkPlayerInventoryClick(){
+		
+		fabio.checkInventory();
+		
+	}
+	
 	public void checkEnemyShots(){
 
 		for (Enemy e : enemies)
